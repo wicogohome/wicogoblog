@@ -18,6 +18,7 @@ jobs:
         with:
           cmd: run build # will run `yarn build` command
   s3-sync:
+    needs: yarn-build
     runs-on: ubuntu-latest
     steps:
       - uses: jakejarvis/s3-sync-action@master
