@@ -5,6 +5,13 @@ on:
       env:
         required: true
         type: string
+    secrets:
+      AWS_S3_BUCKET:
+        required: true
+      AWS_ACCESS_KEY_ID:
+        required: true
+      AWS_SECRET_ACCESS_KEY:
+        required: true
 
 jobs:
   yarn-build:
@@ -48,5 +55,5 @@ jobs:
           AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          AWS_REGION: "ap-northeast-1"
+          AWS_REGION: ${{ vars.AWS_REGION }}
           SOURCE_DIR: dist
