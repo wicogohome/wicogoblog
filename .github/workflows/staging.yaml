@@ -1,0 +1,12 @@
+name: Staging
+
+on:
+  push:
+    # branches: ["develop"]
+
+jobs:
+  build-and-deploy:
+    uses: ./.github/workflows/build-and-deploy.yaml
+    with:
+      env: staging
+    secrets: inherit
