@@ -1,0 +1,12 @@
+services:
+  nginx:
+    image: nginx
+    networks:
+      - backend
+    ports:
+      - "80:80"
+    volumes:
+      - ./dist/:/usr/share/nginx/html
+
+networks:
+  backend:
