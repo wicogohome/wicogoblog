@@ -5,13 +5,6 @@ on:
       env:
         required: true
         type: string
-    secrets:
-      AWS_S3_BUCKET:
-        required: true
-      AWS_ACCESS_KEY_ID:
-        required: true
-      AWS_SECRET_ACCESS_KEY:
-        required: true
 
 jobs:
   yarn-build:
@@ -40,6 +33,7 @@ jobs:
   s3-sync:
     needs: yarn-build
     runs-on: ubuntu-latest
+    environment: ${{inputs.env}}
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
