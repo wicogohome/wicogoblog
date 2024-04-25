@@ -8,7 +8,10 @@
 		"build": "vue-tsc && vite build",
 		"preview": "vite preview",
 		"prepare": "husky",
-		"format": "prettier-eslint --write --prettier-last '**/*.{js,jsx,vue,ts,html,json}'"
+		"format": "prettier-eslint --write --prettier-last '**/*.{js,jsx,vue,ts,html,json}' --ignore **/.vitepress/cache/**",
+		"docs:dev": "vitepress dev docs",
+		"docs:build": "vitepress build docs",
+		"docs:preview": "vitepress preview docs"
 	},
 	"dependencies": {
 		"vue": "^3.4.21"
@@ -29,10 +32,11 @@
 		"typescript": "^5.2.2",
 		"vite": "^5.1.6",
 		"vite-plugin-eslint": "^1.8.1",
+		"vitepress": "^1.1.3",
 		"vue-eslint-parser": "^9.4.2",
 		"vue-tsc": "^1.8.27"
 	},
 	"lint-staged": {
-		"**/*.{js,jsx,vue,ts,html,json}": "prettier-eslint --write --prettier-last"
+		"**/*.{ js,jsx,vue,ts,html,json}": "prettier-eslint --write --prettier-last --ignore **/.vitepress/cache/**"
 	}
 }
