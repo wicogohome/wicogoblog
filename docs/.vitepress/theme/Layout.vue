@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useData, withBase } from "vitepress";
-import { data as posts } from "@@/utils/routes.data.ts";
+import { data as posts } from "@@/.vitepress/data/routes.data.ts";
 
 // https://vitepress.dev/reference/runtime-api#usedata
 const { site, frontmatter } = useData();
