@@ -1,18 +1,21 @@
 import { defineConfig } from "vitepress";
 import { fileURLToPath, URL } from "url";
 
-import fg from "fast-glob";
 import matter from "gray-matter";
 import eslint from "vite-plugin-eslint";
+import useGithubArticles from "../../docs/utils/useGithubArticles.ts";
 
 const srcDir = "posts/";
-const rewrites = {};
-const pages = await fg("docs/posts/articles/**/*.md", { ignore: ["node_modules/**"] });
-pages.map((page) => {
+
+const { getArticles } = useGithubArticles();
+const pages = await getArticles();
+pages.map(({ name, content }) => {
+	if (typeof content !== "string") {
+		return;
+	}
 	const {
 		data: { url, date },
-	} = matter.read(page);
-
+	} = matter(content);
 	const formattedDate = new Date(date);
 	rewrites[page.replace("docs/" + srcDir, "")] =
 		`${formattedDate.getFullYear()}/${formattedDate.getMonth()}/${formattedDate.getDate()}/${url ?? page.replace("docs/posts/articles/", "").replace(/\.md$/, "")}.md`;

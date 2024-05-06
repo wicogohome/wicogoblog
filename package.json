@@ -14,7 +14,8 @@
 		"docs:preview": "vitepress preview docs"
 	},
 	"dependencies": {
-		"fast-glob": "^3.3.2",
+		"@octokit/core": "^6.1.2",
+		"@octokit/rest": "^20.1.1",
 		"gray-matter": "^4.0.3",
 		"lodash": "^4.17.21",
 		"postcss-import": "^16.1.0",
@@ -23,6 +24,8 @@
 		"vue": "^3.4.21"
 	},
 	"devDependencies": {
+		"@octokit/openapi-types": "^22.2.0",
+		"@octokit/types": "^13.5.0",
 		"@types/node": "^20.11.30",
 		"@typescript-eslint/eslint-plugin": "^7.3.1",
 		"@typescript-eslint/parser": "^7.3.1",
