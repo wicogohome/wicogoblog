@@ -6,6 +6,7 @@ import eslint from "vite-plugin-eslint";
 import useGithubArticles from "../../docs/utils/useGithubArticles.ts";
 
 const srcDir = "posts/";
+const rewrites = { "index.md": "index.md", ":filename.md": ":filename/index.md" };
 
 const { getArticles } = useGithubArticles();
 const pages = await getArticles();
@@ -17,8 +18,8 @@ pages.map(({ name, content }) => {
 		data: { url, date },
 	} = matter(content);
 	const formattedDate = new Date(date);
-	rewrites[page.replace("docs/" + srcDir, "")] =
-		`${formattedDate.getFullYear()}/${formattedDate.getMonth()}/${formattedDate.getDate()}/${url ?? page.replace("docs/posts/articles/", "").replace(/\.md$/, "")}.md`;
+	rewrites["articles/" + name] =
+		`${formattedDate.getFullYear()}/${formattedDate.getMonth()}/${formattedDate.getDate()}/${url ?? name.replace(/\.md$/, "")}/index.md`;
 });
 
 // https://vitepress.dev/reference/site-config
@@ -34,7 +35,6 @@ export default defineConfig({
 	// 	hostname: "https://wicotang.com/blog/",
 	// },
 	base: "/blog/",
-	cleanUrls: true,
 	outDir: "../dist/blog/",
 	srcDir,
 	lastUpdated: true,
