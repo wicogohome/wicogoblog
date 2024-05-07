@@ -19,7 +19,7 @@ pages.map(({ name, content }) => {
 	} = matter(content);
 	const formattedDate = new Date(date);
 	rewrites["articles/" + name] =
-		`${formattedDate.getFullYear()}/${formattedDate.getMonth()}/${formattedDate.getDate()}/${url ?? name.replace(/\.md$/, "")}/index.md`;
+		`${formattedDate.getFullYear()}/${formattedDate.getMonth() + 1}/${formattedDate.getDate()}/${url ?? name.replace(/\.md$/, "")}/index.md`;
 });
 
 // https://vitepress.dev/reference/site-config
