@@ -13,22 +13,16 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Set Node.js 21.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 21.x
+          cache: yarn
       - name: Run install
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: install # will run `yarn install` command
+        run: yarn install
       - name: Build production bundle
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: run build # will run `yarn build` command
-      - name: Build production bundle
-        uses: borales/actions-yarn@v4
-        with:
-          cmd: run docs:build  # will run `yarn docs:build` command
-          
+        run: yarn build
+      - name: Build production bundle - vitepress
+        run: yarn docs:build
       - name: Upload production artifacts
         uses: actions/upload-artifact@v4
         with:
