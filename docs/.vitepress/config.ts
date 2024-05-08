@@ -29,7 +29,15 @@ export default defineConfig({
 	description: "A VitePress Site",
 	head: [
 		["link", { rel: "icon", href: "/favicon.ico" }], // example
-		["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }], // example
+		["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
+		["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
+		[
+			"link",
+			{
+				rel: "stylesheet",
+				href: "https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC:wght@100..900&family=Zilla+Slab+Highlight:wght@400;700&display=swap",
+			},
+		],
 	],
 	// sitemap: {
 	// 	hostname: "https://wicotang.com/blog/",
