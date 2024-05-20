@@ -1,7 +1,5 @@
 <script lang="ts">
-import { ref } from "vue";
 import { useData, withBase } from "vitepress";
-import { data as posts } from "@@/.vitepress/data/routes.data.ts";
 import Header from "./components/Header.vue";
 import Sidebar from "./components/Sidebar.vue";
 import Footer from "./components/Footer.vue";
@@ -15,8 +13,8 @@ import Catagories from "./Catagories.vue";
 export default {
 	components: { Header, Sidebar, Footer, Article, Home, About, List, Tags, Catagories },
 	setup() {
-		const { site, frontmatter } = useData();
-		return { site, posts, withBase, frontmatter };
+		const { frontmatter } = useData();
+		return { withBase, frontmatter };
 	},
 };
 </script>
@@ -25,16 +23,37 @@ export default {
 	<div class="relative flex flex-row flex-wrap">
 		<div class="flex flex-col basis-3/4 min-h-screen flex-auto">
 			<Header />
-			<div class="border-2 h-full">
-				<Home v-if="frontmatter.layout === 'home'" />
-				<About v-else-if="frontmatter.layout === 'about'" />
-				<List v-else-if="frontmatter.layout === 'list'" />
-				<Tags v-else-if="frontmatter.layout === 'tags'" />
-				<Catagories v-else-if="frontmatter.layout === 'catagories'" />
-				<Article v-else />
+
+			<div class="flex relative h-full my-16">
+				<div class="flex-shrink-0 hidden sm:flex">
+					<p class="catagory-title sticky top-16 z-40 h-fit">
+						<span class="vertical-rl">
+							{{ frontmatter?.catagory ?? frontmatter?.layout }}
+						</span>
+						<span> ></span>
+					</p>
+				</div>
+				<div class="max-w-3xl mx-auto flex">
+					<Home v-if="frontmatter.layout === 'home'" />
+					<List v-else-if="frontmatter.layout === 'list'" />
+					<Tags v-else-if="frontmatter.layout === 'tags'" />
+					<Catagories v-else-if="frontmatter.layout === 'catagories'" />
+					<About
+						v-else-if="frontmatter.layout === 'about'"
+						class="md:w-[768px] w-screen max-w-sm"
+					/>
+					<Article
+						v-else
+						class="md:w-[768px] w-screen"
+					/>
+				</div>
 			</div>
+
 			<Footer class="max-h-10" />
 		</div>
-		<Sidebar class="md:flex basis-1/4 h-screen flex-auto hidden" />
+		<Sidebar
+			v-if="frontmatter.layout && frontmatter.layout !== 'article'"
+			class="md:flex basis-1/4 flex-auto hidden"
+		/>
 	</div>
 </template>
