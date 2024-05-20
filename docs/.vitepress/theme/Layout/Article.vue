@@ -1,6 +1,4 @@
-<script lang="typescript">
-import { defineComponent } from "vue";
-import { withBase } from "vitepress";
+<script lang="ts">
 export default defineComponent({
 	name: "Article",
 	setup() {

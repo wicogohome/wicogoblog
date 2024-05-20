@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 import { defineComponent } from "vue";
 import { useData, withBase } from "vitepress";
 import { data as posts } from "@@/.vitepress/data/routes.data.ts";
