@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-
+import plugin from "tailwindcss/plugin";
 export default {
 	content: [
 		"./docs/.vitepress/**/*.{js,ts,vue}",
@@ -37,5 +37,19 @@ export default {
 			gradientColorStopPositions: {},
 		},
 	},
-	plugins: [],
+	plugins: [
+		plugin(function ({ addUtilities }) {
+			addUtilities({
+				".horizontal-tb": {
+					writingMode: "horizontal-tb",
+				},
+				".vertical-rl": {
+					writingMode: "vertical-rl",
+				},
+				".vertical-lr": {
+					writingMode: "vertical-lr",
+				},
+			});
+		}),
+	],
 } satisfies Config;

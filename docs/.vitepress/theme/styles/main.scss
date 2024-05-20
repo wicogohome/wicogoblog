@@ -16,4 +16,8 @@
 	.title {
 		@apply text-2xl ;
 	}
+	.website-title {
+		@apply md:text-8xl text-6xl font-zilla text-yellow-dark ;
+		@apply leading-normal #{!important};
+	}
 	}
