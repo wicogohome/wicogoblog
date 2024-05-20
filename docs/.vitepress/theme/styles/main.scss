@@ -3,3 +3,17 @@
 @tailwind components;
 
 @tailwind utilities;
+
+@layer base {
+	html {
+		@apply font-noto bg-black-textured text-white-default md:text-xl text-base  tracking-wide font-light;
+	}
+
+}
+
+
+@layer utilities {
+	.title {
+		@apply text-2xl ;
+	}
+	}

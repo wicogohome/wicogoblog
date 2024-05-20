@@ -18,6 +18,7 @@
 		"@octokit/rest": "^20.1.1",
 		"gray-matter": "^4.0.3",
 		"lodash": "^4.17.21",
+		"luxon": "^3.4.4",
 		"postcss-import": "^16.1.0",
 		"postcss-nesting": "^12.1.2",
 		"ts-node": "^10.9.2",
@@ -26,6 +27,7 @@
 	"devDependencies": {
 		"@octokit/openapi-types": "^22.2.0",
 		"@octokit/types": "^13.5.0",
+		"@types/luxon": "^3.4.2",
 		"@types/node": "^20.11.30",
 		"@typescript-eslint/eslint-plugin": "^7.3.1",
 		"@typescript-eslint/parser": "^7.3.1",

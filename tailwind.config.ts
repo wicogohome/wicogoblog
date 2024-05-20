@@ -22,7 +22,10 @@ export default {
 			colors: {
 				transparent: "transparent",
 				black: "#3E3F3B",
-				white: "#FEFEFE",
+				white: {
+					default: "#FEFEFE",
+					light: "#FFFFE8",
+				},
 				green: "#8DFF1C",
 				yellow: {
 					default: "#FFD337",
