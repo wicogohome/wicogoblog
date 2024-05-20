@@ -12,11 +12,12 @@ export default {
 			backgroundImage: {
 				"black-textured":
 					"linear-gradient(to bottom, rgba(62,63,59,0.5) ,rgba(62,63,59,0.5)), url('/blog/black-concrete-textured.jpg')",
+				headshot: "url('/blog/headshot.jpg')",
 			},
 			fontFamily: {
 				sans: ["Inter", "sans-serif"],
-				noto: ["noto-sans-tc", "Georama"],
-				zilla: ["zilla-slab-highlight"],
+				noto: ["Georama", "Noto Sans TC"],
+				zilla: ["Zilla Slab Highlight"],
 			},
 			colors: {
 				transparent: "transparent",

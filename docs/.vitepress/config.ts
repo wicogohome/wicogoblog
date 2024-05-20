@@ -25,7 +25,7 @@ pages.map(({ name, content }) => {
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
 	lang: "zh-TW",
-	title: "WicogoBlog",
+	title: "WicoGotBlog",
 	description: "A VitePress Site",
 	head: [
 		["link", { rel: "icon", href: "/favicon.ico" }], // example
