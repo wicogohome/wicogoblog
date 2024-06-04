@@ -1,0 +1,39 @@
+<script lang="ts">
+import { defineComponent, ref } from "vue";
+import { withBase, onContentUpdated } from "vitepress";
+import useTOC from "@@/utils/useTOC.ts";
+import SidebarItem from "./SidebarItem.vue";
+export default defineComponent({
+	name: "TOCSidebar",
+	components: { SidebarItem },
+	props: {},
+	setup() {
+		const { getHeaders, useActiveAnchor } = useTOC();
+		const headers = ref([]);
+
+		onContentUpdated(() => {
+			headers.value = getHeaders();
+		});
+
+		const container = ref();
+		const marker = ref();
+		useActiveAnchor(container, marker);
+		return { withBase, headers, container, marker };
+	},
+});
+</script>
+
+<template>
+	<div
+		ref="container"
+		class="w-44 flex-auto"
+	>
+		<div class="sticky top-40 left-0 block bg-white-light/20 p-6 bottom-4">
+			<div
+				ref="marker"
+				class="bg-yellow-default w-1 h-5 absolute transition-all"
+			></div>
+			<SidebarItem :headers="headers"></SidebarItem>
+		</div>
+	</div>
+</template>

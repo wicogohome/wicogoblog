@@ -2,6 +2,7 @@
 import { useData, withBase } from "vitepress";
 import Header from "./components/Header.vue";
 import Sidebar from "./components/Sidebar.vue";
+import TOCSidebar from "./components/TOCSidebar.vue";
 import Footer from "./components/Footer.vue";
 import Article from "./Article.vue";
 import Home from "./Home.vue";
@@ -11,7 +12,7 @@ import Tags from "./Tags.vue";
 import Catagories from "./Catagories.vue";
 
 export default {
-	components: { Header, Sidebar, Footer, Article, Home, About, List, Tags, Catagories },
+	components: { Header, Sidebar, TOCSidebar, Footer, Article, Home, About, List, Tags, Catagories },
 	setup() {
 		const { frontmatter } = useData();
 		return { withBase, frontmatter };
@@ -47,6 +48,10 @@ export default {
 						class="md:w-[768px] w-screen"
 					/>
 				</div>
+				<TOCSidebar
+					v-if="!frontmatter.layout"
+					class="flex-grow-0 w-44 hidden sm:block"
+				></TOCSidebar>
 			</div>
 
 			<Footer class="max-h-10" />

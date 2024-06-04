@@ -6,7 +6,7 @@
 
 @layer base {
 	html {
-		@apply font-noto bg-black-textured text-white-default md:text-xl text-base  tracking-wide font-light;
+		@apply font-noto bg-black-textured text-white-default md:text-xl text-base  tracking-wide font-light scroll-smooth;
 	}
 
 }
@@ -19,5 +19,16 @@
 	.website-title {
 		@apply md:text-8xl text-6xl font-zilla text-yellow-dark ;
 		@apply leading-normal #{!important};
+	}
+	.catagory-title {
+		@apply text-7xl uppercase font-semibold ;
+	}
+
+	.article-title {
+		@apply md:text-5xl text-4xl font-bold text-yellow-default;
+	}
+
+	.article-content {
+		@apply text-lg leading-8 tracking-wide text-white-default/85;
 	}
 	}
