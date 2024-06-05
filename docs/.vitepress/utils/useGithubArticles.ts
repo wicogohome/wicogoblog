@@ -1,6 +1,5 @@
 import { Octokit } from "@octokit/rest";
 import { loadEnv } from "vite";
-import _ from "lodash";
 import { GetResponseTypeFromEndpointMethod } from "@octokit/types";
 import { components } from "@octokit/openapi-types";
 export default function useGithubArticles() {

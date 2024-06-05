@@ -2,8 +2,8 @@ import _ from "lodash";
 import matter from "gray-matter";
 
 import { createContentLoader, defineLoader } from "vitepress";
-import useGithubArticles from "../../utils/useGithubArticles";
-import useDataTime from "../../utils/useDateTime.ts";
+import useGithubArticles from "../utils/useGithubArticles.ts";
+import useDataTime from "../utils/useDateTime.ts";
 
 import type { SiteConfig } from "vitepress";
 import type { DateTime } from "luxon";

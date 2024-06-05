@@ -3,7 +3,7 @@ import { fileURLToPath, URL } from "url";
 
 import matter from "gray-matter";
 import eslint from "vite-plugin-eslint";
-import useGithubArticles from "../../docs/utils/useGithubArticles.ts";
+import useGithubArticles from "./utils/useGithubArticles.ts";
 
 const srcDir = "posts/";
 const rewrites = { "index.md": "index.md", ":filename.md": ":filename/index.md" };
@@ -54,8 +54,7 @@ export default defineConfig({
 			}),
 		],
 		resolve: {
-			alias: [{ find: "@@/", replacement: fileURLToPath(new URL("../../docs/", import.meta.url)) }],
-			preserveSymlinks: true,
+			alias: [{ find: "@@/", replacement: fileURLToPath(new URL("./", import.meta.url)) }],
 		},
 	},
 	rewrites,
