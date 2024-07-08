@@ -22,6 +22,8 @@ export default {
 			colors: {
 				transparent: "transparent",
 				black: "#3E3F3B",
+				codeblock: "#2b2b2b",
+				highlignt: "#65758529",
 				white: {
 					default: "#FEFEFE",
 					light: "#FFFFE8",
@@ -32,6 +34,9 @@ export default {
 					dark: "#9A9D01",
 					light: "#FFEFB8",
 				},
+			},
+			width: {
+				codeblockLine: "calc(100% + 2rem)",
 			},
 			gradientColorStops: {},
 			gradientColorStopPositions: {},

@@ -49,7 +49,10 @@ export default defineConfig({
 	outDir: "../dist/blog/",
 	srcDir,
 	lastUpdated: true,
-	markdown: {},
+	markdown: {
+		// shiki
+		theme: "vitesse-dark",
+	},
 	vite: {
 		plugins: [
 			eslint({

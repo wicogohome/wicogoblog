@@ -68,8 +68,22 @@
 	
 			}
 			a {
-				@apply text-yellow-dark underline-offset-4   underline;
+				@apply text-yellow-dark underline-offset-4  underline;
 			}
 
+			[class*=language-] {
+				@apply bg-codeblock rounded p-4 relative;
+
+				.lang {
+					@apply absolute right-2 top-1 font-light opacity-40 text-base ;
+	
+				}
+				.highlighted {
+					@apply bg-highlignt -ml-4 pl-4 w-codeblockLine inline-block;
+				
+				}
+	
+			}
+	
 	}
 }
