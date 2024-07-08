@@ -20,15 +20,56 @@
 		@apply md:text-8xl text-6xl font-zilla text-yellow-dark ;
 		@apply leading-normal #{!important};
 	}
-	.catagory-title {
-		@apply text-7xl uppercase font-semibold ;
+	.category-title {
+		@apply text-5xl uppercase font-semibold ;
 	}
 
 	.article-title {
-		@apply md:text-5xl text-4xl font-bold text-yellow-default;
+		@apply md:text-5xl text-4xl font-bold ;
 	}
 
 	.article-content {
-		@apply text-lg leading-8 tracking-wide text-white-default/85;
+		@apply text-lg leading-8 tracking-wide text-white-default/85 whitespace-break-spaces ;
+
+			h1 {
+				@apply text-5xl font-medium border-b-[1px] border-white-light/20 pb-2 mb-2 mt-4;
+			}
+			h2 {
+				@apply text-4xl font-medium  border-b-[1px] border-white-light/20 pb-2 mb-2 mt-6;
+			}
+			h3 {
+				@apply text-3xl  mb-2 mt-6;
+			}
+			h4 {
+				@apply text-2xl font-medium mb-2 mt-6;
+			}
+			h5 {
+				@apply text-2xl mb-2 mt-6;
+			}
+			h6 {
+				@apply text-xl font-medium mb-2 mt-6;
+			}
+
+			p {
+				@apply my-2;
+			}
+
+			table, tbody, tr {
+				@apply outline-1 outline-white-default/70 outline;
+			}
+
+			td, th {
+				@apply p-2 break-words text-center;
+			}
+			th, 
+			td:first-child,
+			tr:hover {
+				@apply bg-white-light/20;
+	
+			}
+			a {
+				@apply text-yellow-dark underline-offset-4   underline;
+			}
+
 	}
-	}
+}
