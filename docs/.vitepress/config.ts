@@ -5,8 +5,11 @@ import matter from "gray-matter";
 import eslint from "vite-plugin-eslint";
 import useGithubArticles from "./utils/useGithubArticles.ts";
 
-const srcDir = "posts/";
-const rewrites = { "index.md": "index.md", ":filename.md": ":filename/index.md" };
+const srcDir: string = "posts/";
+interface Rewrites {
+	[index: string]: string;
+}
+const rewrites: Rewrites = { "index.md": "index.md", ":filename.md": ":filename/index.md" };
 
 const { getArticles } = useGithubArticles();
 const pages = await getArticles();

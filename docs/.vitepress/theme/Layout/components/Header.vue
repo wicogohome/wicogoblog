@@ -2,7 +2,7 @@
 import { defineComponent } from "vue";
 import { withBase } from "vitepress";
 export default defineComponent({
-	name: "Header",
+	name: "BlogHeader",
 	setup() {
 		return { withBase };
 	},

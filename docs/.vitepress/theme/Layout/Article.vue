@@ -1,6 +1,6 @@
 <script lang="ts">
 export default defineComponent({
-	name: "Article",
+	name: "BlogArticle",
 	setup() {
 		return { withBase };
 	},

@@ -17,13 +17,11 @@ export default defineComponent({
 	<div class="px-6">
 		<ul class="grid gap-4">
 			<ArticleItem
-				v-for="(
-					{ url, frontmatter: { title, catagory, tags, date, last_updated: lastUpdated, og_url: ogUrl } }, key
-				) in posts"
+				v-for="({ url, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key) in posts"
 				:key="key"
 				:title="title"
 				:url="url"
-				:catagory="catagory"
+				:category="category"
 				:tags="tags"
 				:date="date"
 				:last-updated="lastUpdated"

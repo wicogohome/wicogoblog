@@ -1,15 +1,16 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import type { Ref } from "vue";
 import { withBase, onContentUpdated } from "vitepress";
 import useTOC from "@@/utils/useTOC.ts";
+import type { Header } from "@@/utils/useTOC.ts";
 import SidebarItem from "./SidebarItem.vue";
 export default defineComponent({
 	name: "TOCSidebar",
 	components: { SidebarItem },
-	props: {},
 	setup() {
 		const { getHeaders, useActiveAnchor } = useTOC();
-		const headers = ref([]);
+		const headers: Ref<Header[]> = ref([]);
 
 		onContentUpdated(() => {
 			headers.value = getHeaders();

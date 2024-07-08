@@ -1,11 +1,13 @@
 <script lang="ts">
 import { defineComponent } from "vue";
+import type { PropType } from "vue";
+import type { Header } from "@@/utils/useTOC";
 
 export default defineComponent({
 	name: "SidebarItem",
 	props: {
 		headers: {
-			type: Array,
+			type: Array as PropType<Header[]>,
 			default: () => [{}],
 		},
 	},
@@ -15,7 +17,7 @@ export default defineComponent({
 <template>
 	<ul class="ml-4">
 		<li
-			v-for="{ title, link, level, children } in headers"
+			v-for="{ title, link, children } in headers"
 			:key="link"
 		>
 			<a

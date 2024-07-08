@@ -6,10 +6,10 @@ import useGithubArticles from "../utils/useGithubArticles.ts";
 import useDataTime from "../utils/useDateTime.ts";
 
 import type { SiteConfig } from "vitepress";
-import type { DateTime } from "luxon";
 
 const ignoredPaths = ["/articles/[title].html", "/"];
-const config: SiteConfig = globalThis.VITEPRESS_CONFIG;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const config: SiteConfig = (globalThis as any).VITEPRESS_CONFIG;
 const { map } = config.rewrites;
 
 export interface Data {
@@ -17,10 +17,10 @@ export interface Data {
 	frontmatter: {
 		title: string;
 		tags: Array<string>;
-		date: DateTime;
-		og_url: string;
-		last_updated: DateTime;
-		catagory: string;
+		date: string;
+		ogUrl: string;
+		lastUpdated: string;
+		category: string;
 	};
 }
 interface ArticleRoute {
@@ -31,12 +31,12 @@ interface ArticleRoute {
 		date: string;
 		og_url: string;
 		last_updated: string;
-		catagory: string;
+		category: string;
 		url: string;
 	};
 }
 
-declare const data: Data;
+declare const data: Data[];
 export { data };
 
 export default defineLoader(
@@ -60,24 +60,24 @@ export default defineLoader(
 				.map(
 					({
 						url,
-						frontmatter: { title, tags, date, og_url: ogUrl, last_updated: lastUpdated, catagory },
+						frontmatter: { title, tags, date, og_url: ogUrl, last_updated: lastUpdated, category },
 					}): Data => {
-						const formattedUrl = (map[_.trimStart(url, "/") + ".md"] ?? url).replace(/\index.md$/, "");
+						const formattedUrl = (map[_.trimStart(url, "/") + ".md"] ?? url).replace(/index.md$/, "");
 						return {
 							url: _.startsWith(formattedUrl, "/") ? "/" + formattedUrl : formattedUrl,
 							frontmatter: {
 								title,
 								tags,
-								date: parseFromTZ(date),
-								og_url: ogUrl,
-								last_updated: parseFromTZ(lastUpdated),
-								catagory,
+								date, // 若使用parseFromTZ()，最終頁面只能取得String而非DateTime Object
+								ogUrl,
+								lastUpdated,
+								category,
 							},
 						};
 					}
 				)
 				.sort(({ frontmatter: { date: dateA } }, { frontmatter: { date: dateB } }) => {
-					return dateB.toMillis() - dateA.toMillis();
+					return parseFromTZ(dateB).toMillis() - parseFromTZ(dateA).toMillis();
 				});
 		},
 	})

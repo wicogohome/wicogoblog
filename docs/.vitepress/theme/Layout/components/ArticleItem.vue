@@ -1,19 +1,21 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import { withBase } from "vitepress";
+import useDateTime from "@@/utils/useDateTime";
 export default defineComponent({
 	name: "ArticleItem",
 	props: {
-		title: { type: String },
-		url: { type: String },
-		catagory: { type: String },
+		title: { type: String, default: null },
+		url: { type: String, default: null },
+		category: { type: String, default: null },
 		tags: { type: Array, default: () => [] },
-		date: { type: String },
-		lastUpdated: { type: String },
-		ogUrl: { type: String },
+		date: { type: String, default: null },
+		lastUpdated: { type: String, default: null },
+		ogUrl: { type: String, default: null },
 	},
 	setup() {
-		return { withBase };
+		const { toDateString } = useDateTime();
+		return { withBase, toDateString };
 	},
 });
 </script>
@@ -38,6 +40,7 @@ export default defineComponent({
 		</div>
 
 		<div class="p-4">
+			{{ toDateString(date) }}
 			<div class="flex justify-between">
 				<a
 					:href="withBase(url)"

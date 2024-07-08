@@ -5,7 +5,7 @@ import "./styles/main.scss";
 
 export default {
 	Layout,
-	enhanceApp({ app, router, siteData }) {
+	enhanceApp() {
 		// ...
 	},
 } satisfies Theme;

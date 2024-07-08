@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent } from "vue";
-import { useData, withBase } from "vitepress";
+import { withBase } from "vitepress";
 export default defineComponent({
 	name: "Sidebar",
 	setup() {
