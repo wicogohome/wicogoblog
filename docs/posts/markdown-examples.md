@@ -35,6 +35,20 @@ export default {
 
 ## Custom Containers
 
+- [ ] unchecked
+- [x] checked
+1. order1
+2. order2
+
+---
+
+~~刪除線~~  
+**粗體**  
+*斜體*  
+> 單層引用
+> > 兩層引用
+
+
 **Input**
 
 ```md
@@ -75,9 +89,10 @@ This is a warning.
 
 ::: danger
 This is a dangerous warning.
+This is a dangerous warning.This is a dangerous warning.
 :::
 
-::: details
+::: details 
 This is a details block.
 :::
 

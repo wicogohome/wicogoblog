@@ -70,13 +70,26 @@
 			a {
 				@apply text-yellow-dark underline-offset-4  underline;
 			}
+
+			blockquote {
+				@apply border-l-4 pl-4 border-gray-400;
+				p {
+					@apply text-gray-400;
+				}
+			}
+			
+			hr {
+				@apply text-white-light/20 ;
+			}
+
+
 			ol {
-				@apply list-decimal pl-4;
+				@apply list-decimal pl-6;
 				
 			}
 
 			ul {
-				@apply list-disc  pl-4;
+				@apply list-disc  pl-6;
 			}
 			ol.task-list, ul.task-list {
 				@apply list-none;
@@ -84,6 +97,39 @@
 
 			code {
 				@apply ml-1;
+			}
+
+			a[href]{
+				@apply break-words;
+			}
+
+			.custom-block {
+				@apply p-4 border rounded-lg my-4 border-lime-50;
+
+				p {
+					@apply m-0 leading-normal;
+				}
+				.custom-block-title {
+					@apply font-bold mb-2;
+				}
+				&.info {
+					background-color: rgba(158, 231, 145, 0.5);
+				}
+
+				&.tip {
+					background-color:  rgba(145, 200, 231, 0.5);
+				}
+				&.warning {
+					background-color: rgba(231, 215, 145, 0.5);
+				}
+
+				&.danger {
+					background-color: rgba(227, 104, 56, 0.5);
+				}
+
+				&.details {
+					background-color: rgba(211, 210, 195, 0.5);
+				}
 			}
 
 			[class*=language-] {
