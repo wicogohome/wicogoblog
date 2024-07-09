@@ -19,6 +19,7 @@
 		"gray-matter": "^4.0.3",
 		"lodash": "^4.17.21",
 		"luxon": "^3.4.4",
+		"markdown-it-task-checkbox": "^1.0.6",
 		"postcss-import": "^16.1.0",
 		"postcss-nesting": "^12.1.2",
 		"ts-node": "^10.9.2",

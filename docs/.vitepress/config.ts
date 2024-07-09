@@ -4,6 +4,7 @@ import { fileURLToPath, URL } from "url";
 import matter from "gray-matter";
 import eslint from "vite-plugin-eslint";
 import { withMermaid } from "vitepress-plugin-mermaid";
+import markdownItCheckbox from "markdown-it-task-checkbox";
 import useGithubArticles from "./utils/useGithubArticles.ts";
 
 const srcDir: string = "posts/";
@@ -54,6 +55,16 @@ export default defineConfig(
 		markdown: {
 			// shiki
 			theme: "vitesse-dark",
+			config: (md: MarkdownIt) => {
+				md.use(markdownItCheckbox, {
+					disabled: true,
+					divWrap: false,
+					divClass: "checkbox",
+					idPrefix: "cbx_",
+					ulClass: "task-list",
+					liClass: "task-list-item",
+				});
+			},
 		},
 		vite: {
 			plugins: [

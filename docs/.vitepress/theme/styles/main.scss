@@ -70,6 +70,21 @@
 			a {
 				@apply text-yellow-dark underline-offset-4  underline;
 			}
+			ol {
+				@apply list-decimal pl-4;
+				
+			}
+
+			ul {
+				@apply list-disc  pl-4;
+			}
+			ol.task-list, ul.task-list {
+				@apply list-none;
+			}
+
+			code {
+				@apply ml-1;
+			}
 
 			[class*=language-] {
 				@apply bg-codeblock rounded p-4 relative;
