@@ -1,5 +1,3 @@
-import matter from "gray-matter";
-
 import { createContentLoader, defineLoader } from "vitepress";
 import useGithubArticles from "../utils/useGithubArticles.ts";
 import useDataTime from "../utils/useDateTime.ts";
@@ -16,19 +14,7 @@ export interface Data {
 		ogUrl: string;
 		lastUpdated: string;
 		category: string;
-		originUrl: string;
-	};
-}
-interface ArticleRoute {
-	url: string;
-	frontmatter: {
-		title: string;
-		tags: Array<string>;
-		date: string;
-		og_url: string;
-		last_updated: string;
-		category: string;
-		url: string;
+		originUrl: string | null;
 	};
 }
 
@@ -38,25 +24,17 @@ export { data };
 export default defineLoader(
 	createContentLoader("**/*.md", {
 		transform: async (): Promise<Data[]> => {
-			const { getArticles } = useGithubArticles();
+			const { getMatteredArticles } = useGithubArticles();
 
-			const articleRoutes: ArticleRoute[] = (await getArticles())
-				.map(({ name, content }) => {
-					if (typeof content !== "string") {
-						return;
-					}
-					const { data: frontmatter } = matter(content);
-					return { frontmatter, url: "/articles/" + name.replace(/\.md$/, "") };
-				})
-				.filter((article): article is ArticleRoute => !!article);
+			const articleRoutes = await getMatteredArticles();
 
 			const { parseFromTZ } = useDataTime();
 			const { formatUrlByRewrites } = useArticleUrl();
 			return articleRoutes
-				.filter(({ url }) => !ignoredPaths.includes(url))
+				.filter(({ filepath }) => !ignoredPaths.includes(filepath))
 				.map(
 					({
-						url,
+						filepath,
 						frontmatter: {
 							title,
 							tags,
@@ -68,7 +46,7 @@ export default defineLoader(
 						},
 					}): Data => {
 						return {
-							url: formatUrlByRewrites(url),
+							url: formatUrlByRewrites(filepath),
 							frontmatter: {
 								title,
 								tags,

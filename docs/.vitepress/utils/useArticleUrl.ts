@@ -6,8 +6,11 @@ const config: SiteConfig = (globalThis as any).VITEPRESS_CONFIG;
 const { map: rewritesMap } = config.rewrites;
 
 export default function useArticleUrl() {
-	function formatUrlByRewrites(originUrl: string) {
-		const formattedUrl = (rewritesMap[_.trimStart(originUrl, "/") + ".md"] ?? originUrl).replace(/index.md$/, "");
+	function formatUrlByRewrites(filepath: string) {
+		const formattedUrl = (rewritesMap[_.trimStart(filepath, "/")] ?? filepath.replace(/\.md$/, "/")).replace(
+			/index.md$/,
+			""
+		);
 		return _.startsWith(formattedUrl, "/") ? formattedUrl : "/" + formattedUrl;
 	}
 

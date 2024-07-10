@@ -1,7 +1,7 @@
 import { defineConfig } from "vitepress";
 import { fileURLToPath, URL } from "url";
 
-import matter from "gray-matter";
+import _ from "lodash";
 import eslint from "vite-plugin-eslint";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import markdownItCheckbox from "markdown-it-task-checkbox";
@@ -11,20 +11,19 @@ const srcDir: string = "posts/";
 interface Rewrites {
 	[index: string]: string;
 }
-const rewrites: Rewrites = { "index.md": "index.md", ":filename.md": ":filename/index.md" };
+const rewrites: Rewrites = {
+	"index.md": "index.md",
+	":filename.md": ":filename/index.md",
+	"categories/index.md": "categories/index.md",
+	"categories/:filename.md": "categories/:filename/index.md",
+};
 
-const { getArticles } = useGithubArticles();
-const pages = await getArticles();
-pages.map(({ name, content }) => {
-	if (typeof content !== "string") {
-		return;
-	}
-	const {
-		data: { url, date },
-	} = matter(content);
+const { getMatteredArticles } = useGithubArticles();
+const pages = await getMatteredArticles();
+pages.map(({ filepath, filename, frontmatter: { url, date } }) => {
 	const formattedDate = new Date(date);
-	rewrites["articles/" + name] =
-		`${formattedDate.getFullYear()}/${formattedDate.getMonth() + 1}/${formattedDate.getDate()}/${url ?? name.replace(/\.md$/, "")}/index.md`;
+	rewrites[_.trimStart(filepath, "/")] =
+		`${formattedDate.getFullYear()}/${formattedDate.getMonth() + 1}/${formattedDate.getDate()}/${url ?? filename.replace(/\.md$/, "")}/index.md`;
 });
 
 // https://vitepress.dev/reference/site-config
