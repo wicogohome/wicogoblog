@@ -16,6 +16,8 @@ const rewrites: Rewrites = {
 	":filename.md": ":filename/index.md",
 	"categories/index.md": "categories/index.md",
 	"categories/:filename.md": "categories/:filename/index.md",
+	"tags/index.md": "tags/index.md",
+	"tags/:filename.md": "tags/:filename/index.md",
 };
 
 const { getMatteredArticles } = useGithubArticles();

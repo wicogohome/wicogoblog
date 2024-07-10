@@ -6,19 +6,20 @@ export default {
 		const { getMatteredArticles } = useGithubArticles();
 		const articles = await getMatteredArticles();
 
-		return _(articles)
-			.groupBy("frontmatter.category")
-			.mapValues((_articles, category) => ({
+		const result = _(articles)
+			.map("frontmatter.tags")
+			.flatten()
+			.map((tag) => ({
 				params: {
-					category,
+					tag,
 				},
 			}))
-			.values()
 			.value()
 			.concat({
 				params: {
-					category: "index",
+					tag: "index",
 				},
 			});
+		return result;
 	},
 };
