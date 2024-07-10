@@ -64,7 +64,7 @@ export default defineLoader(
 					}): Data => {
 						const formattedUrl = (map[_.trimStart(url, "/") + ".md"] ?? url).replace(/index.md$/, "");
 						return {
-							url: _.startsWith(formattedUrl, "/") ? "/" + formattedUrl : formattedUrl,
+							url: _.startsWith(formattedUrl, "/") ? formattedUrl : "/" + formattedUrl,
 							frontmatter: {
 								title,
 								tags,
