@@ -3,7 +3,6 @@ import { computed } from "vue";
 import { useData } from "vitepress";
 import { data as posts } from "@@/data/routes.data.ts";
 import useDataTime from "@@/utils/useDateTime.ts";
-
 import type { DateTime } from "luxon";
 import type { ComputedRef } from "vue";
 
@@ -24,15 +23,16 @@ export interface ArticleFrontmatter {
 		url: string;
 	} | null;
 }
-
 export default function useFrontmatter() {
 	const { parseFromTZ } = useDataTime();
-
 	const { frontmatter } = useData();
 
-	// TODO 統一url格式
 	const articleFrontmatter: ComputedRef<ArticleFrontmatter> = computed(() => {
-		const currentIndex = _.findIndex(posts, ({ frontmatter: { title } }) => title === frontmatter.value.title);
+		const currentIndex = _.findIndex(
+			posts,
+			({ frontmatter: { title, originUrl } }) =>
+				title === frontmatter.value.title && originUrl === frontmatter.value.url
+		);
 		const next = currentIndex > -1 ? posts[currentIndex - 1] ?? null : null;
 		const prev = currentIndex > -1 ? posts[currentIndex + 1] ?? null : null;
 
@@ -45,6 +45,7 @@ export default function useFrontmatter() {
 		if ("last_updated" in frontmatter.value) {
 			lastUpdated = parseFromTZ(frontmatter.value.last_updated);
 		}
+
 		return {
 			title: frontmatter.value.title,
 			tags: frontmatter.value.tags,

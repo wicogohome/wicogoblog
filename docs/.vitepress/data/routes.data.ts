@@ -1,16 +1,11 @@
-import _ from "lodash";
 import matter from "gray-matter";
 
 import { createContentLoader, defineLoader } from "vitepress";
 import useGithubArticles from "../utils/useGithubArticles.ts";
 import useDataTime from "../utils/useDateTime.ts";
-
-import type { SiteConfig } from "vitepress";
+import useArticleUrl from "../utils/useArticleUrl.ts";
 
 const ignoredPaths = ["/articles/[title].html", "/"];
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const config: SiteConfig = (globalThis as any).VITEPRESS_CONFIG;
-const { map } = config.rewrites;
 
 export interface Data {
 	url: string;
@@ -21,6 +16,7 @@ export interface Data {
 		ogUrl: string;
 		lastUpdated: string;
 		category: string;
+		originUrl: string;
 	};
 }
 interface ArticleRoute {
@@ -55,16 +51,24 @@ export default defineLoader(
 				.filter((article): article is ArticleRoute => !!article);
 
 			const { parseFromTZ } = useDataTime();
+			const { formatUrlByRewrites } = useArticleUrl();
 			return articleRoutes
 				.filter(({ url }) => !ignoredPaths.includes(url))
 				.map(
 					({
 						url,
-						frontmatter: { title, tags, date, og_url: ogUrl, last_updated: lastUpdated, category },
+						frontmatter: {
+							title,
+							tags,
+							date,
+							og_url: ogUrl,
+							last_updated: lastUpdated,
+							category,
+							url: originUrl,
+						},
 					}): Data => {
-						const formattedUrl = (map[_.trimStart(url, "/") + ".md"] ?? url).replace(/index.md$/, "");
 						return {
-							url: _.startsWith(formattedUrl, "/") ? formattedUrl : "/" + formattedUrl,
+							url: formatUrlByRewrites(url),
 							frontmatter: {
 								title,
 								tags,
@@ -72,6 +76,7 @@ export default defineLoader(
 								ogUrl,
 								lastUpdated,
 								category,
+								originUrl,
 							},
 						};
 					}
