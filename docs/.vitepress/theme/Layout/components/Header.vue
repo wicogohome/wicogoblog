@@ -23,8 +23,8 @@ export default defineComponent({
 			<li class="col-span-1">
 				<a :href="withBase('/')">Home</a>
 			</li>
-			<li class="col-span-1"><a :href="withBase('/about')">About</a></li>
-			<li class="col-span-1"><a :href="withBase('/list')">All ></a></li>
+			<li class="col-span-1"><a :href="withBase('/about/')">About</a></li>
+			<li class="col-span-1"><a :href="withBase('/list/')">All ></a></li>
 		</ul>
 	</nav>
 </template>
