@@ -7,15 +7,15 @@ export default defineComponent({
 		const sidebarItems = [
 			{
 				title: "About",
-				url: "/about",
+				url: "/about/",
 			},
 			{
-				title: "Catagories",
-				url: "/catagories",
+				title: "Categories",
+				url: "/categories/",
 			},
 			{
 				title: "tags",
-				url: "/tags",
+				url: "/tags/",
 			},
 			{
 				title: "Contact",

@@ -10,11 +10,11 @@ import Home from "./Home.vue";
 import About from "./About.vue";
 import List from "./List.vue";
 import Tags from "./Tags.vue";
-import Catagories from "./Catagories.vue";
+import Categories from "./Categories.vue";
 import { computed } from "vue";
 
 export default {
-	components: { BlogHeader, Sidebar, TOCSidebar, BlogFooter, BlogArticle, Home, About, List, Tags, Catagories },
+	components: { BlogHeader, Sidebar, TOCSidebar, BlogFooter, BlogArticle, Home, About, List, Tags, Categories },
 	setup() {
 		const { frontmatter } = useData();
 		interface MainFrontmatter {
@@ -50,7 +50,7 @@ export default {
 					<Home v-if="mainFrontmatter.layout === 'home'" />
 					<List v-else-if="mainFrontmatter.layout === 'list'" />
 					<Tags v-else-if="mainFrontmatter.layout === 'tags'" />
-					<Catagories v-else-if="mainFrontmatter.layout === 'catagories'" />
+					<Categories v-else-if="mainFrontmatter.layout === 'categories'" />
 					<About
 						v-else-if="mainFrontmatter.layout === 'about'"
 						class="md:w-[768px] w-screen max-w-sm"

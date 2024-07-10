@@ -28,7 +28,7 @@ export default defineComponent({
 <template>
 	<div class="relative">
 		<div class="flex justify-between">
-			<a :href="withBase('/catagories/' + articleFrontmatter.category)"
+			<a :href="withBase('/categories/' + articleFrontmatter.category)"
 				>{{ `< ${articleFrontmatter.category} ` }} ></a
 			>
 
