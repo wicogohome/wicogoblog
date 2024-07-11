@@ -4,9 +4,10 @@ import { defineComponent, computed } from "vue";
 import { useData, withBase } from "vitepress";
 import { data as posts } from "@@/data/routes.data.ts";
 import ArticleItem from "./components/ArticleItem.vue";
+import BlogPagination from "./components/Pagination.vue";
 export default defineComponent({
 	name: "Home",
-	components: { ArticleItem },
+	components: { ArticleItem, BlogPagination },
 	setup() {
 		const { params } = useData();
 		const pages = _.chunk(posts, import.meta.env.VITE_PAGINATION ?? 10);
@@ -19,8 +20,6 @@ export default defineComponent({
 
 <template>
 	<div class="px-6">
-		{{ currentPage }}
-
 		<ul class="grid gap-4">
 			<ArticleItem
 				v-for="({ url, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key) in pages[
@@ -37,13 +36,9 @@ export default defineComponent({
 			>
 			</ArticleItem>
 		</ul>
-		<div>
-			<div
-				v-for="(_articles, page) in pages"
-				:key="page"
-			>
-				<a :href="withBase('/pages/' + (page + 1))">{{ page + 1 }}</a>
-			</div>
-		</div>
+		<BlogPagination
+			:current-page="currentPage"
+			:total="pages.length"
+		></BlogPagination>
 	</div>
 </template>
