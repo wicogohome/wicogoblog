@@ -7,13 +7,12 @@ export default {
 		const articles = await getMatteredArticles();
 
 		return _(articles)
-			.groupBy("frontmatter.category")
-			.mapValues((_articles, category) => ({
+			.uniqBy("frontmatter.category")
+			.map(({ frontmatter: { category } }) => ({
 				params: {
 					category,
 				},
 			}))
-			.values()
 			.value()
 			.concat({
 				params: {
