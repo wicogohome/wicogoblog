@@ -14,6 +14,7 @@ export default {
 					tag,
 				},
 			}))
+			.uniq()
 			.value()
 			.concat({
 				params: {

@@ -13,7 +13,9 @@ export default defineComponent({
 		const allTags = _(posts)
 			.map("frontmatter.tags")
 			.flatten()
+			.uniq()
 			.map((tag) => ({ tag, count: _.countBy(posts, ({ frontmatter: { tags } }) => tags.includes(tag)).true }))
+			.orderBy("count", "desc")
 			.value();
 
 		const { params } = useData();
@@ -28,35 +30,38 @@ export default defineComponent({
 
 <template>
 	<div>
-		{{ currentTag }}
-		<ol>
-			<li
+		<div class="flex gap-3 my-4 flex-wrap">
+			<a
 				v-for="({ tag, count }, key) in allTags"
 				:key="tag + key"
+				:href="withBase('/tags/' + tag + '/')"
+				class="bg-yellow-dark rounded-full px-4 relative py-2"
+				:class="{ 'bg-gradient-to-r from-green/20 to-yellow-default/90': currentTag == tag }"
 			>
-				<a :href="withBase('/tags/' + tag + '/')">
-					{{ tag }}
-				</a>
-				{{ count }}
-			</li>
-		</ol>
-		<div v-if="currentTag">
-			<ul class="grid gap-4">
-				<ArticleItem
-					v-for="(
-						{ url, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key
-					) in currentArticles"
-					:key="key"
-					:title="title"
-					:url="url"
-					:category="category"
-					:tags="tags"
-					:date="date"
-					:last-updated="lastUpdated"
-					:og-url="ogUrl"
+				#{{ tag }}
+				<div
+					class="absolute -right-1 -top-1 text-center w-4 rounded-full bg-white-default aspect-square text-yellow-dark text-xs"
 				>
-				</ArticleItem>
-			</ul>
+					{{ count }}
+				</div>
+			</a>
 		</div>
+
+		<ul class="grid gap-4">
+			<ArticleItem
+				v-for="(
+					{ url, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key
+				) in currentArticles"
+				:key="key"
+				:title="title"
+				:url="url"
+				:category="category"
+				:tags="tags"
+				:date="date"
+				:last-updated="lastUpdated"
+				:og-url="ogUrl"
+			>
+			</ArticleItem>
+		</ul>
 	</div>
 </template>
