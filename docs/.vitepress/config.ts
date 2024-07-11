@@ -6,7 +6,6 @@ import eslint from "vite-plugin-eslint";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import markdownItCheckbox from "markdown-it-task-checkbox";
 import useGithubArticles from "./utils/useGithubArticles.ts";
-
 const srcDir: string = "posts/";
 interface Rewrites {
 	[index: string]: string;
@@ -20,6 +19,8 @@ const rewrites: Rewrites = {
 	"tags/:filename.md": "tags/:filename/index.md",
 	"list/index.md": "list/index.md",
 	"list/:filename.md": "list/:filename/index.md",
+	"pages/1.md": "index.md",
+	"pages/:filename.md": "pages/:filename/index.md",
 };
 
 const { getMatteredArticles } = useGithubArticles();
@@ -70,6 +71,7 @@ export default defineConfig(
 			},
 		},
 		vite: {
+			envDir: "../../",
 			plugins: [
 				eslint({
 					exclude: ["./node_modules/**", "docs/.vitepress/cache"],

@@ -1,5 +1,6 @@
 <script lang="ts">
-import { defineComponent } from "vue";
+import _ from "lodash";
+import { defineComponent, computed } from "vue";
 import { useData, withBase } from "vitepress";
 import { data as posts } from "@@/data/routes.data.ts";
 import ArticleItem from "./components/ArticleItem.vue";
@@ -7,17 +8,24 @@ export default defineComponent({
 	name: "Home",
 	components: { ArticleItem },
 	setup() {
-		const { site } = useData();
-		return { site, posts, withBase };
+		const { params } = useData();
+		const pages = _.chunk(posts, import.meta.env.VITE_PAGINATION ?? 10);
+
+		const currentPage = computed(() => params?.value?.page);
+		return { posts, withBase, currentPage, pages };
 	},
 });
 </script>
 
 <template>
 	<div class="px-6">
+		{{ currentPage }}
+
 		<ul class="grid gap-4">
 			<ArticleItem
-				v-for="({ url, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key) in posts"
+				v-for="({ url, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key) in pages[
+					currentPage - 1
+				]"
 				:key="key"
 				:title="title"
 				:url="url"
@@ -29,5 +37,13 @@ export default defineComponent({
 			>
 			</ArticleItem>
 		</ul>
+		<div>
+			<div
+				v-for="(_articles, page) in pages"
+				:key="page"
+			>
+				<a :href="withBase('/pages/' + (page + 1))">{{ page + 1 }}</a>
+			</div>
+		</div>
 	</div>
 </template>

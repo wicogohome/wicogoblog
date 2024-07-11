@@ -1,11 +1,12 @@
 import { Octokit } from "@octokit/rest";
-import { loadEnv } from "vite";
 import { GetResponseTypeFromEndpointMethod } from "@octokit/types";
 import { components } from "@octokit/openapi-types";
 import matter from "gray-matter";
+import useViteEnv from "./useViteEnv.ts";
 
 export default function useGithubArticles() {
-	const env = import.meta?.env ? import.meta.env : loadEnv(process.env.NODE_ENV ?? "dev", process.cwd());
+	const { getEnv } = useViteEnv();
+	const env = getEnv();
 	const octokit = new Octokit({
 		auth: env.VITE_GITHUB_TOKEN,
 	});

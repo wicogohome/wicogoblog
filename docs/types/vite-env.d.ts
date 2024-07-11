@@ -10,6 +10,7 @@ interface ImportMetaEnv {
 	VITE_GITHUB_OWNER: string;
 	VITE_GITHUB_REPO: string;
 	VITE_GITHUB_PATH: string;
+	VITE_PAGINATION: number;
 }
 
 interface ImportMeta {
