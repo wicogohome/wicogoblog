@@ -4,11 +4,11 @@ import { defineComponent, computed } from "vue";
 import { withBase, useData } from "vitepress";
 import { data as posts } from "@@/data/routes.data.ts";
 
-import ArticleItem from "./components/ArticleItem.vue";
+import PostItemsGroup from "./components/PostItemsGroup.vue";
 
 export default defineComponent({
 	name: "Tags",
-	components: { ArticleItem },
+	components: { PostItemsGroup },
 	setup() {
 		const allTags = _(posts)
 			.map("frontmatter.tags")
@@ -47,21 +47,10 @@ export default defineComponent({
 			</a>
 		</div>
 
-		<ul class="grid gap-4">
-			<ArticleItem
-				v-for="(
-					{ url, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key
-				) in currentArticles"
-				:key="key"
-				:title="title"
-				:url="url"
-				:category="category"
-				:tags="tags"
-				:date="date"
-				:last-updated="lastUpdated"
-				:og-url="ogUrl"
-			>
-			</ArticleItem>
-		</ul>
+		<PostItemsGroup
+			:posts="currentArticles"
+			:prefix="'/tags/' + currentTag"
+		>
+		</PostItemsGroup>
 	</div>
 </template>

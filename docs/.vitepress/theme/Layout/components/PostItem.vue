@@ -3,7 +3,7 @@ import { defineComponent } from "vue";
 import { withBase } from "vitepress";
 import useDateTime from "@@/utils/useDateTime";
 export default defineComponent({
-	name: "ArticleItem",
+	name: "PostItem",
 	props: {
 		title: { type: String, default: null },
 		url: { type: String, default: null },

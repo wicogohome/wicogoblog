@@ -93,7 +93,7 @@ export default defineComponent({
 			<a
 				:href="getUrl(currentPage + 1)"
 				class="w-10 h-10 flex justify-center items-center"
-				:class="{ '!hidden': currentPage == total }"
+				:class="{ '!hidden': currentPage == total || total < currentPage }"
 			>
 				<FontAwesomeIcon
 					class=" "
