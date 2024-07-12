@@ -15,12 +15,15 @@ const rewrites: Rewrites = {
 	":filename.md": ":filename/index.md",
 	"categories/index.md": "categories/index.md",
 	"categories/:filename.md": "categories/:filename/index.md",
-	"tags/index.md": "tags/index.md",
-	"tags/:filename.md": "tags/:filename/index.md",
+
+	"tags/index-1.md": "tags/index.md",
+	"tags/:tag-1.md": "tags/:tag/index.md",
+	"tags/:tag-:page.md": "tags/:tag/pages/:page/index.md",
+
 	"list/index.md": "list/index.md",
 	"list/:filename.md": "list/:filename/index.md",
 	"pages/1.md": "index.md",
-	"pages/:filename.md": "pages/:filename/index.md",
+	"pages/:page.md": "pages/:page/index.md",
 };
 
 const { getMatteredArticles } = useGithubArticles();

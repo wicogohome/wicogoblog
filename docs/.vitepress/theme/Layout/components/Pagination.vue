@@ -13,6 +13,10 @@ export default defineComponent({
 			type: Number,
 			required: true,
 		},
+		prefix: {
+			type: String,
+			default: "",
+		},
 	},
 	setup(props) {
 		const displayPages = computed(() => {
@@ -36,7 +40,14 @@ export default defineComponent({
 			}
 			return _.union(_.take(rangeArray, startCount), centerArray, _.takeRight(rangeArray, endCount));
 		});
-		return { withBase, displayPages };
+
+		function getUrl(page: number) {
+			if (page <= 1) {
+				return withBase(props.prefix + "/");
+			}
+			return withBase(props.prefix + "/pages/" + page + "/");
+		}
+		return { getUrl, displayPages };
 	},
 });
 </script>
@@ -45,7 +56,7 @@ export default defineComponent({
 	<div class="flex justify-between my-6 gap-3">
 		<div>
 			<a
-				:href="withBase('/pages/' + (currentPage - 1))"
+				:href="getUrl(currentPage - 1)"
 				class="w-10 h-10 flex justify-center items-center"
 				:class="{ '!hidden': currentPage == 1 }"
 			>
@@ -62,7 +73,7 @@ export default defineComponent({
 				:key="page"
 			>
 				<a
-					:href="withBase('/pages/' + page)"
+					:href="getUrl(page)"
 					class="w-10 h-10 outline outline-1 outline-white-default rounded-md flex justify-center items-center"
 					:class="{ 'bg-white-default/90 text-black font-bold': page == currentPage }"
 				>
@@ -80,7 +91,7 @@ export default defineComponent({
 		</div>
 		<div>
 			<a
-				:href="withBase('/pages/' + (currentPage + 1))"
+				:href="getUrl(currentPage + 1)"
 				class="w-10 h-10 flex justify-center items-center"
 				:class="{ '!hidden': currentPage == total }"
 			>
