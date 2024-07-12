@@ -20,10 +20,10 @@ export default defineComponent({
 
 		const { params } = useData();
 		const currentTag = computed(() => params?.value?.tag);
-		const currentArticles = computed(() =>
+		const currentPosts = computed(() =>
 			posts.filter(({ frontmatter: { tags } }) => tags.includes(currentTag.value))
 		);
-		return { withBase, allTags, currentTag, params, currentArticles };
+		return { withBase, allTags, currentTag, params, currentPosts };
 	},
 });
 </script>
@@ -48,7 +48,7 @@ export default defineComponent({
 		</div>
 
 		<PostItemsGroup
-			:posts="currentArticles"
+			:posts="currentPosts"
 			:prefix="'/tags/' + currentTag"
 		>
 		</PostItemsGroup>

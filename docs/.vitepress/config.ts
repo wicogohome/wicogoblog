@@ -10,25 +10,35 @@ const srcDir: string = "posts/";
 interface Rewrites {
 	[index: string]: string;
 }
+
 const rewrites: Rewrites = {
 	"index.md": "index.md",
 	":filename.md": ":filename/index.md",
-	"categories/index.md": "categories/index.md",
-	"categories/:filename.md": "categories/:filename/index.md",
-
-	"tags/index-1.md": "tags/index.md",
-	"tags/:tag-1.md": "tags/:tag/index.md",
-	"tags/:tag-:page.md": "tags/:tag/pages/:page/index.md",
-
 	"list/index.md": "list/index.md",
 	"list/:filename.md": "list/:filename/index.md",
-	"pages/1.md": "index.md",
-	"pages/:page.md": "pages/:page/index.md",
 };
 
+// add pagination
+const PAGINATION_PREFIXS = [
+	{ name: "categories", param: "category" },
+	{ name: "tags", param: "tag" },
+	{ name: null, param: null },
+];
+PAGINATION_PREFIXS.forEach(({ name, param }) => {
+	if (!name || !param) {
+		rewrites["pages/1.md"] = "index.md";
+		rewrites["pages/:page.md"] = "pages/:page/index.md";
+		return;
+	}
+	rewrites[`${name}/index-1.md`] = `${name}/index.md`;
+	rewrites[`${name}/:${param}-1.md`] = `${name}/:${param}/index.md`;
+	rewrites[`${name}/:${param}-:page.md`] = `${name}/:${param}/pages/:page/index.md`;
+});
+
+// add articles
 const { getMatteredArticles } = useGithubArticles();
 const pages = await getMatteredArticles();
-pages.map(({ filepath, filename, frontmatter: { url, date } }) => {
+pages.forEach(({ filepath, filename, frontmatter: { url, date } }) => {
 	const formattedDate = new Date(date);
 	rewrites[_.trimStart(filepath, "/")] =
 		`${formattedDate.getFullYear()}/${formattedDate.getMonth() + 1}/${formattedDate.getDate()}/${url ?? filename.replace(/\.md$/, "")}/index.md`;

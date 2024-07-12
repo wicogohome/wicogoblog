@@ -4,53 +4,45 @@ import { defineComponent, computed } from "vue";
 import { withBase, useData } from "vitepress";
 import { data as posts } from "@@/data/routes.data.ts";
 
-import ArticleItem from "./components/ArticleItem.vue";
+import PostItemsGroup from "./components/PostItemsGroup.vue";
 
 export default defineComponent({
 	name: "Categories",
-	components: { ArticleItem },
+	components: { PostItemsGroup },
 	setup() {
 		const categories = _.groupBy(posts, "frontmatter.category");
 
 		const { params } = useData();
 		const currentCategory = computed(() => params?.value?.category);
-
-		return { withBase, categories, currentCategory, params };
+		const currentPosts = computed(() => categories[currentCategory.value] ?? []);
+		return { withBase, categories, currentCategory, currentPosts };
 	},
 });
 </script>
 
 <template>
 	<div>
-		{{ currentCategory }}
-		<ol>
+		<ol class="flex justify-start min-w-96 gap-1 flex-wrap">
 			<li
-				v-for="(articles, category) in categories"
+				v-for="(posts, category) in categories"
 				:key="category"
+				class="p-4 rounded-t-lg border border-white-default"
+				:class="{ 'bg-white-default text-black ': category == currentCategory }"
 			>
 				<a :href="withBase('/categories/' + category + '/')">
 					{{ category }}
 				</a>
-				{{ articles.length }}
+				{{ posts.length }}
 			</li>
 		</ol>
-		<div v-if="currentCategory">
-			<ul class="grid gap-4">
-				<ArticleItem
-					v-for="(
-						{ url, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key
-					) in categories[currentCategory]"
-					:key="key"
-					:title="title"
-					:url="url"
-					:category="category"
-					:tags="tags"
-					:date="date"
-					:last-updated="lastUpdated"
-					:og-url="ogUrl"
-				>
-				</ArticleItem>
-			</ul>
+		<div class="outline outline-1 min-h-52 min-w-80 rounded p-2">
+			<hr />
+			<hr class="my-1" />
+			<PostItemsGroup
+				:posts="currentPosts"
+				:prefix="'/categories/' + currentCategory"
+			>
+			</PostItemsGroup>
 		</div>
 	</div>
 </template>
