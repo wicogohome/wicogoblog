@@ -3,6 +3,8 @@ import { GetResponseTypeFromEndpointMethod } from "@octokit/types";
 import { components } from "@octokit/openapi-types";
 import matter from "gray-matter";
 import useViteEnv from "./useViteEnv.ts";
+import useBasicFrontmatter from "./useBasicFrontmatter.ts";
+import type { BasicFrontmatter } from "./useBasicFrontmatter.ts";
 
 export default function useGithubArticles() {
 	const { getEnv } = useViteEnv();
@@ -58,17 +60,10 @@ export default function useGithubArticles() {
 	interface MatteredArticle {
 		filepath: string;
 		filename: string;
-		frontmatter: {
-			title: string;
-			tags: Array<string>;
-			date: string;
-			og_url: string;
-			last_updated: string;
-			category: string;
-			url: string | null;
-		};
+		frontmatter: BasicFrontmatter;
 	}
 	let cachedMatteredArticles: MatteredArticle[] = [];
+	const { formatWithDefault } = useBasicFrontmatter();
 	async function getMatteredArticles(): Promise<MatteredArticle[]> {
 		if (cachedMatteredArticles.length > 0) {
 			return cachedMatteredArticles;
@@ -78,8 +73,14 @@ export default function useGithubArticles() {
 				if (typeof content !== "string") {
 					return;
 				}
-				const { data: frontmatter } = matter(content);
-				return { frontmatter, filepath: "/articles/" + name, filename: name };
+				const {
+					data: { title, tags, date, og_url: ogUrl, last_updated: lastUpdated, category, url },
+				} = matter(content);
+				return {
+					frontmatter: formatWithDefault({ title, tags, date, ogUrl, lastUpdated, category, url }),
+					filepath: "/articles/" + name,
+					filename: name,
+				};
 			})
 			.filter((article): article is MatteredArticle => !!article);
 		return cachedMatteredArticles;
