@@ -6,6 +6,7 @@ import eslint from "vite-plugin-eslint";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import markdownItCheckbox from "markdown-it-task-checkbox";
 import useGithubArticles from "./utils/useGithubArticles.ts";
+
 const srcDir: string = "posts/";
 interface Rewrites {
 	[index: string]: string;
@@ -14,23 +15,26 @@ interface Rewrites {
 const rewrites: Rewrites = {
 	"index.md": "index.md",
 	":filename.md": ":filename/index.md",
-	"list/index.md": "list/index.md",
-	"list/:filename.md": "list/:filename/index.md",
 };
 
 // add pagination
 const PAGINATION_PREFIXS = [
 	{ name: "categories", param: "category" },
 	{ name: "tags", param: "tag" },
+	{ name: "list", param: "list", withIndex: true },
 	{ name: null, param: null },
 ];
-PAGINATION_PREFIXS.forEach(({ name, param }) => {
+PAGINATION_PREFIXS.forEach(({ name, param, withIndex = false }) => {
 	if (!name || !param) {
 		rewrites["pages/1.md"] = "index.md";
 		rewrites["pages/:page.md"] = "pages/:page/index.md";
 		return;
 	}
 	rewrites[`${name}/index-1.md`] = `${name}/index.md`;
+	if (withIndex) {
+		rewrites[`${name}/index-:page.md`] = `${name}/pages/:page/index.md`;
+	}
+
 	rewrites[`${name}/:${param}-1.md`] = `${name}/:${param}/index.md`;
 	rewrites[`${name}/:${param}-:page.md`] = `${name}/:${param}/pages/:page/index.md`;
 });
