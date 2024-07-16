@@ -29,8 +29,8 @@ export default defineComponent({
 	<div class="relative">
 		<div class="flex justify-between">
 			<a :href="withBase('/categories/' + articleFrontmatter.category)"
-				>{{ `< ${articleFrontmatter.category} ` }} ></a
-			>
+				>{{ `< ${articleFrontmatter.category} >` }}
+			</a>
 
 			<div
 				v-if="articleFrontmatter.tags"

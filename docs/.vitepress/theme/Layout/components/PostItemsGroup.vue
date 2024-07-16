@@ -33,9 +33,9 @@ export default defineComponent({
 	<div>
 		<ul class="grid gap-4">
 			<PostItem
-				v-for="({ url, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key) in pages[
-					currentPage - 1
-				]"
+				v-for="(
+					{ url, excerpt, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key
+				) in pages[currentPage - 1]"
 				:key="key"
 				:title="title"
 				:url="url"
@@ -44,6 +44,7 @@ export default defineComponent({
 				:date="date"
 				:last-updated="lastUpdated"
 				:og-url="ogUrl"
+				:excerpt="excerpt"
 			>
 			</PostItem>
 		</ul>

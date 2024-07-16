@@ -8,6 +8,7 @@ const ignoredPaths = ["/articles/[title].html", "/"];
 
 export interface Data {
 	url: string;
+	excerpt: string;
 	frontmatter: BasicFrontmatter;
 }
 
@@ -27,8 +28,9 @@ export default defineLoader(
 			return articleRoutes
 				.filter(({ filepath }) => !ignoredPaths.includes(filepath))
 				.map(
-					({ filepath, frontmatter }): Data => ({
+					({ filepath, frontmatter, excerpt }): Data => ({
 						url: formatUrlByRewrites(filepath),
+						excerpt,
 						frontmatter,
 					})
 				)

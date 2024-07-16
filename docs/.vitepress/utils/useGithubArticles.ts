@@ -2,9 +2,11 @@ import { Octokit } from "@octokit/rest";
 import { GetResponseTypeFromEndpointMethod } from "@octokit/types";
 import { components } from "@octokit/openapi-types";
 import matter from "gray-matter";
+import type { GrayMatterFile, Input } from "gray-matter";
 import useViteEnv from "./useViteEnv.ts";
 import useBasicFrontmatter from "./useBasicFrontmatter.ts";
 import type { BasicFrontmatter } from "./useBasicFrontmatter.ts";
+import _ from "lodash";
 
 export default function useGithubArticles() {
 	const { getEnv } = useViteEnv();
@@ -61,6 +63,7 @@ export default function useGithubArticles() {
 		filepath: string;
 		filename: string;
 		frontmatter: BasicFrontmatter;
+		excerpt: string;
 	}
 	let cachedMatteredArticles: MatteredArticle[] = [];
 	const { formatWithDefault } = useBasicFrontmatter();
@@ -73,13 +76,29 @@ export default function useGithubArticles() {
 				if (typeof content !== "string") {
 					return;
 				}
+				function getFirstEightLines(file: GrayMatterFile<Input>): () => string {
+					file.excerpt = file.content
+						.split("\n")
+						.filter((line) => !_.startsWith(line, "#") && !_.startsWith(line, "!"))
+						.slice(0, 8)
+						.join(" ");
+					return () => file.excerpt as string;
+				}
 				const {
 					data: { title, tags, date, og_url: ogUrl, last_updated: lastUpdated, category, url },
-				} = matter(content);
+					excerpt,
+				} = matter(content, {
+					// TODO 型別
+					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+					// @ts-expect-error
+					excerpt: getFirstEightLines,
+				});
+
 				return {
 					frontmatter: formatWithDefault({ title, tags, date, ogUrl, lastUpdated, category, url }),
 					filepath: "/articles/" + name,
 					filename: name,
+					excerpt: excerpt,
 				};
 			})
 			.filter((article): article is MatteredArticle => !!article);

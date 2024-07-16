@@ -12,6 +12,7 @@ export default defineComponent({
 		date: { type: String, default: null },
 		lastUpdated: { type: String, default: null },
 		ogUrl: { type: String, default: null },
+		excerpt: { type: String, default: null },
 	},
 	setup() {
 		const { toDateString } = useDateTime();
@@ -62,7 +63,7 @@ export default defineComponent({
 			</div>
 
 			<p class="text-sm line-clamp-3">
-				TODO-銀話世手普恐注順新両祭情気国建。出入災情年込事根発画回姿並員材。天電自写部情展県越語谷月覧年整。供朝供本言上部台展茶全変訴第。際吉中県海一前注碁駐力王図済成平緩処期首。転在六長割相康善公裏示詩近柴長功著稿。愛断若関上線題星刑締整仙家阜域選加具。害読尽勝都今入館見覧転必命。円傷労会囲気男稿体愛書念秋。
+				{{ excerpt }}
 			</p>
 		</div>
 	</li>
