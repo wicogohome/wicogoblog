@@ -48,12 +48,18 @@ export default {
 				</div>
 				<div class="max-w-3xl mx-auto flex">
 					<Home v-if="mainFrontmatter.layout === 'home'" />
-					<List v-else-if="mainFrontmatter.layout === 'list'" />
-					<Tags v-else-if="mainFrontmatter.layout === 'tags'" />
+					<List
+						v-else-if="mainFrontmatter.layout === 'list'"
+						class="md:w-[768px] w-screen"
+					/>
+					<Tags
+						v-else-if="mainFrontmatter.layout === 'tags'"
+						class="md:w-[768px] w-screen"
+					/>
 					<Categories v-else-if="mainFrontmatter.layout === 'categories'" />
 					<About
 						v-else-if="mainFrontmatter.layout === 'about'"
-						class="md:w-[768px] w-screen max-w-sm"
+						class="md:w-[768px] w-screen"
 					/>
 					<BlogArticle
 						v-else

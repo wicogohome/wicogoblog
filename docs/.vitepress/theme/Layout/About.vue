@@ -10,5 +10,5 @@ export default defineComponent({
 </script>
 
 <template>
-	<div>About</div>
+	<Content class="article-content !static p-6" />
 </template>
