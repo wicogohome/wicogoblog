@@ -36,7 +36,8 @@ export default {
 				},
 			},
 			width: {
-				codeblockLine: "calc(100% + 2rem)",
+				"codeblock-line": "calc(100% + 2rem)",
+				"main-content": "calc(100vw - 3rem)",
 			},
 			gradientColorStops: {},
 			gradientColorStopPositions: {},

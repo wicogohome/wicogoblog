@@ -6,20 +6,12 @@ export default defineComponent({
 	setup() {
 		const sidebarItems = [
 			{
-				title: "About",
-				url: "/about/",
-			},
-			{
 				title: "Categories",
 				url: "/categories/",
 			},
 			{
 				title: "tags",
 				url: "/tags/",
-			},
-			{
-				title: "Contact",
-				url: "#",
 			},
 		];
 		return { withBase, sidebarItems };
@@ -38,6 +30,12 @@ export default defineComponent({
 						<span>Backend Developer</span><br />
 						<small>#WEB #PHP #JS/TS #AWS </small>
 					</p>
+					<a href="https://github.com/wicogohome">
+						<font-awesome-icon
+							icon="fa-brands fa-github"
+							size="lg"
+						/>
+					</a>
 
 					<hr class="m-2 w-full" />
 					<small class="text-center break-normal">

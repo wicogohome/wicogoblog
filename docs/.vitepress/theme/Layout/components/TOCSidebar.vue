@@ -29,7 +29,7 @@ export default defineComponent({
 		ref="container"
 		class="w-44 flex-auto"
 	>
-		<div class="sticky top-40 left-0 block bg-white-light/20 p-6 bottom-4">
+		<div class="sticky top-11 left-0 block bg-white-light/20 p-6 bottom-4">
 			<div
 				ref="marker"
 				class="bg-yellow-default w-1 h-5 absolute transition-all"

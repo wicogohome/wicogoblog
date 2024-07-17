@@ -50,7 +50,7 @@ export default defineComponent({
 				>
 				<div
 					v-if="tags.length > 0"
-					class="text-yellow-dark font-semibold"
+					class="text-yellow-dark font-semibold text-right"
 				>
 					<a
 						v-for="(tag, index) in tags"

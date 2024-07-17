@@ -31,7 +31,7 @@ export default defineComponent({
 
 <template>
 	<div>
-		<ul class="grid gap-4">
+		<ul class="grid gap-4 grid-cols-1">
 			<PostItem
 				v-for="(
 					{ url, excerpt, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key

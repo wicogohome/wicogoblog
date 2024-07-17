@@ -17,11 +17,11 @@
 		@apply text-2xl ;
 	}
 	.website-title {
-		@apply md:text-8xl text-6xl font-zilla text-yellow-dark ;
-		@apply leading-normal #{!important};
+		@apply md:text-8xl text-2xl font-zilla text-yellow-dark ;
+		@apply md:leading-normal #{!important};
 	}
 	.category-title {
-		@apply text-5xl uppercase font-semibold ;
+		@apply text-4xl lg:text-5xl uppercase font-semibold ;
 	}
 
 	.article-title {
@@ -29,7 +29,7 @@
 	}
 
 	.article-content {
-		@apply text-lg leading-8 tracking-wide text-white-default/85 whitespace-break-spaces ;
+		@apply text-lg leading-8 tracking-wide text-white-default/85  whitespace-break-spaces break-words overflow-x-auto;
 
 			h1 {
 				@apply text-5xl font-medium border-b-[1px] border-white-light/20 pb-2 mb-2 mt-4;
@@ -54,12 +54,15 @@
 				@apply my-2;
 			}
 
-			table, tbody, tr {
-				@apply outline-1 outline-white-default/70 outline;
+			table{
+				@apply overflow-x-auto block ;
+			}
+			tbody, tr {
+				@apply border border-white-default/70  w-fit;
 			}
 
 			td, th {
-				@apply p-2 break-words text-center;
+				@apply p-2  text-center;
 			}
 			th, 
 			td:first-child,
@@ -133,14 +136,14 @@
 			}
 
 			[class*=language-] {
-				@apply bg-codeblock rounded p-4 relative;
+				@apply bg-codeblock rounded p-4 relative overflow-x-auto ;
 
 				.lang {
 					@apply absolute right-2 top-1 font-light opacity-40 text-base ;
 	
 				}
 				.highlighted {
-					@apply bg-highlignt -ml-4 pl-4 w-codeblockLine inline-block;
+					@apply bg-highlignt -ml-4 pl-4 w-codeblock-line inline-block;
 				
 				}
 	

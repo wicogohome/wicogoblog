@@ -28,7 +28,7 @@ export default defineComponent({
 <template>
 	<div class="relative">
 		<div class="flex justify-between">
-			<a :href="withBase('/categories/' + articleFrontmatter.category)"
+			<a :href="withBase('/categories/' + articleFrontmatter.category + '/')"
 				>{{ `< ${articleFrontmatter.category} >` }}
 			</a>
 
@@ -39,7 +39,7 @@ export default defineComponent({
 				<a
 					v-for="(tag, index) in articleFrontmatter.tags"
 					:key="index"
-					:href="withBase('/tags/' + tag)"
+					:href="withBase('/tags/' + tag + '/')"
 				>
 					#{{ tag }}
 				</a>
@@ -49,8 +49,8 @@ export default defineComponent({
 		<div class="article-title">{{ articleFrontmatter.title }}</div>
 		<p class="md:text-4xl text-3xl font-bold text-yellow-dark my-2">| {{ createdAt }}</p>
 		<hr />
-		<Content class="article-content !static p-6" />
-		<div class="grid md:grid-cols-5 m-4 gap-4 h-20">
+		<Content class="article-content mb-16" />
+		<div class="grid md:grid-cols-5 m-4 gap-4">
 			<PrevButton
 				v-if="articleFrontmatter.prev"
 				:url="articleFrontmatter.prev.url"

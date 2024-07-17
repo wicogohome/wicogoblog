@@ -18,7 +18,7 @@ export default defineComponent({
 		</h1>
 	</header>
 	<nav class="sticky top-0 z-40">
-		<ul class="grid grid-flow-col justify-end grid-cols-6 backdrop-blur-sm shadow-sm shadow-yellow-light/20">
+		<ul class="p-2 grid grid-flow-col justify-end grid-cols-6 backdrop-blur-sm shadow-sm shadow-yellow-light/20">
 			<li class="col-span-3"></li>
 			<li class="col-span-1">
 				<a :href="withBase('/')">Home</a>

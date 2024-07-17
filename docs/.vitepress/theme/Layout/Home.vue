@@ -14,7 +14,5 @@ export default defineComponent({
 </script>
 
 <template>
-	<div class="px-6">
-		<PostItemsGroup :posts="posts"></PostItemsGroup>
-	</div>
+	<PostItemsGroup :posts="posts"></PostItemsGroup>
 </template>

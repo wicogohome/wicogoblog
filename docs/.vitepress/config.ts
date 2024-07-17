@@ -87,6 +87,9 @@ export default defineConfig(
 				});
 			},
 		},
+		mermaid: {
+			theme: "dark",
+		},
 		vite: {
 			envDir: "../../",
 			plugins: [
