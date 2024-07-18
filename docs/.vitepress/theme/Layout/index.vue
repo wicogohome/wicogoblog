@@ -39,7 +39,11 @@ export default {
 		};
 		const currentContent = computed(() => contentMap[mainFrontmatter.value.layout]);
 		const isArticle = computed(() => mainFrontmatter.value.layout === "article");
-		return { withBase, mainFrontmatter, currentContent, isArticle };
+
+		function backToTop() {
+			window.scrollTo({ top: 0, behavior: "smooth" });
+		}
+		return { withBase, mainFrontmatter, currentContent, isArticle, backToTop };
 	},
 };
 </script>
@@ -51,11 +55,14 @@ export default {
 
 			<div class="flex relative h-full my-10">
 				<div class="flex-shrink-0 hidden sm:flex">
-					<h1 class="category-title sticky top-10 z-40 h-fit text-white-default/80">
+					<h1
+						class="group cursor-pointer category-title sticky top-11 z-40 max-h-[85vh] h-fit text-white-default/80 flex gap-2"
+						@click="backToTop"
+					>
 						<span class="vertical-rl">
 							{{ mainFrontmatter?.title ?? mainFrontmatter?.category ?? mainFrontmatter?.layout }}
 						</span>
-						<span> ></span>
+						<div class="group-hover:-rotate-90 transition-transform align-bottom h-fit">></div>
 					</h1>
 				</div>
 				<div class="max-w-3xl mx-auto flex">
