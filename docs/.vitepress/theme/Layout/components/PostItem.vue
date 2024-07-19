@@ -25,7 +25,7 @@ export default defineComponent({
 	<li
 		class="bg-yellow-light/20 rounded-lg overflow-clip relative shadow-sm shadow-white-default/20 hover:brightness-105 transition-all hover:scale-105 hover:shadow-md hover:shadow-white-default/20 ease-in-out"
 	>
-		<div class="cursor-pointer h-60 overflow-hidden relative">
+		<div class="cursor-pointer md:h-60 h-40 overflow-hidden relative">
 			<img
 				:src="ogUrl"
 				class="absolute blur-lg"
@@ -55,7 +55,7 @@ export default defineComponent({
 					<a
 						v-for="(tag, index) in tags"
 						:key="title + index"
-						:href="withBase('/tags/' + tag)"
+						:href="withBase('/tags/' + tag + '/')"
 					>
 						#{{ tag }}
 					</a>

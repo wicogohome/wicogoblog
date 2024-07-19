@@ -11,11 +11,11 @@ export default defineComponent({
 
 <template>
 	<header class="bg-white-light/20 md:bg-transparent">
-		<h1 class="website-title relative">
+		<div class="website-title relative">
 			<span>WicoGot</span>
 			<br />
 			<span class="-ml-2">>>Blog.md</span>
-		</h1>
+		</div>
 	</header>
 	<nav class="sticky top-0 z-40">
 		<ul class="p-2 grid grid-flow-col justify-end grid-cols-6 backdrop-blur-sm shadow-sm shadow-yellow-light/20">
