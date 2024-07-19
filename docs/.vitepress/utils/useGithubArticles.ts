@@ -8,9 +8,10 @@ import useBasicFrontmatter from "./useBasicFrontmatter.ts";
 import type { BasicFrontmatter } from "./useBasicFrontmatter.ts";
 import _ from "lodash";
 
+const { getEnv } = useViteEnv();
+const env = getEnv();
+
 export default function useGithubArticles() {
-	const { getEnv } = useViteEnv();
-	const env = getEnv();
 	const octokit = new Octokit({
 		auth: env.VITE_GITHUB_TOKEN,
 	});
@@ -85,7 +86,7 @@ export default function useGithubArticles() {
 					return () => file.excerpt as string;
 				}
 				const {
-					data: { title, tags, date, og_url: ogUrl, last_updated: lastUpdated, category, url },
+					data: { title, tags, date, og_url: ogUrl, last_updated: lastUpdated, category, url, published },
 					excerpt,
 				} = matter(content, {
 					// TODO 型別
@@ -94,6 +95,9 @@ export default function useGithubArticles() {
 					excerpt: getFirstEightLines,
 				});
 
+				if (env.VITE_PREVIEW_UNPUBLISHED !== "true" && !published) {
+					return;
+				}
 				return {
 					frontmatter: formatWithDefault({ title, tags, date, ogUrl, lastUpdated, category, url }),
 					filepath: "/articles/" + name,
