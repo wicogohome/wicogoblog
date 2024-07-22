@@ -9,7 +9,7 @@ VitePress provides Syntax Highlighting powered by [Shiki](https://github.com/shi
 **Input**
 
 ````md
-```js{4}
+```js
 export default {
   data () {
     return {
@@ -22,7 +22,8 @@ export default {
 
 **Output**
 
-```js{4}
+```js 
+// [!code highlight:3]
 export default {
   data () {
     return {
@@ -33,6 +34,20 @@ export default {
 ```
 
 ## Custom Containers
+
+- [ ] unchecked
+- [x] checked
+1. order1
+2. order2
+
+---
+
+~~刪除線~~  
+**粗體**  
+*斜體*  
+> 單層引用
+> > 兩層引用
+
 
 **Input**
 
@@ -74,9 +89,10 @@ This is a warning.
 
 ::: danger
 This is a dangerous warning.
+This is a dangerous warning.This is a dangerous warning.
 :::
 
-::: details
+::: details 
 This is a details block.
 :::
 

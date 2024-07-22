@@ -1,38 +1,42 @@
-import { createContentLoader } from "vitepress";
-import type { SiteConfig } from "vitepress";
-import useGithubArticles from "../../utils/useGithubArticles";
-import matter from "gray-matter";
-import _ from "lodash";
-
-const config: SiteConfig = globalThis.VITEPRESS_CONFIG;
-const { map } = config.rewrites;
+import { createContentLoader, defineLoader } from "vitepress";
+import useGithubArticles from "../utils/useGithubArticles.ts";
+import useDataTime from "../utils/useDateTime.ts";
+import useArticleUrl from "../utils/useArticleUrl.ts";
+import type { BasicFrontmatter } from "../utils/useBasicFrontmatter.ts";
 
 const ignoredPaths = ["/articles/[title].html", "/"];
 
-export default createContentLoader("**/*.md", {
-	transform: async (files) => {
-		const { getArticles } = useGithubArticles();
-		type ArticleRoute = {
-			frontmatter: Record<string, any>;
-			url: string;
-		};
+export interface Data {
+	url: string;
+	excerpt: string;
+	frontmatter: BasicFrontmatter;
+}
 
-		const articleRoutes: ArticleRoute[] = (await getArticles())
-			.map(({ name, content }) => {
-				if (typeof content !== "string") {
-					return;
-				}
-				const { data: frontmatter } = matter(content);
-				return { frontmatter, url: "/articles/" + name.replace(/\.md$/, "") };
-			})
-			.filter((article): article is ArticleRoute => !!article);
+declare const data: Data[];
+export { data };
 
-		return articleRoutes
-			.concat(files)
-			.filter(({ url }) => !ignoredPaths.includes(url))
-			.map((file) => {
-				file.url = (map[_.trimStart(file.url, "/") + ".md"] ?? file.url).replace(/\index.md$/, "");
-				return file;
-			});
-	},
-});
+export default defineLoader(
+	createContentLoader("**/*.md", {
+		transform: async (): Promise<Data[]> => {
+			const { getMatteredArticles } = useGithubArticles();
+
+			const articleRoutes = await getMatteredArticles();
+
+			const { parseFromTZ } = useDataTime();
+			const { formatUrlByRewrites } = useArticleUrl();
+
+			return articleRoutes
+				.filter(({ filepath }) => !ignoredPaths.includes(filepath))
+				.map(
+					({ filepath, frontmatter, excerpt }): Data => ({
+						url: formatUrlByRewrites(filepath),
+						excerpt,
+						frontmatter,
+					})
+				)
+				.sort(({ frontmatter: { date: dateA } }, { frontmatter: { date: dateB } }) => {
+					return parseFromTZ(dateB).toMillis() - parseFromTZ(dateA).toMillis();
+				});
+		},
+	})
+);

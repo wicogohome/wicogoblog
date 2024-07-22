@@ -1,4 +1,4 @@
-import useGithubArticles from "../../utils/useGithubArticles";
+import useGithubArticles from "../../.vitepress/utils/useGithubArticles.ts";
 
 export default {
 	async paths() {
