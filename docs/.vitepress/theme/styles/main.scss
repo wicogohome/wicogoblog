@@ -21,7 +21,7 @@
 		@apply md:leading-normal #{!important};
 	}
 	.category-title {
-		@apply text-4xl lg:text-5xl uppercase font-semibold ;
+		@apply text-3xl lg:text-5xl uppercase font-semibold ;
 	}
 
 	.article-title {
@@ -29,16 +29,16 @@
 	}
 
 	.article-content {
-		@apply text-lg leading-8 tracking-wide text-white-default/85  whitespace-break-spaces break-words overflow-x-auto;
+		@apply text-lg leading-8 tracking-wide text-white-default/75  break-words overflow-x-auto;
 
 			h1 {
-				@apply text-5xl font-medium border-b-[1px] border-white-light/20 pb-2 mb-2 mt-4;
+				@apply text-5xl font-medium text-white-default/85 border-b-[1px] border-white-light/20 pb-2 mb-2 mt-4;
 			}
 			h2 {
-				@apply text-4xl font-medium  border-b-[1px] border-white-light/20 pb-2 mb-2 mt-6;
+				@apply text-4xl font-medium text-white-default/85 border-b-[1px] border-white-light/20 pb-2 mb-2 mt-6;
 			}
 			h3 {
-				@apply text-3xl  mb-2 mt-6;
+				@apply text-3xl text-white-default/85 mb-2 mt-6;
 			}
 			h4 {
 				@apply text-2xl font-medium mb-2 mt-6;
@@ -51,7 +51,7 @@
 			}
 
 			p {
-				@apply my-2;
+				@apply my-4;
 			}
 
 			table{

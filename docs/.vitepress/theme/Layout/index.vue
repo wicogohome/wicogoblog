@@ -54,7 +54,7 @@ export default {
 			<BlogHeader />
 
 			<div class="flex relative h-full my-10">
-				<div class="flex-shrink-0 hidden sm:flex">
+				<div class="flex-shrink-0 hidden md:flex">
 					<h1
 						class="group cursor-pointer category-title sticky top-11 z-40 max-h-[85vh] h-fit text-white-default/80 flex gap-2"
 						@click="backToTop"
@@ -65,15 +65,15 @@ export default {
 						<div class="group-hover:-rotate-90 transition-transform align-bottom h-fit">></div>
 					</h1>
 				</div>
-				<div class="max-w-3xl mx-auto flex">
+				<div class="max-w-3xl mx-auto">
 					<component
 						:is="currentContent"
-						class="md:w-[640px] px-1 w-main-content"
+						class="px-1 w-main-content md:w-big-main-content lg:max-w-2xl"
 					></component>
 				</div>
 				<TOCSidebar
 					v-if="isArticle"
-					class="flex-grow-0 w-44 hidden lg:block"
+					class="max-w-44 hidden xl:block"
 				></TOCSidebar>
 			</div>
 
