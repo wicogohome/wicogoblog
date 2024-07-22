@@ -1,0 +1,153 @@
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer base {
+	html {
+		@apply font-noto bg-black-textured text-white-default md:text-xl text-base  tracking-wide font-light scroll-smooth;
+	}
+
+}
+
+
+@layer utilities {
+	.title {
+		@apply text-2xl ;
+	}
+	.website-title {
+		@apply md:text-8xl text-2xl font-zilla text-yellow-dark ;
+		@apply md:leading-normal #{!important};
+	}
+	.category-title {
+		@apply text-3xl lg:text-5xl uppercase font-semibold ;
+	}
+
+	.article-title {
+		@apply md:text-5xl text-4xl font-bold ;
+	}
+
+	.article-content {
+		@apply text-lg leading-8 tracking-wide text-white-default/75  break-words overflow-x-auto;
+
+			h1 {
+				@apply text-5xl font-medium text-white-default/85 border-b-[1px] border-white-light/20 pb-2 mb-2 mt-4;
+			}
+			h2 {
+				@apply text-4xl font-medium text-white-default/85 border-b-[1px] border-white-light/20 pb-2 mb-2 mt-6;
+			}
+			h3 {
+				@apply text-3xl text-white-default/85 mb-2 mt-6;
+			}
+			h4 {
+				@apply text-2xl font-medium mb-2 mt-6;
+			}
+			h5 {
+				@apply text-2xl mb-2 mt-6;
+			}
+			h6 {
+				@apply text-xl font-medium mb-2 mt-6;
+			}
+
+			p {
+				@apply my-4;
+			}
+
+			table{
+				@apply overflow-x-auto block ;
+			}
+			tbody, tr {
+				@apply border border-white-default/70  w-fit;
+			}
+
+			td, th {
+				@apply p-2  text-center;
+			}
+			th, 
+			td:first-child,
+			tr:hover {
+				@apply bg-white-light/20;
+	
+			}
+			a {
+				@apply text-yellow-dark underline-offset-4  underline;
+			}
+
+			blockquote {
+				@apply border-l-4 pl-4 border-gray-400;
+				p {
+					@apply text-gray-400;
+				}
+			}
+			
+			hr {
+				@apply text-white-light/20 ;
+			}
+
+
+			ol {
+				@apply list-decimal pl-6;
+				
+			}
+
+			ul {
+				@apply list-disc  pl-6;
+			}
+			ol.task-list, ul.task-list {
+				@apply list-none;
+			}
+
+			code {
+				@apply ml-1;
+			}
+
+			a[href]{
+				@apply break-words;
+			}
+
+			.custom-block {
+				@apply p-4 border rounded-lg my-4 border-lime-50;
+
+				p {
+					@apply m-0 leading-normal;
+				}
+				.custom-block-title {
+					@apply font-bold mb-2;
+				}
+				&.info {
+					background-color: rgba(158, 231, 145, 0.5);
+				}
+
+				&.tip {
+					background-color:  rgba(145, 200, 231, 0.5);
+				}
+				&.warning {
+					background-color: rgba(231, 215, 145, 0.5);
+				}
+
+				&.danger {
+					background-color: rgba(227, 104, 56, 0.5);
+				}
+
+				&.details {
+					background-color: rgba(211, 210, 195, 0.5);
+				}
+			}
+
+			[class*=language-] {
+				@apply bg-codeblock rounded p-4 relative overflow-x-auto ;
+
+				.lang {
+					@apply absolute right-2 top-1 font-light opacity-40 text-base ;
+	
+				}
+				.highlighted {
+					@apply bg-highlignt -ml-4 pl-4 w-codeblock-line inline-block;
+				
+				}
+	
+			}
+	
+	}
+}
