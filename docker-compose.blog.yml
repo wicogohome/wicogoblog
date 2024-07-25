@@ -6,7 +6,7 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./dist/main/:/usr/share/nginx/html
+      - ./dist/blog/:/usr/share/nginx/html
 
 networks:
   backend:
