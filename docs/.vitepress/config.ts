@@ -69,7 +69,6 @@ export default defineConfig(
 		// sitemap: {
 		// 	hostname: "https://wicotang.com/blog/",
 		// },
-		base: "/blog/",
 		outDir: "../dist/blog/",
 		srcDir,
 		lastUpdated: true,

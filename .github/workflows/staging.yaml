@@ -3,6 +3,8 @@ name: Staging
 on:
   push:
     branches: ["develop"]
+  repository_dispatch:
+    types: [trigger-staging-workflow]
 
 jobs:
   build-and-deploy:

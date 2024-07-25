@@ -1,10 +1,19 @@
-name: Staging
+name: Manual Deploy
 on:
   workflow_dispatch:
+    inputs:
+      environment:
+        description: "ENV"
+        required: true
+        default: "staging"
+        type: choice
+        options:
+          - staging
+          - production
 
 jobs:
   build-and-deploy:
     uses: ./.github/workflows/build-and-deploy.yaml
     with:
-      env: staging
+      env: ${{ inputs.environment }}
     secrets: inherit
