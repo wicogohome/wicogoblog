@@ -1,5 +1,6 @@
 export interface BasicFrontmatter {
 	title: string;
+	description: string | null;
 	tags: Array<string>;
 	date: string;
 	ogUrl: string;
@@ -11,6 +12,7 @@ export interface BasicFrontmatter {
 export default function useBasicFrontmatter() {
 	function formatWithDefault({
 		title,
+		description,
 		tags,
 		date,
 		ogUrl,
@@ -18,7 +20,7 @@ export default function useBasicFrontmatter() {
 		category,
 		url,
 	}: BasicFrontmatter): BasicFrontmatter {
-		return { title, tags: tags ?? [], date, ogUrl, lastUpdated, category: category ?? "未分類", url };
+		return { title, description, tags: tags ?? [], date, ogUrl, lastUpdated, category: category ?? "未分類", url };
 	}
 	return { formatWithDefault };
 }
