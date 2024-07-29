@@ -27,6 +27,7 @@ export default defineComponent({
 	>
 		<div class="cursor-pointer md:h-60 h-40 overflow-hidden relative">
 			<img
+				alt="post-cover"
 				:src="ogUrl"
 				class="absolute blur-lg"
 			/>

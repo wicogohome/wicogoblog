@@ -25,7 +25,7 @@ export default function useBasicFrontmatter() {
 			description,
 			tags: tags ?? [],
 			date,
-			ogUrl: ogUrl ?? "/default-cover.jpeg",
+			ogUrl: ogUrl ?? "/default-cover.webp",
 			lastUpdated,
 			category: category ?? "未分類",
 			url,

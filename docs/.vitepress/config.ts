@@ -126,7 +126,7 @@ export default defineConfig(
 					"meta",
 					{
 						name: "og:image",
-						content: pageData.frontmatter.ogUrl ?? "/default-cover.jpeg",
+						content: pageData.frontmatter.ogUrl ?? "/default-cover.webp",
 					},
 				],
 				[
