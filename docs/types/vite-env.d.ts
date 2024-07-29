@@ -11,7 +11,9 @@ interface ImportMetaEnv {
 	VITE_GITHUB_REPO: string;
 	VITE_GITHUB_PATH: string;
 	VITE_PAGINATION: number;
+	VITE_LIST_PAGINATION: number;
 	VITE_PREVIEW_UNPUBLISHED: boolean;
+	VITE_HOSTNAME: string | null;
 }
 
 interface ImportMeta {

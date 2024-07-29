@@ -20,7 +20,16 @@ export default function useBasicFrontmatter() {
 		category,
 		url,
 	}: BasicFrontmatter): BasicFrontmatter {
-		return { title, description, tags: tags ?? [], date, ogUrl, lastUpdated, category: category ?? "未分類", url };
+		return {
+			title,
+			description,
+			tags: tags ?? [],
+			date,
+			ogUrl: ogUrl ?? "/default-cover.jpeg",
+			lastUpdated,
+			category: category ?? "未分類",
+			url,
+		};
 	}
 	return { formatWithDefault };
 }
