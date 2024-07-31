@@ -99,7 +99,7 @@ export default function useGithubArticles() {
 
 	function formatContent(oriContent) {
 		if (typeof oriContent !== "string") {
-			return;
+			return {};
 		}
 
 		const {
@@ -124,7 +124,7 @@ export default function useGithubArticles() {
 		});
 
 		if (env.VITE_PREVIEW_UNPUBLISHED !== "true" && !published) {
-			return;
+			return {};
 		}
 
 		const formattedFrontmatter = formatWithDefault({

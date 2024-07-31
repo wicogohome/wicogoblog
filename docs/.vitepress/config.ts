@@ -70,9 +70,9 @@ export default defineConfig(
 				},
 			],
 		],
-		// sitemap: {
-		// 	hostname: "https://wicotang.com/blog/",
-		// },
+		sitemap: {
+			hostname: "https://blog.wicotang.com/",
+		},
 		outDir: "../dist/blog/",
 		srcDir,
 		lastUpdated: true,
