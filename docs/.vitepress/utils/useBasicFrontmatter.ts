@@ -1,6 +1,6 @@
 export interface BasicFrontmatter {
 	title: string;
-	description: string | null;
+	description: string;
 	tags: Array<string>;
 	date: string;
 	ogUrl: string;

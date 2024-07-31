@@ -97,7 +97,7 @@ export default function useGithubArticles() {
 		return cachedMatteredArticles;
 	}
 
-	function formatContent(oriContent) {
+	function formatContent(oriContent: string | null) {
 		if (typeof oriContent !== "string") {
 			return {};
 		}

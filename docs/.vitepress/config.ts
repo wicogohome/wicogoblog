@@ -2,11 +2,14 @@ import { defineConfig } from "vitepress";
 import { fileURLToPath, URL } from "url";
 
 import _ from "lodash";
-import eslint from "vite-plugin-eslint";
+import eslint from "@yf-ui/vite-plugin-eslint";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import markdownItCheckbox from "markdown-it-task-checkbox";
 import useGithubArticles from "./utils/useGithubArticles.ts";
-import useViteEnv from "./utils/useViteEnv.js";
+import useViteEnv from "./utils/useViteEnv.ts";
+
+import type { PageData, SiteConfig, MarkdownRenderer } from "vitepress";
+
 const srcDir: string = "posts/";
 interface Rewrites {
 	[index: string]: string;
@@ -79,7 +82,7 @@ export default defineConfig(
 		markdown: {
 			// shiki
 			theme: "vitesse-dark",
-			config: (md: MarkdownIt) => {
+			config: (md: MarkdownRenderer) => {
 				md.use(markdownItCheckbox, {
 					disabled: true,
 					divWrap: false,
@@ -105,7 +108,7 @@ export default defineConfig(
 			},
 		},
 		rewrites,
-		async transformPageData(pageData, { siteConfig: { site } }) {
+		async transformPageData(pageData: PageData, { siteConfig: { site } }: { siteConfig: SiteConfig }) {
 			pageData.frontmatter.head ??= [];
 			pageData.frontmatter.head.push(
 				[
