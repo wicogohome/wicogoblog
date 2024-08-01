@@ -27,28 +27,30 @@ export default defineComponent({
 
 <template>
 	<div class="relative">
-		<div class="flex justify-between">
-			<a :href="withBase('/categories/' + articleFrontmatter.category + '/')"
-				>{{ `< ${articleFrontmatter.category} >` }}
-			</a>
-
-			<div
-				v-if="articleFrontmatter.tags"
-				class="text-yellow-dark font-semibold text-right"
-			>
-				<a
-					v-for="(tag, index) in articleFrontmatter.tags"
-					:key="index"
-					:href="withBase('/tags/' + tag + '/')"
-				>
-					#{{ tag }}
+		<template v-if="articleFrontmatter.title">
+			<div class="flex justify-between">
+				<a :href="withBase('/categories/' + articleFrontmatter.category + '/')"
+					>{{ `< ${articleFrontmatter.category} >` }}
 				</a>
-			</div>
-		</div>
 
-		<div class="article-title">{{ articleFrontmatter.title }}</div>
-		<p class="md:text-4xl text-3xl font-bold text-yellow-dark my-2">| {{ createdAt }}</p>
-		<hr />
+				<div
+					v-if="articleFrontmatter.tags"
+					class="text-yellow-dark font-semibold text-right"
+				>
+					<a
+						v-for="(tag, index) in articleFrontmatter.tags"
+						:key="index"
+						:href="withBase('/tags/' + tag + '/')"
+					>
+						#{{ tag }}
+					</a>
+				</div>
+			</div>
+
+			<div class="article-title">{{ articleFrontmatter.title }}</div>
+			<p class="md:text-4xl text-3xl font-bold text-yellow-dark my-2">| {{ createdAt }}</p>
+			<hr />
+		</template>
 		<Content class="article-content mb-16" />
 		<div class="grid md:grid-cols-5 m-4 gap-4">
 			<PrevButton

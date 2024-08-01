@@ -31,9 +31,14 @@ export default function useGithubArticles() {
 	}
 
 	type Directory = components["schemas"]["content-directory"];
-	let cachedArticles: Directory = [];
+	interface Article {
+		name: string;
+		frontmatter?: BasicFrontmatter | Record<string, never>;
+		content?: string | null;
+	}
+	let cachedArticles: Article[] = [];
 
-	async function getArticles(): Promise<Directory> {
+	async function getArticles(): Promise<Article[]> {
 		if (cachedArticles.length > 0) {
 			return cachedArticles;
 		}
@@ -43,17 +48,23 @@ export default function useGithubArticles() {
 		cachedArticles = await Promise.all(
 			articles
 				.filter(({ name }) => !ignoredNames.includes(name))
-				.map(async (article) => {
+				.map(async (article): Promise<Article> => {
 					if (article?.download_url) {
-						const content = await fetch(article.download_url)
+						const oriContent = await fetch(article.download_url)
 							.then((res) => res.blob())
 							.then((blob: Blob): Promise<string> => blob.text());
+
+						const { frontmatter = {}, content = null } = formatContent(oriContent);
+
 						return {
-							...article,
+							name: article.name,
+							frontmatter,
 							content,
 						};
 					}
-					return article;
+					return {
+						name: article.name,
+					};
 				})
 		);
 
@@ -64,7 +75,6 @@ export default function useGithubArticles() {
 		filepath: string;
 		filename: string;
 		frontmatter: BasicFrontmatter;
-		excerpt: string;
 	}
 	let cachedMatteredArticles: MatteredArticle[] = [];
 	const { formatWithDefault } = useBasicFrontmatter();
@@ -73,40 +83,73 @@ export default function useGithubArticles() {
 			return cachedMatteredArticles;
 		}
 		cachedMatteredArticles = (await getArticles())
-			.map(({ name, content }) => {
+			.map(({ name, frontmatter, content }) => {
 				if (typeof content !== "string") {
 					return;
 				}
-				function getFirstEightLines(file: GrayMatterFile<Input>): () => string {
-					file.excerpt = file.content
-						.split("\n")
-						.filter((line) => !_.startsWith(line, "#") && !_.startsWith(line, "!"))
-						.slice(0, 8)
-						.join(" ");
-					return () => file.excerpt as string;
-				}
-				const {
-					data: { title, tags, date, og_url: ogUrl, last_updated: lastUpdated, category, url, published },
-					excerpt,
-				} = matter(content, {
-					// TODO 型別
-					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-					// @ts-expect-error
-					excerpt: getFirstEightLines,
-				});
-
-				if (env.VITE_PREVIEW_UNPUBLISHED !== "true" && !published) {
-					return;
-				}
 				return {
-					frontmatter: formatWithDefault({ title, tags, date, ogUrl, lastUpdated, category, url }),
+					frontmatter,
 					filepath: "/articles/" + name,
 					filename: name,
-					excerpt: excerpt,
 				};
 			})
 			.filter((article): article is MatteredArticle => !!article);
 		return cachedMatteredArticles;
+	}
+
+	function formatContent(oriContent: string | null) {
+		if (typeof oriContent !== "string") {
+			return {};
+		}
+
+		const {
+			data: {
+				title,
+				description,
+				tags,
+				date,
+				og_url: ogUrl,
+				last_updated: lastUpdated,
+				category,
+				url,
+				published,
+			},
+			excerpt,
+			content,
+		} = matter(oriContent, {
+			// TODO 型別
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			excerpt: getFirstEightLines,
+		});
+
+		if (env.VITE_PREVIEW_UNPUBLISHED !== "true" && !published) {
+			return {};
+		}
+
+		const formattedFrontmatter = formatWithDefault({
+			title,
+			description: description ?? excerpt,
+			tags,
+			date,
+			ogUrl,
+			lastUpdated,
+			category,
+			url,
+		});
+
+		return {
+			frontmatter: formattedFrontmatter,
+			content: matter.stringify(content, formattedFrontmatter),
+		};
+	}
+	function getFirstEightLines(file: GrayMatterFile<Input>): () => string {
+		file.excerpt = file.content
+			.split("\n")
+			.filter((line) => !_.startsWith(line, "#") && !_.startsWith(line, "!"))
+			.slice(0, 8)
+			.join(" ");
+		return () => file.excerpt as string;
 	}
 
 	return { getArticles, getMatteredArticles };

@@ -9,6 +9,7 @@ import type { ComputedRef } from "vue";
 
 export interface ArticleFrontmatter {
 	title: string;
+	description: string | null;
 	tags: Array<string>;
 	date: DateTime | null;
 	ogUrl: string;
@@ -31,41 +32,44 @@ export default function useFrontmatter() {
 	const { formatWithDefault } = useBasicFrontmatter();
 
 	const articleFrontmatter: ComputedRef<ArticleFrontmatter> = computed(() => {
-		const formatedFrontmatter = formatWithDefault({
+		const formattedFrontmatter = formatWithDefault({
 			title: frontmatter.value.title,
+			description: frontmatter.value.description,
 			tags: frontmatter.value.tags,
 			date: frontmatter.value.date,
-			ogUrl: frontmatter.value.og_url,
-			lastUpdated: frontmatter.value.last_updated,
+			ogUrl: frontmatter.value.ogUrl ?? frontmatter.value.og_url,
+			lastUpdated: frontmatter.value.lastUpdated ?? frontmatter.value.last_updated,
 			category: frontmatter.value.category,
 			url: frontmatter.value.url,
 		});
 
 		const currentIndex = _.findIndex(
 			posts,
-			({ frontmatter: { title, url } }) => title === formatedFrontmatter.title && url === formatedFrontmatter.url
+			({ frontmatter: { title, url } }) =>
+				title === formattedFrontmatter.title && url === formattedFrontmatter.url
 		);
 		const next = currentIndex > -1 ? posts[currentIndex - 1] ?? null : null;
 		const prev = currentIndex > -1 ? posts[currentIndex + 1] ?? null : null;
 
 		let date = null;
 		if ("date" in frontmatter.value) {
-			date = parseFromTZ(formatedFrontmatter.date);
+			date = parseFromTZ(formattedFrontmatter.date);
 		}
 
 		let lastUpdated = null;
 		if ("last_updated" in frontmatter.value) {
-			lastUpdated = parseFromTZ(formatedFrontmatter.lastUpdated);
+			lastUpdated = parseFromTZ(formattedFrontmatter.lastUpdated);
 		}
 
 		return {
-			title: formatedFrontmatter.title,
-			tags: formatedFrontmatter.tags,
+			title: formattedFrontmatter.title,
+			description: formattedFrontmatter.description,
+			tags: formattedFrontmatter.tags,
 			date,
-			ogUrl: formatedFrontmatter.ogUrl,
+			ogUrl: formattedFrontmatter.ogUrl,
 			lastUpdated,
-			category: formatedFrontmatter.category,
-			url: formatedFrontmatter.url,
+			category: formattedFrontmatter.category,
+			url: formattedFrontmatter.url,
 			next: next
 				? {
 						title: next.frontmatter.title,

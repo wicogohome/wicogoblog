@@ -11,8 +11,8 @@ export default {
 		extend: {
 			backgroundImage: {
 				"black-textured":
-					"linear-gradient(to bottom, rgba(62,63,59,0.5) ,rgba(62,63,59,0.5)), url('/black-concrete-textured.jpg')",
-				headshot: "url('/headshot.jpg')",
+					"linear-gradient(to bottom, rgba(62,63,59,0.5) ,rgba(62,63,59,0.5)), url('/black-textured.webp')",
+				headshot: "url('/headshot.webp')",
 			},
 			fontFamily: {
 				sans: ["Inter", "sans-serif"],

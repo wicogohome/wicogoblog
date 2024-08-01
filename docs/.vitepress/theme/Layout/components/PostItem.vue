@@ -6,13 +6,13 @@ export default defineComponent({
 	name: "PostItem",
 	props: {
 		title: { type: String, default: null },
+		description: { type: String, default: null },
 		url: { type: String, default: null },
 		category: { type: String, default: null },
 		tags: { type: Array, default: () => [] },
 		date: { type: String, default: null },
 		lastUpdated: { type: String, default: null },
 		ogUrl: { type: String, default: null },
-		excerpt: { type: String, default: null },
 	},
 	setup() {
 		const { toDateString } = useDateTime();
@@ -27,6 +27,7 @@ export default defineComponent({
 	>
 		<div class="cursor-pointer md:h-60 h-40 overflow-hidden relative">
 			<img
+				alt="post-cover"
 				:src="ogUrl"
 				class="absolute blur-lg"
 			/>
@@ -63,7 +64,7 @@ export default defineComponent({
 			</div>
 
 			<p class="text-sm line-clamp-3">
-				{{ excerpt }}
+				{{ description }}
 			</p>
 		</div>
 	</li>

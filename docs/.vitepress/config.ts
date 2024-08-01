@@ -2,10 +2,13 @@ import { defineConfig } from "vitepress";
 import { fileURLToPath, URL } from "url";
 
 import _ from "lodash";
-import eslint from "vite-plugin-eslint";
+import eslint from "@yf-ui/vite-plugin-eslint";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import markdownItCheckbox from "markdown-it-task-checkbox";
 import useGithubArticles from "./utils/useGithubArticles.ts";
+import useViteEnv from "./utils/useViteEnv.ts";
+
+import type { PageData, SiteConfig, MarkdownRenderer } from "vitepress";
 
 const srcDir: string = "posts/";
 interface Rewrites {
@@ -18,13 +21,13 @@ const rewrites: Rewrites = {
 };
 
 // add pagination
-const PAGINATION_PREFIXS = [
+const PAGINATION_PREFIXES = [
 	{ name: "categories", param: "category" },
 	{ name: "tags", param: "tag" },
 	{ name: "list", param: "list", withIndex: true },
 	{ name: null, param: null },
 ];
-PAGINATION_PREFIXS.forEach(({ name, param, withIndex = false }) => {
+PAGINATION_PREFIXES.forEach(({ name, param, withIndex = false }) => {
 	if (!name || !param) {
 		rewrites["pages/1.md"] = "index.md";
 		rewrites["pages/:page.md"] = "pages/:page/index.md";
@@ -42,18 +45,22 @@ PAGINATION_PREFIXS.forEach(({ name, param, withIndex = false }) => {
 // add articles
 const { getMatteredArticles } = useGithubArticles();
 const pages = await getMatteredArticles();
+
 pages.forEach(({ filepath, filename, frontmatter: { url, date } }) => {
 	const formattedDate = new Date(date);
 	rewrites[_.trimStart(filepath, "/")] =
 		`${formattedDate.getFullYear()}/${formattedDate.getMonth() + 1}/${formattedDate.getDate()}/${url ?? filename.replace(/\.md$/, "")}/index.md`;
 });
 
+const { getEnvBy } = useViteEnv();
+const hostname = getEnvBy("VITE_HOSTNAME");
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig(
 	withMermaid({
 		lang: "zh-TW",
 		title: "WicoGotBlog",
-		description: "A VitePress Site",
+		description: "Wico的個人部落格，主要為Web開發紀錄與活動心得。",
 		head: [
 			["link", { rel: "icon", href: "/favicon.ico" }], // example
 			["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
@@ -66,16 +73,16 @@ export default defineConfig(
 				},
 			],
 		],
-		// sitemap: {
-		// 	hostname: "https://wicotang.com/blog/",
-		// },
+		sitemap: {
+			hostname: "https://blog.wicotang.com/",
+		},
 		outDir: "../dist/blog/",
 		srcDir,
 		lastUpdated: true,
 		markdown: {
 			// shiki
 			theme: "vitesse-dark",
-			config: (md: MarkdownIt) => {
+			config: (md: MarkdownRenderer) => {
 				md.use(markdownItCheckbox, {
 					disabled: true,
 					divWrap: false,
@@ -101,5 +108,45 @@ export default defineConfig(
 			},
 		},
 		rewrites,
+		async transformPageData(pageData: PageData, { siteConfig: { site } }: { siteConfig: SiteConfig }) {
+			pageData.frontmatter.head ??= [];
+			pageData.frontmatter.head.push(
+				[
+					"meta",
+					{
+						name: "og:title",
+						content: pageData.title.length === 0 ? site.title : pageData.title,
+					},
+				],
+				[
+					"meta",
+					{
+						name: "og:description",
+						content: pageData.description.length === 0 ? site.description : pageData.description,
+					},
+				],
+				[
+					"meta",
+					{
+						name: "og:image",
+						content: pageData.frontmatter.ogUrl ?? "/default-cover.webp",
+					},
+				],
+				[
+					"meta",
+					{
+						name: "og:url",
+						content: `${hostname}/${pageData.relativePath?.replace("index.md", "")}`,
+					},
+				],
+				[
+					"meta",
+					{
+						name: "og:locale",
+						content: "zh_TW",
+					},
+				]
+			);
+		},
 	})
 );
