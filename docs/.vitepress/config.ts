@@ -109,6 +109,25 @@ export default defineConfig(
 		},
 		rewrites,
 		async transformPageData(pageData: PageData, { siteConfig: { site } }: { siteConfig: SiteConfig }) {
+			if (
+				pageData.title.length === 0 &&
+				pageData.frontmatter.titleTemplate &&
+				pageData.frontmatter.layout !== "Article"
+			) {
+				const {
+					frontmatter: { titleTemplate },
+					params = {},
+				} = pageData;
+
+				const paramRegex = /:(\w+)/g;
+				const templateParams = titleTemplate.replace(
+					paramRegex,
+					(match: string, param: string) => params[param] ?? match
+				);
+
+				pageData.frontmatter.title = pageData.title = templateParams;
+				pageData.frontmatter.titleTemplate = pageData.titleTemplate = false; // 避免VitePress重複處理
+			}
 			pageData.frontmatter.head ??= [];
 			pageData.frontmatter.head.push(
 				[
