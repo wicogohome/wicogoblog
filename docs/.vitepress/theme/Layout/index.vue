@@ -55,7 +55,7 @@ export default {
 
 			<div class="flex relative h-full my-10">
 				<div class="flex-shrink-0 hidden md:flex">
-					<h1
+					<div
 						class="group cursor-pointer category-title sticky top-11 z-40 max-h-[85vh] h-fit text-white-default/80 flex gap-2"
 						@click="backToTop"
 					>
@@ -63,7 +63,7 @@ export default {
 							{{ mainFrontmatter?.title ?? mainFrontmatter?.category ?? mainFrontmatter?.layout }}
 						</span>
 						<div class="group-hover:-rotate-90 transition-transform align-bottom h-fit">></div>
-					</h1>
+					</div>
 				</div>
 				<div class="max-w-3xl mx-auto">
 					<component

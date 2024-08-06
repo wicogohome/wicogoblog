@@ -47,7 +47,7 @@ export default defineComponent({
 				</div>
 			</div>
 
-			<div class="article-title">{{ articleFrontmatter.title }}</div>
+			<h1 class="article-title">{{ articleFrontmatter.title }}</h1>
 			<p class="md:text-4xl text-3xl font-bold text-yellow-dark my-2">| {{ createdAt }}</p>
 			<hr />
 		</template>
