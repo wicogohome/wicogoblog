@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 import { fileURLToPath, URL } from "url";
 
 import _ from "lodash";
-import eslint from "@yf-ui/vite-plugin-eslint";
+import eslint from "vite-plugin-eslint";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import markdownItCheckbox from "markdown-it-task-checkbox";
 import useGithubArticles from "./utils/useGithubArticles.ts";
