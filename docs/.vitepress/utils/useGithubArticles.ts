@@ -1,6 +1,5 @@
 import { Octokit } from "@octokit/rest";
 import { GetResponseTypeFromEndpointMethod } from "@octokit/types";
-import { components } from "@octokit/openapi-types";
 import matter from "gray-matter";
 import type { GrayMatterFile, Input } from "gray-matter";
 import useViteEnv from "./useViteEnv.ts";
@@ -10,6 +9,20 @@ import _ from "lodash";
 
 const { getEnv } = useViteEnv();
 const env = getEnv();
+
+export interface Article {
+	filepath: string;
+	filename: string;
+	frontmatter: BasicFrontmatter;
+	content: string;
+}
+
+interface NullableArticle {
+	filepath: string;
+	filename: string;
+	frontmatter: BasicFrontmatter | Record<string, never>;
+	content: string | null;
+}
 
 export default function useGithubArticles() {
 	const octokit = new Octokit({
@@ -30,12 +43,6 @@ export default function useGithubArticles() {
 		return data;
 	}
 
-	type Directory = components["schemas"]["content-directory"];
-	interface Article {
-		name: string;
-		frontmatter?: BasicFrontmatter | Record<string, never>;
-		content?: string | null;
-	}
 	let cachedArticles: Article[] = [];
 
 	async function getArticles(): Promise<Article[]> {
@@ -43,59 +50,39 @@ export default function useGithubArticles() {
 			return cachedArticles;
 		}
 		const data = await getContents();
-		const articles = (!Array.isArray(data) ? [data] : data) as Directory;
+		const articles = !Array.isArray(data) ? [data] : data;
 		const ignoredNames = [".obsidian"];
-		cachedArticles = await Promise.all(
-			articles
-				.filter(({ name }) => !ignoredNames.includes(name))
-				.map(async (article): Promise<Article> => {
-					if (article?.download_url) {
-						const oriContent = await fetch(article.download_url)
+		cachedArticles = (
+			await Promise.all(
+				articles
+					.filter(
+						({ name, download_url: downloadUrl }) => !ignoredNames.includes(name) && downloadUrl !== null
+					)
+					.map(async ({ name, download_url: downloadUrl }): Promise<NullableArticle> => {
+						if (downloadUrl === null) {
+							throw new Error(`Article ${name} has no download URL`);
+						}
+
+						const oriContent = await fetch(downloadUrl)
 							.then((res) => res.blob())
 							.then((blob: Blob): Promise<string> => blob.text());
 
 						const { frontmatter = {}, content = null } = formatContent(oriContent);
 
 						return {
-							name: article.name,
+							filename: name,
+							filepath: `/articles/${name}`,
 							frontmatter,
 							content,
 						};
-					}
-					return {
-						name: article.name,
-					};
-				})
-		);
+					})
+			)
+		).filter(({ content }) => typeof content === "string") as Article[];
 
 		return cachedArticles;
 	}
 
-	interface MatteredArticle {
-		filepath: string;
-		filename: string;
-		frontmatter: BasicFrontmatter;
-	}
-	let cachedMatteredArticles: MatteredArticle[] = [];
 	const { formatWithDefault } = useBasicFrontmatter();
-	async function getMatteredArticles(): Promise<MatteredArticle[]> {
-		if (cachedMatteredArticles.length > 0) {
-			return cachedMatteredArticles;
-		}
-		cachedMatteredArticles = (await getArticles())
-			.map(({ name, frontmatter, content }) => {
-				if (typeof content !== "string") {
-					return;
-				}
-				return {
-					frontmatter,
-					filepath: "/articles/" + name,
-					filename: name,
-				};
-			})
-			.filter((article): article is MatteredArticle => !!article);
-		return cachedMatteredArticles;
-	}
 
 	function formatContent(oriContent: string | null) {
 		if (typeof oriContent !== "string") {
@@ -152,5 +139,5 @@ export default function useGithubArticles() {
 		return () => file.excerpt as string;
 	}
 
-	return { getArticles, getMatteredArticles };
+	return { getArticles };
 }

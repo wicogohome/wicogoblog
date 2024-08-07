@@ -43,8 +43,8 @@ PAGINATION_PREFIXES.forEach(({ name, param, withIndex = false }) => {
 });
 
 // add articles
-const { getMatteredArticles } = useGithubArticles();
-const pages = await getMatteredArticles();
+const { getArticles } = useGithubArticles();
+const pages = await getArticles();
 
 pages.forEach(({ filepath, filename, frontmatter: { url, date } }) => {
 	const formattedDate = new Date(date);

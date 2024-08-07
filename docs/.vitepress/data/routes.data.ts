@@ -17,9 +17,9 @@ export { data };
 export default defineLoader(
 	createContentLoader("**/*.md", {
 		transform: async (): Promise<Data[]> => {
-			const { getMatteredArticles } = useGithubArticles();
+			const { getArticles } = useGithubArticles();
 
-			const articleRoutes = await getMatteredArticles();
+			const articleRoutes = await getArticles();
 
 			const { parseFromTZ } = useDataTime();
 			const { formatUrlByRewrites } = useArticleUrl();
