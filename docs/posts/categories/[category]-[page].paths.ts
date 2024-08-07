@@ -1,35 +1,24 @@
-import _ from "lodash";
 import useGithubArticles from "../../.vitepress/utils/useGithubArticles.ts";
 import useViteEnv from "../../.vitepress/utils/useViteEnv.ts";
+import usePagination from "../../.vitepress/utils/usePagination.ts";
+
+const { createPaginatedParams, createIndexParam } = usePagination();
+
 export default {
 	async paths() {
 		const { getEnvBy } = useViteEnv();
+		const { getArticles } = useGithubArticles();
+
 		const pagination = getEnvBy("VITE_PAGINATION", 10) as number;
+		const articles = await getArticles();
 
-		const { getMatteredArticles } = useGithubArticles();
-		const articles = await getMatteredArticles();
+		const categoryParams = createPaginatedParams(
+			articles,
+			({ frontmatter: { category } }) => category,
+			"category",
+			pagination
+		);
 
-		return _(articles)
-			.groupBy("frontmatter.category")
-			.mapValues((articles, category) =>
-				_(_.range(1, articles.length + 1))
-					.chunk(pagination)
-					.map((_articles, page) => ({
-						params: {
-							category,
-							page: page + 1,
-						},
-					}))
-					.value()
-			)
-			.values()
-			.flatten()
-			.value()
-			.concat({
-				params: {
-					category: "index",
-					page: 1,
-				},
-			});
+		return [...categoryParams, createIndexParam("category")];
 	},
 };
