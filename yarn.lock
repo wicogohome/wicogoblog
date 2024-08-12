@@ -1271,15 +1271,6 @@
   dependencies:
     vue-demi ">=0.14.8"
 
-"@yf-ui/vite-plugin-eslint@^1.8.2":
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/@yf-ui/vite-plugin-eslint/-/vite-plugin-eslint-1.8.2.tgz#eb0f2372392ab59a4ea65504c7d9d46e29291edf"
-  integrity sha512-mjyTdjaj0hKsBmNtOp/WwomUgksM6Xd+V522/vEpSkUXU7uf8c89rpr3bzLhUbpq802JSeXs5lm3fZRCdKvNRA==
-  dependencies:
-    "@rollup/pluginutils" "^4.2.1"
-    "@types/eslint" "^8.4.5"
-    rollup "^2.77.2"
-
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
@@ -2195,7 +2186,7 @@ eslint-visitor-keys@^3.3.0, eslint-visitor-keys@^3.4.1, eslint-visitor-keys@^3.4
   resolved "https://registry.yarnpkg.com/eslint-visitor-keys/-/eslint-visitor-keys-3.4.3.tgz#0cd72fe8550e3c2eae156a96a4dddcd1c8ac5800"
   integrity sha512-wpc+LXeiyiisxPlEkUzU6svyS1frIO3Mgxj1fdy7Pm8Ygzguax2N3Fa/D/ag1WqbOprdI+uY6wMUl8/a2G+iag==
 
-eslint@^8.51.0, eslint@^8.57.0, eslint@^8.7.0:
+eslint@^8.51.0, eslint@^8.7.0, eslint@~8.57.0:
   version "8.57.0"
   resolved "https://registry.yarnpkg.com/eslint/-/eslint-8.57.0.tgz#c786a6fd0e0b68941aaf624596fb987089195668"
   integrity sha512-dZ6+mexnaTIbSBZWgou51U6OmzIhYM2VcNdtiTtI7qPNZm35Akpr0f6vtw3w1Kmn5PYo+tZVfh13WrhpS6oLqQ==
@@ -4114,6 +4105,15 @@ v8-compile-cache-lib@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/v8-compile-cache-lib/-/v8-compile-cache-lib-3.0.1.tgz#6336e8d71965cb3d35a1bbb7868445a7c05264bf"
   integrity sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==
+
+vite-plugin-eslint@^1.8.1:
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/vite-plugin-eslint/-/vite-plugin-eslint-1.8.1.tgz#0381b8272e7f0fd8b663311b64f7608d55d8b04c"
+  integrity sha512-PqdMf3Y2fLO9FsNPmMX+//2BF5SF8nEWspZdgl4kSt7UvHDRHVVfHvxsD7ULYzZrJDGRxR81Nq7TOFgwMnUang==
+  dependencies:
+    "@rollup/pluginutils" "^4.2.1"
+    "@types/eslint" "^8.4.5"
+    rollup "^2.77.2"
 
 vite@^5.1.6, vite@^5.3.3:
   version "5.3.5"

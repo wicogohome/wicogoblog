@@ -5,6 +5,8 @@ declare module "*.vue" {
 	const component: DefineComponent<{}, {}, any>;
 	export default component;
 }
+
+declare module "vite-plugin-eslint";
 declare module "markdown-it-task-checkbox";
 declare module "vitepress-plugin-mermaid" {
 	import type { UserConfig, DefaultTheme } from "vitepress";

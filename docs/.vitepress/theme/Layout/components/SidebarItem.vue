@@ -22,7 +22,7 @@ export default defineComponent({
 		>
 			<a
 				:href="link"
-				class="hover:text-yellow-default whitespace-nowrap"
+				class="hover:text-yellow-default break-keep whitespace-break-spaces text-sm"
 				>{{ title }}</a
 			>
 			<SidebarItem

@@ -48,8 +48,8 @@ export default function useFrontmatter() {
 			({ frontmatter: { title, url } }) =>
 				title === formattedFrontmatter.title && url === formattedFrontmatter.url
 		);
-		const next = currentIndex > -1 ? posts[currentIndex - 1] ?? null : null;
-		const prev = currentIndex > -1 ? posts[currentIndex + 1] ?? null : null;
+		const next = currentIndex > -1 ? (posts[currentIndex - 1] ?? null) : null;
+		const prev = currentIndex > -1 ? (posts[currentIndex + 1] ?? null) : null;
 
 		let date = null;
 		if ("date" in frontmatter.value) {
@@ -57,7 +57,7 @@ export default function useFrontmatter() {
 		}
 
 		let lastUpdated = null;
-		if ("last_updated" in frontmatter.value) {
+		if ("lastUpdated" in frontmatter.value) {
 			lastUpdated = parseFromTZ(formattedFrontmatter.lastUpdated);
 		}
 

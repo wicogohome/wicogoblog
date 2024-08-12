@@ -2,12 +2,13 @@ import { defineConfig } from "vitepress";
 import { fileURLToPath, URL } from "url";
 
 import _ from "lodash";
-import eslint from "@yf-ui/vite-plugin-eslint";
+import eslint from "vite-plugin-eslint";
 import { withMermaid } from "vitepress-plugin-mermaid";
 import markdownItCheckbox from "markdown-it-task-checkbox";
 import useGithubArticles from "./utils/useGithubArticles.ts";
 import useViteEnv from "./utils/useViteEnv.ts";
-
+import useDateTime from "./utils/useDateTime.ts";
+import { DateTime } from "luxon";
 import type { PageData, SiteConfig, MarkdownRenderer } from "vitepress";
 
 const srcDir: string = "posts/";
@@ -43,8 +44,8 @@ PAGINATION_PREFIXES.forEach(({ name, param, withIndex = false }) => {
 });
 
 // add articles
-const { getMatteredArticles } = useGithubArticles();
-const pages = await getMatteredArticles();
+const { getArticles } = useGithubArticles();
+const pages = await getArticles();
 
 pages.forEach(({ filepath, filename, frontmatter: { url, date } }) => {
 	const formattedDate = new Date(date);
@@ -53,8 +54,13 @@ pages.forEach(({ filepath, filename, frontmatter: { url, date } }) => {
 });
 
 const { getEnvBy } = useViteEnv();
-const hostname = getEnvBy("VITE_HOSTNAME");
+const hostname = getEnvBy("VITE_HOSTNAME") as string;
 
+const { parseFromTZ } = useDateTime();
+const links: {
+	url: string;
+	lastmod?: string | number | Date;
+}[] = [];
 // https://vitepress.dev/reference/site-config
 export default defineConfig(
 	withMermaid({
@@ -74,7 +80,11 @@ export default defineConfig(
 			],
 		],
 		sitemap: {
-			hostname: "https://blog.wicotang.com/",
+			hostname,
+			transformItems: (items) => {
+				const mergedItems = links.concat(items);
+				return _.unionBy(mergedItems, "url");
+			},
 		},
 		outDir: "../dist/blog/",
 		srcDir,
@@ -108,6 +118,17 @@ export default defineConfig(
 			},
 		},
 		rewrites,
+		transformHtml: (_, id, { pageData }) => {
+			if (!/[\\/]404\.html$/.test(id)) {
+				links.push({
+					url: pageData.relativePath?.replace("index.md", ""),
+					lastmod: (pageData.frontmatter?.lastUpdated
+						? parseFromTZ(pageData.frontmatter.lastUpdated)
+						: DateTime.now()
+					).toISODate() as string,
+				});
+			}
+		},
 		async transformPageData(pageData: PageData, { siteConfig: { site } }: { siteConfig: SiteConfig }) {
 			if (
 				pageData.title.length === 0 &&

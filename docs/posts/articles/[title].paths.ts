@@ -3,12 +3,11 @@ import useGithubArticles from "../../.vitepress/utils/useGithubArticles.ts";
 export default {
 	async paths() {
 		const { getArticles } = useGithubArticles();
+		const articles = await getArticles();
 
-		const articles = (await getArticles()).filter(({ content }) => typeof content === "string");
-
-		return articles.map(({ name, content }) => ({
+		return articles.map(({ filename, content }) => ({
 			params: {
-				title: name.replace(/\.md$/, ""),
+				title: filename.replace(/\.md$/, ""),
 			},
 			content,
 		}));
