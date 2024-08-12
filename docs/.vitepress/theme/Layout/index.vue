@@ -43,7 +43,10 @@ export default {
 		function backToTop() {
 			window.scrollTo({ top: 0, behavior: "smooth" });
 		}
-		return { withBase, mainFrontmatter, currentContent, isArticle, backToTop };
+		const categoryTitle = computed(
+			() => mainFrontmatter.value?.title ?? mainFrontmatter.value?.category ?? mainFrontmatter.value?.layout
+		);
+		return { withBase, mainFrontmatter, currentContent, isArticle, categoryTitle, backToTop };
 	},
 };
 </script>
@@ -59,8 +62,11 @@ export default {
 						class="group cursor-pointer category-title sticky top-11 z-40 max-h-[85vh] h-fit text-white-default/80 flex gap-2"
 						@click="backToTop"
 					>
-						<span class="vertical-rl">
-							{{ mainFrontmatter?.title ?? mainFrontmatter?.category ?? mainFrontmatter?.layout }}
+						<span
+							class="vertical-rl"
+							:class="{ 'text-2xl lg:text-4xl': categoryTitle.length > 25 }"
+						>
+							{{ categoryTitle }}
 						</span>
 						<div class="group-hover:-rotate-90 transition-transform align-bottom h-fit">></div>
 					</div>

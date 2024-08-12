@@ -27,13 +27,14 @@ export default defineComponent({
 	>
 		<div class="cursor-pointer md:h-60 h-40 overflow-hidden relative">
 			<img
-				alt="post-cover"
+				alt="post-cover-bg"
 				:src="ogUrl"
 				class="absolute blur-lg"
 			/>
 			<a :href="withBase(url)">
 				<div class="absolute w-full h-full">
 					<img
+						alt="post-cover"
 						:src="ogUrl"
 						class="max-h-full m-auto"
 					/>
@@ -42,16 +43,16 @@ export default defineComponent({
 		</div>
 
 		<div class="p-4">
-			{{ toDateString(date) }}
-			<div class="flex justify-between">
+			<div class="flex justify-between flex-wrap">
+				<p class="basis-full text-sm">{{ toDateString(date) }}</p>
 				<a
 					:href="withBase(url)"
-					class="title"
+					class="title md:basis-3/4 basis-full md:order-none font-medium"
 					>{{ title ?? url }}</a
 				>
 				<div
 					v-if="tags.length > 0"
-					class="text-yellow-dark font-semibold text-right"
+					class="text-yellow-dark font-semibold md:text-right md:basis-1/4 basis-full order-first md:order-none"
 				>
 					<a
 						v-for="(tag, index) in tags"
@@ -63,7 +64,7 @@ export default defineComponent({
 				</div>
 			</div>
 
-			<p class="text-sm line-clamp-3">
+			<p class="text-sm line-clamp-3 text-white-default/80">
 				{{ description }}
 			</p>
 		</div>
