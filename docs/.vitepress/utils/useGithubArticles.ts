@@ -23,7 +23,7 @@ interface NullableArticle {
 	frontmatter: BasicFrontmatter | Record<string, never>;
 	content: string | null;
 }
-
+const LINES_COUNT = 6;
 export default function useGithubArticles() {
 	const octokit = new Octokit({
 		auth: env.VITE_GITHUB_TOKEN,
@@ -44,6 +44,8 @@ export default function useGithubArticles() {
 	}
 
 	let cachedArticles: Article[] = [];
+
+	const hasValidContent = (content: string | null): boolean => typeof content === "string" && content.length > 0;
 
 	async function getArticles(): Promise<Article[]> {
 		if (cachedArticles.length > 0) {
@@ -77,15 +79,15 @@ export default function useGithubArticles() {
 						};
 					})
 			)
-		).filter(({ content }) => typeof content === "string") as Article[];
+		).filter(({ content }) => hasValidContent(content)) as Article[];
 
 		return cachedArticles;
 	}
 
 	const { formatWithDefault } = useBasicFrontmatter();
 
-	function formatContent(oriContent: string | null) {
-		if (typeof oriContent !== "string") {
+	function formatContent(oriContent: string) {
+		if (!hasValidContent(oriContent)) {
 			return {};
 		}
 
@@ -107,7 +109,7 @@ export default function useGithubArticles() {
 			// TODO 型別
 			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 			// @ts-expect-error
-			excerpt: getFirstEightLines,
+			excerpt: getFirstNLines,
 		});
 
 		if (env.VITE_PREVIEW_UNPUBLISHED !== "true" && !published) {
@@ -130,11 +132,11 @@ export default function useGithubArticles() {
 			content: matter.stringify(content, formattedFrontmatter),
 		};
 	}
-	function getFirstEightLines(file: GrayMatterFile<Input>): () => string {
+	function getFirstNLines(file: GrayMatterFile<Input>): () => string {
 		file.excerpt = file.content
 			.split("\n")
-			.filter((line) => !_.startsWith(line, "#") && !_.startsWith(line, "!"))
-			.slice(0, 8)
+			.filter((line) => !_.startsWith(line, "#") && !_.startsWith(line, "!") && !_.startsWith(line, "```"))
+			.slice(0, LINES_COUNT)
 			.join(" ");
 		return () => file.excerpt as string;
 	}
