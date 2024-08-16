@@ -5,7 +5,30 @@
 @tailwind utilities;
 
 @layer base {
-	h1 {
-		@apply text-red-500;
+	html::before {
+		@apply  -z-10 fixed bg-yellow-textured opacity-70 bg-cover min-h-screen  w-full;
+		content: "";
+	  }
+	  
+	html {
+		@apply  font-noto bg-yellow-light md:text-xl text-base text-black tracking-wide font-light scroll-smooth ;
+	}
+}
+@layer utilities {
+	.title {
+		@apply text-2xl ;
+	}
+	.website-title {
+		@apply md:text-6xl text-4xl font-zilla text-black tracking-normal whitespace-pre;
+		@apply leading-normal #{!important};
+	}
+
+	
+	.category-title {
+		@apply text-3xl lg:text-5xl uppercase font-semibold ;
+	}
+
+	.article-title {
+		@apply md:text-5xl text-4xl font-bold ;
 	}
 }

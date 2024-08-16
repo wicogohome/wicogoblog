@@ -1,34 +1,25 @@
-<script setup lang="ts">
-import HelloWorld from "./components/HelloWorld.vue";
+<script lang="ts">
+import { defineComponent } from "vue";
+import PortfolioContent from "./components/PortfolioContent.vue";
+import PortfolioSidebar from "./components/PortfolioSidebar.vue";
+export default defineComponent({
+	name: "App",
+	components: { PortfolioContent, PortfolioSidebar },
+	setup() {
+		return {};
+	},
+});
 </script>
 
 <template>
-	<div>
-		<a
-			href="https://vuejs.org/"
-			target="_blank"
-		>
-			<img
-				src="./assets/vue.svg"
-				class="logo vue"
-				alt="Vue logo"
-			/>
-		</a>
-	</div>
-	<HelloWorld msg="Vite + Vue" />
-</template>
+	<div class="flex justify-around min-h-screen">
+		<div class="w-full flex flex-col min-h-screen flex-auto">
+			<PortfolioContent class="flex relative h-full" />
+			<footer class="text-center">
+				<p>Copyright © 2024 WicoTang</p>
+			</footer>
+		</div>
 
-<style scoped>
-.logo {
-	height: 6em;
-	padding: 1.5em;
-	will-change: filter;
-	transition: filter 300ms;
-}
-.logo:hover {
-	filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-	filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+		<PortfolioSidebar class="w-20"></PortfolioSidebar>
+	</div>
+</template>
