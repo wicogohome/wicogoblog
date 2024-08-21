@@ -17,8 +17,8 @@ export default {
 			},
 			fontFamily: {
 				sans: ["Inter", "sans-serif"],
-				noto: ["Georama", "Noto Sans TC"],
-				zilla: ["Zilla Slab Highlight"],
+				noto: ["Georama", "Zilla Slab", "Noto Sans TC"],
+				"zilla-highlight": ["Zilla Slab Highlight"],
 			},
 			colors: {
 				transparent: "transparent",

@@ -19,7 +19,7 @@
 		@apply text-2xl ;
 	}
 	.website-title {
-		@apply md:text-6xl text-4xl font-zilla text-black tracking-normal whitespace-pre;
+		@apply md:text-6xl text-4xl font-zilla-highlight text-black tracking-normal whitespace-pre;
 		@apply leading-normal #{!important};
 	}
 
