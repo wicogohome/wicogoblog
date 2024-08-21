@@ -1,15 +1,18 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
+import useContent from "@/utils/useContent.ts";
 
 export default defineComponent({
 	name: "PortfolioSidebar",
 	components: {},
 	setup() {
 		const isOpen = ref(false);
+		const { lang, toggleLang } = useContent();
+
 		const links = [
 			{
 				title: "Blog",
-				url: "https://blog.wicontang.com",
+				url: "https://blog.wicotang.com",
 			},
 			{
 				title: "How to Do This",
@@ -34,7 +37,7 @@ export default defineComponent({
 				},
 			},
 		];
-		return { isOpen, links, actions };
+		return { isOpen, links, actions, lang, toggleLang };
 	},
 });
 </script>
@@ -42,13 +45,12 @@ export default defineComponent({
 <template>
 	<div
 		class="transition-all z-50 outline-white-default sm:outline outline-1 min-h-screen"
-		:class="
-			isOpen
-				? 'sm:w-52 w-screen sm:relative absolute bg-white-light/90 sm:bg-white-light/20'
-				: 'sm:relative absolute right-1 sm:bg-white-light/20 bg-none'
-		"
+		:class="isOpen ? 'sm:w-52 w-screen sm:relative absolute ' : 'sm:relative absolute right-1'"
 	>
-		<nav class="fixed flex flex-col justify-between p-6 h-full sm:w-auto w-full">
+		<nav
+			class="fixed flex flex-col justify-between p-6 h-full sm:w-auto w-full"
+			:class="isOpen ? 'bg-white-light/90 sm:bg-white-light/20' : 'sm:bg-white-light/20 bg-none'"
+		>
 			<div>
 				<FontAwesomeIcon
 					:icon="[isOpen ? 'fa-solid' : 'fa-regular', 'fa-map']"
@@ -56,6 +58,12 @@ export default defineComponent({
 					class="text-black cursor-pointer"
 					@click="isOpen = !isOpen"
 				/>
+				<div
+					class="cursor-pointer text-sm uppercase"
+					@click="toggleLang"
+				>
+					{{ lang }}
+				</div>
 				<ul
 					v-if="isOpen"
 					class="flex flex-col text-right gap-y-3 mt-4"

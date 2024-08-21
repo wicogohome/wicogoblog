@@ -13,7 +13,7 @@ export default defineComponent({
 
 <template>
 	<div class="flex justify-around min-h-screen">
-		<div class="w-full flex flex-col min-h-screen flex-auto">
+		<div class="w-full flex flex-col min-h-screen flex-auto overflow-hidden">
 			<PortfolioContent class="flex relative h-full" />
 			<footer class="text-center">
 				<p>Copyright © 2024 WicoTang</p>

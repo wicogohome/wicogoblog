@@ -13,7 +13,23 @@
 	html {
 		@apply  font-noto bg-yellow-light md:text-xl text-base text-black tracking-wide font-light scroll-smooth ;
 	}
+
+	h3 {
+		@apply md:text-4xl text-3xl font-zilla-highlight text-black tracking-normal whitespace-pre;
+		@apply leading-normal #{!important};
+	}
+
+	p {
+		@apply text-sm;
+	}
+	a[href]{
+		@apply font-zilla-highlight tracking-normal text-xs ;
+
+	}
+
 }
+
+
 @layer utilities {
 	.title {
 		@apply text-2xl ;
