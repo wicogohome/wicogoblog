@@ -67,7 +67,7 @@ export default defineComponent({
 		<template #content>
 			<div
 				v-if="images?.left"
-				class="basis-full md:basis-1/2 mb-4"
+				class="basis-full md:basis-1/2 mb-4 print:basis-3/4"
 			>
 				<ImageViewer
 					:src="images?.left"
@@ -128,7 +128,7 @@ export default defineComponent({
 
 			<div
 				v-if="images?.right"
-				class="basis-full md:basis-1/2 translate-x-6"
+				class="basis-full md:basis-1/2 translate-x-6 print:basis-3/4"
 			>
 				<ImageViewer
 					:src="images?.right"

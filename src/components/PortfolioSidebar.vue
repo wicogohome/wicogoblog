@@ -1,5 +1,6 @@
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import _ from "lodash";
+import { computed, defineComponent, ref } from "vue";
 import useContent from "@/utils/useContent.ts";
 
 export default defineComponent({
@@ -8,8 +9,14 @@ export default defineComponent({
 	setup() {
 		const isOpen = ref(false);
 		const { lang, toggleLang } = useContent();
+		const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
-		const links = [
+		interface Link {
+			title: string;
+			url: string;
+		}
+
+		const links: Link[] = [
 			{
 				title: "Blog",
 				url: "https://blog.wicotang.com",
@@ -23,20 +30,38 @@ export default defineComponent({
 				url: "https://www.cakeresume.com/me/jia-ying-tang",
 			},
 		];
-		const actions = [
-			{
-				title: "Download this Page",
-				action: () => {
-					console.log("TODO download");
+		interface Action {
+			title: string;
+			action: () => void;
+		}
+
+		const actions = computed((): Action[] => {
+			return _.filter([
+				isMobile
+					? null
+					: {
+							title: "Download this Page",
+							action: () => {
+								window.print();
+							},
+						},
+				{
+					title: "Request an interview",
+					action: () => {
+						sendEmail();
+					},
 				},
-			},
-			{
-				title: "Request an interview",
-				action: () => {
-					console.log("TODO Request");
-				},
-			},
-		];
+			]) as Action[];
+		});
+
+		function sendEmail() {
+			const email = "wicotang@gmail.com";
+			const subject = "Request an interview";
+
+			const mailtoLink = "mailto:" + email + "?subject=" + encodeURIComponent(subject);
+
+			window.location.href = mailtoLink;
+		}
 		return { isOpen, links, actions, lang, toggleLang };
 	},
 });
@@ -44,7 +69,7 @@ export default defineComponent({
 
 <template>
 	<div
-		class="transition-all z-50 outline-white-default sm:outline outline-1 min-h-screen"
+		class="transition-all z-50 outline-white-default sm:outline outline-1 min-h-screen print:hidden"
 		:class="isOpen ? 'sm:w-52 w-screen sm:relative absolute ' : 'sm:relative absolute right-0'"
 	>
 		<nav

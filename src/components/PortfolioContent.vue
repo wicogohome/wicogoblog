@@ -36,10 +36,10 @@ export default defineComponent({
 
 <template>
 	<div class="relative m-8">
-		<div class="relative mx-auto lg:w-3/4 inset-x-0 flex flex-col gap-8">
+		<div class="relative mx-auto lg:w-3/4 inset-x-0 flex flex-col gap-8 print:w-full">
 			<SVGBackground
 				:url="MainCard"
-				class=""
+				class="print:w-2/3"
 			>
 				<div class="relative z-10">
 					<h1 class="website-title">
@@ -50,7 +50,7 @@ export default defineComponent({
 					<p class="md:indent-28 indent-16 text-sm">3 years +</p>
 				</div>
 				<div
-					class="transition-transform absolute lg:left-3/4 md:left-2/3 md:top-2/3 sm:top-3/4 left-3/4 top-[100px] w-full hidden sm:block"
+					class="transition-transform absolute lg:left-3/4 md:left-2/3 md:top-2/3 sm:top-3/4 left-3/4 top-[100px] w-full hidden sm:block print:hidden"
 				>
 					<img
 						src="@/assets/headshot.webp"
@@ -64,7 +64,7 @@ export default defineComponent({
 					</div>
 				</div>
 			</SVGBackground>
-			<div class="flex">
+			<div class="flex print:w-2/3">
 				<div class="flex flex-col w-1/2 gap-4">
 					<div class="flex justify-center">
 						<SVGBackground
@@ -110,10 +110,9 @@ export default defineComponent({
 					<a href="https://blog.wicotang.com/categories/部落格製作/">Read More</a>
 				</template>
 			</ProjectGroup>
-
 			<SVGBackground
 				:url="Circle"
-				class="h-96"
+				class="h-96 print:w-2/3"
 			>
 				<h2 class="website-title">{{ " Experiences " }}</h2>
 				<p>
@@ -127,6 +126,7 @@ export default defineComponent({
 					<li>NTUA, BFA, Graphic Communication of Arts, 2016 ~ 2020</li>
 				</ul>
 			</SVGBackground>
+
 			<BasicCard>
 				<template #title>{{ ` Certifications & Skills` }}</template>
 				<template #url>
@@ -134,25 +134,23 @@ export default defineComponent({
 					<img />
 				</template>
 				<template #content>
-					<div class="basis-full pl-12">
-						<ul class="list-disc list-inside">
-							<li>Languages: PHP, JavaScript, TypeScript, node.js</li>
-							<li>Frameworks & Libraries: Laravel, Vue.js, TailwindCSS, jQuery, Bootstrap</li>
-							<li>Cloud: GCP, Firebase, Heroku, AWS</li>
-							<li>Frontend：HTML5, Vite, Webpack, Lodash</li>
-							<li>Backend：Mysql, CashFlow, Export/Import xls/pdf Report</li>
-							<li>Deploy：Docker, GitHub Actions, GitLab Runner</li>
-							<li>Cloud：AWS（Certified SAA）, GCP, Firebase, Heroku</li>
-							<li>Flows: Git Flow, Scrum</li>
-							<li>Others: Nginx, Apache, Test</li>
-						</ul>
-					</div>
+					<ul class="list-disc list-inside pl-12">
+						<li>Languages: PHP, JavaScript, TypeScript, node.js</li>
+						<li>Frameworks & Libraries: Laravel, Vue.js, TailwindCSS, jQuery, Bootstrap</li>
+						<li>Cloud: GCP, Firebase, Heroku, AWS</li>
+						<li>Frontend：HTML5, Vite, Webpack, Lodash</li>
+						<li>Backend：Mysql, CashFlow, Export/Import xls/pdf Report</li>
+						<li>Deploy：Docker, GitHub Actions, GitLab Runner</li>
+						<li>Cloud：AWS（Certified SAA）, GCP, Firebase, Heroku</li>
+						<li>Flows: Git Flow, Scrum</li>
+						<li>Others: Nginx, Apache, Test</li>
+					</ul>
 				</template>
 			</BasicCard>
 
 			<SVGBackground
 				:url="Sector"
-				class="w-1/2 mb-12"
+				class="w-1/2 mb-12 mih-h-12"
 			>
 				<div class="relative sm:w-52 sm:h-40 w-32 h-32">
 					<div class="absolute bottom-0">
