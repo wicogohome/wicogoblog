@@ -39,7 +39,7 @@ export default defineComponent({
 
 		<template v-if="mode === 'bg'">
 			<div
-				class="md:bg-contain bg-no-repeat py-12 md:aspect-[4/3] bg-cover rounded-lg"
+				class="md:bg-contain bg-no-repeat py-12 bg-cover rounded-lg bg-center"
 				:style="setBGStyle(url)"
 			>
 				<div class="-translate-x-6">

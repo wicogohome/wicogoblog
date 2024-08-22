@@ -2,6 +2,7 @@
 import { defineComponent, computed } from "vue";
 import SVGBackground from "./SVGBackground.vue";
 import ProjectGroup from "./ProjectGroup.vue";
+import BasicCard from "./BasicCard.vue";
 import useContent from "@/utils/useContent.ts";
 
 import MainCard from "@/assets/main-card.svg";
@@ -13,7 +14,7 @@ import Sector from "@/assets/sector.svg";
 
 export default defineComponent({
 	name: "PortfolioContent",
-	components: { SVGBackground, ProjectGroup },
+	components: { SVGBackground, ProjectGroup, BasicCard },
 	setup() {
 		const { lang, getWorks, getProjects } = useContent();
 		const works = computed(() => getWorks(lang.value));
@@ -35,7 +36,7 @@ export default defineComponent({
 
 <template>
 	<div class="relative m-8">
-		<div class="relative mx-auto lg:w-3/4 inset-x-0 flex flex-col gap-4">
+		<div class="relative mx-auto lg:w-3/4 inset-x-0 flex flex-col gap-8">
 			<SVGBackground
 				:url="MainCard"
 				class=""
@@ -79,6 +80,25 @@ export default defineComponent({
 				</div>
 			</div>
 
+			<SVGBackground
+				:url="TopicCard"
+				mode="bg"
+			>
+				<h2 class="website-title">{{ " Summary " }}</h2>
+				<p>
+					Possesses project and time management skills along with good communication abilities, capable of
+					balancing code quality and requirements within project timelines.
+				</p>
+				<ul class="list-disc list-inside">
+					<li>Languages: PHP, JavaScript, TypeScript, node.js</li>
+					<li>Frameworks & Libraries: Laravel, Vue.js, TailwindCSS</li>
+					<li>Cloud: GCP, Firebase, Heroku, AWS (Certified SAA)</li>
+					<li>CI/CD: Docker, GitHub Actions, GitLab Runner</li>
+					<li>Flows: Git Flow, Scrum</li>
+					<li>Others: Nginx, Apache, MySQL</li>
+				</ul>
+			</SVGBackground>
+
 			<!-- Works -->
 			<h2 class="website-title">{{ " Works " }}</h2>
 			<ProjectGroup :projects="works"> </ProjectGroup>
@@ -86,29 +106,60 @@ export default defineComponent({
 			<!-- Projects -->
 			<h2 class="website-title">{{ " Projects " }}</h2>
 			<ProjectGroup :projects="projects">
-				<template #WicoGotBlog> read more </template>
+				<template #WicoGotBlog>
+					<a href="https://blog.wicotang.com/categories/部落格製作/">Read More</a>
+				</template>
 			</ProjectGroup>
 
-			<SVGBackground :url="Circle">
+			<SVGBackground
+				:url="Circle"
+				class="h-96"
+			>
 				<h2 class="website-title">{{ " Experiences " }}</h2>
-				三年前/後端正職經驗，共五年相關經驗 -
-				具備專案與時間管理以及良好的溝通能力，能夠在專案時間內掌握程式碼品質與需求的平衡
-				<ul class="list-disc list-inside">
-					<li>程式語言：PHP, JavaScript</li>
-					<li>框架和函式庫：Laravel, Vue.js, jQuery, Bootstrap</li>
-					<li>開發工具和環境：Git, GCP, Firebase, Heroku, MySQL, AWS</li>
-					<li>設計工具：Photoshop, Illustrator, InDesign, Adobe XD</li>
-					<li>frontend：HTML5 JavaScript Vue.js 3/2 Vite TailwindCSS Webpack jQuery Bootstrap</li>
-					<li>backend：PHP Laravel Mysql Cash flow</li>
-					<li>Deploy：Docker k8s GitHub Actions GitLab Runner</li>
-					<li>Cloud：AWS（Certified SAA） GCP Firebase</li>
-					<li>basic：git scrum Test</li>
+				<p>
+					Three years of full-time front-end/back-end experience, with a total of five years of relevant
+					experience.
+				</p>
+				<ul class="list-disc list-inside pl-12">
+					<li>CAYIN Technology, Research & Development, 2021.04 ~ 2024.03</li>
+					<li>Bili digital information, Software Engineer (Intern & Full time), 2020.02 ~ 2021.03</li>
+					<li>E-service Information Corporation, Software Engineer (Intern), 2018.07 ~ 2019.07</li>
+					<li>NTUA, BFA, Graphic Communication of Arts, 2016 ~ 2020</li>
 				</ul>
 			</SVGBackground>
+			<BasicCard>
+				<template #title>{{ ` Certifications & Skills` }}</template>
+				<template #url>
+					<a href="https://www.credly.com/users/jia-ying-tang">AWS Certification (Credly)</a>
+					<img />
+				</template>
+				<template #content>
+					<div class="basis-full pl-12">
+						<ul class="list-disc list-inside">
+							<li>Languages: PHP, JavaScript, TypeScript, node.js</li>
+							<li>Frameworks & Libraries: Laravel, Vue.js, TailwindCSS, jQuery, Bootstrap</li>
+							<li>Cloud: GCP, Firebase, Heroku, AWS</li>
+							<li>Frontend：HTML5, Vite, Webpack, Lodash</li>
+							<li>Backend：Mysql, CashFlow, Export/Import xls/pdf Report</li>
+							<li>Deploy：Docker, GitHub Actions, GitLab Runner</li>
+							<li>Cloud：AWS（Certified SAA）, GCP, Firebase, Heroku</li>
+							<li>Flows: Git Flow, Scrum</li>
+							<li>Others: Nginx, Apache, Test</li>
+						</ul>
+					</div>
+				</template>
+			</BasicCard>
 
-			<SVGBackground :url="Sector"
-				><h2 class="website-title">{{ " CONTACT with ME " }}</h2>
-				wicotang@gmail.com
+			<SVGBackground
+				:url="Sector"
+				class="w-1/2 mb-12"
+			>
+				<div class="relative sm:w-52 sm:h-40 w-32 h-32">
+					<div class="absolute bottom-0">
+						<h2 class="website-title">{{ " CONTACT with ME " }}</h2>
+						<p class="indent-8 bg-white-default/90">>> wicotang@gmail.com</p>
+					</div>
+				</div>
 			</SVGBackground>
 		</div>
 	</div>

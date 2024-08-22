@@ -10,7 +10,7 @@ const en = {
 		{
 			name: "poster",
 			urls: [
-				"https://www.cayintechnical.com/tw/digital-signage-products/software/poster.html",
+				"https://www.cayintech.com/tw/digital-signage-products/software/poster.html",
 				"https://poster.gocayin.com",
 			],
 			skills: ["Vue3", "Frontend", "Backend", "TailwindCSS"],
@@ -30,7 +30,7 @@ const en = {
 		},
 		{
 			name: "GO CAYIN",
-			urls: ["https://www.cayintechnical.com/tw/gocayin/gocayin.html", "https://gocayin.com"],
+			urls: ["https://www.cayintech.com/tw/gocayin/gocayin.html", "https://gocayin.com"],
 			skills: ["Vue3", "Laravel", "Frontend", "Backend", "CI/CD", "AWS", "Subscription", "Docker"],
 			intro: "A subscription-based SaaS platform available in personal and organizational versions, offering digital products and cloud storage subscriptions.",
 			contents: {
@@ -105,7 +105,7 @@ const zhTW = {
 		{
 			name: "poster",
 			urls: [
-				"https://www.cayintechnical.com/tw/digital-signage-products/software/poster.html",
+				"https://www.cayintech.com/tw/digital-signage-products/software/poster.html",
 				"https://poster.gocayin.com",
 			],
 			skills: ["Vue3", "Frontend", "Backend", "TailwindCSS"],
@@ -125,7 +125,7 @@ const zhTW = {
 		},
 		{
 			name: "GO CAYIN",
-			urls: ["https://www.cayintechnical.com/tw/gocayin/gocayin.html", "https://gocayin.com"],
+			urls: ["https://www.cayintech.com/tw/gocayin/gocayin.html", "https://gocayin.com"],
 			skills: ["Vue3", "Laravel", "Frontend", "Backend", "CI/CD", "AWS", "Subscription", "Docker"],
 			intro: "訂閱制的SaaS平台，分為個人與組織版，提供數位產品與雲端容量訂閱。",
 			contents: {

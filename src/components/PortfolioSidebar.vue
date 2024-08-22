@@ -45,7 +45,7 @@ export default defineComponent({
 <template>
 	<div
 		class="transition-all z-50 outline-white-default sm:outline outline-1 min-h-screen"
-		:class="isOpen ? 'sm:w-52 w-screen sm:relative absolute ' : 'sm:relative absolute right-1'"
+		:class="isOpen ? 'sm:w-52 w-screen sm:relative absolute ' : 'sm:relative absolute right-0'"
 	>
 		<nav
 			class="fixed flex flex-col justify-between p-6 h-full sm:w-auto w-full"
