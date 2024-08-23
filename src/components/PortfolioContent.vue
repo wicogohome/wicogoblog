@@ -16,13 +16,20 @@ export default defineComponent({
 	name: "PortfolioContent",
 	components: { SVGBackground, ProjectGroup, BasicCard },
 	setup() {
-		const { lang, getWorks, getProjects } = useContent();
+		const { lang, getWorks, getProjects, getSummary, getExperiences, getSkills } = useContent();
 		const works = computed(() => getWorks(lang.value));
 		const projects = computed(() => getProjects(lang.value));
+		const summary = computed(() => getSummary(lang.value));
+		const experiences = computed(() => getExperiences(lang.value));
+		const skills = getSkills();
 
 		return {
 			works,
 			projects,
+			summary,
+			experiences,
+			skills,
+
 			MainCard,
 			TopicCard,
 			Lines,
@@ -84,27 +91,27 @@ export default defineComponent({
 				:url="TopicCard"
 				mode="bg"
 			>
-				<h2 class="website-title">{{ " Summary " }}</h2>
-				<p>
-					Possesses project and time management skills along with good communication abilities, capable of
-					balancing code quality and requirements within project timelines.
+				<h2 class="title">Summary</h2>
+				<p class="mb-4">
+					{{ summary.intro }}
 				</p>
-				<ul class="list-disc list-inside">
-					<li>Languages: PHP, JavaScript, TypeScript, node.js</li>
-					<li>Frameworks & Libraries: Laravel, Vue.js, TailwindCSS</li>
-					<li>Cloud: GCP, Firebase, Heroku, AWS (Certified SAA)</li>
-					<li>CI/CD: Docker, GitHub Actions, GitLab Runner</li>
-					<li>Flows: Git Flow, Scrum</li>
-					<li>Others: Nginx, Apache, MySQL</li>
+				<ul class="list-disc list-inside text-xs pl-12">
+					<li
+						v-for="(list, key) in summary.lists"
+						:key="key"
+						class="mb-2"
+					>
+						{{ list }}
+					</li>
 				</ul>
 			</SVGBackground>
 
 			<!-- Works -->
-			<h2 class="website-title">{{ " Works " }}</h2>
+			<h2 class="title">Works</h2>
 			<ProjectGroup :projects="works"> </ProjectGroup>
 
 			<!-- Projects -->
-			<h2 class="website-title">{{ " Projects " }}</h2>
+			<h2 class="title">Projects</h2>
 			<ProjectGroup :projects="projects">
 				<template #WicoGotBlog>
 					<a href="https://blog.wicotang.com/categories/部落格製作/">Read More</a>
@@ -114,36 +121,42 @@ export default defineComponent({
 				:url="Circle"
 				class="h-96 print:w-2/3"
 			>
-				<h2 class="website-title">{{ " Experiences " }}</h2>
-				<p>
-					Three years of full-time front-end/back-end experience, with a total of five years of relevant
-					experience.
+				<h2 class="title">Experiences</h2>
+				<p class="mb-4">
+					{{ experiences.intro }}
 				</p>
-				<ul class="list-disc list-inside pl-12">
-					<li>CAYIN Technology, Research & Development, 2021.04 ~ 2024.03</li>
-					<li>Bili digital information, Software Engineer (Intern & Full time), 2020.02 ~ 2021.03</li>
-					<li>E-service Information Corporation, Software Engineer (Intern), 2018.07 ~ 2019.07</li>
-					<li>NTUA, BFA, Graphic Communication of Arts, 2016 ~ 2020</li>
+				<ul class="list-disc list-inside text-xs pl-12">
+					<li
+						v-for="(list, key) in experiences.lists"
+						:key="key"
+						class="mb-2"
+					>
+						{{ list }}
+					</li>
 				</ul>
 			</SVGBackground>
 
 			<BasicCard>
-				<template #title>{{ ` Certifications & Skills` }}</template>
+				<template #title>Certifications & Skills</template>
 				<template #url>
-					<a href="https://www.credly.com/users/jia-ying-tang">AWS Certification (Credly)</a>
-					<img />
+					<ul>
+						<li
+							v-for="{ url, name } in skills.certifications"
+							:key="name"
+						>
+							<a :href="url">{{ name }}</a>
+						</li>
+					</ul>
 				</template>
 				<template #content>
-					<ul class="list-disc list-inside pl-12">
-						<li>Languages: PHP, JavaScript, TypeScript, node.js</li>
-						<li>Frameworks & Libraries: Laravel, Vue.js, TailwindCSS, jQuery, Bootstrap</li>
-						<li>Cloud: GCP, Firebase, Heroku, AWS</li>
-						<li>Frontend：HTML5, Vite, Webpack, Lodash</li>
-						<li>Backend：Mysql, CashFlow, Export/Import xls/pdf Report</li>
-						<li>Deploy：Docker, GitHub Actions, GitLab Runner</li>
-						<li>Cloud：AWS（Certified SAA）, GCP, Firebase, Heroku</li>
-						<li>Flows: Git Flow, Scrum</li>
-						<li>Others: Nginx, Apache, Test</li>
+					<ul class="list-disc list-inside pl-12 text-xs">
+						<li
+							v-for="(list, key) in skills.lists"
+							:key="key"
+							class="mb-2"
+						>
+							{{ list }}
+						</li>
 					</ul>
 				</template>
 			</BasicCard>
@@ -154,7 +167,7 @@ export default defineComponent({
 			>
 				<div class="relative sm:w-52 sm:h-40 w-32 h-32">
 					<div class="absolute bottom-0">
-						<h2 class="website-title">{{ " CONTACT with ME " }}</h2>
+						<h2 class="title">CONTACT with ME</h2>
 						<p class="indent-8 bg-white-default/90">>> wicotang@gmail.com</p>
 					</div>
 				</div>

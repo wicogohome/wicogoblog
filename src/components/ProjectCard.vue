@@ -43,7 +43,7 @@ export default defineComponent({
 
 <template>
 	<BasicCard>
-		<template #title>{{ ` ${name} ` }}</template>
+		<template #title>{{ name }}</template>
 		<template #url>
 			<ul>
 				<li
@@ -67,7 +67,7 @@ export default defineComponent({
 		<template #content>
 			<div
 				v-if="images?.left"
-				class="basis-full md:basis-1/2 mb-4 print:basis-3/4"
+				class="basis-full md:basis-1/2 mb-4 print:basis-1/2"
 			>
 				<ImageViewer
 					:src="images?.left"
@@ -77,10 +77,10 @@ export default defineComponent({
 			</div>
 
 			<div
-				class="basis-full pl-12"
+				class="basis-full pl-12 print:p-0"
 				:class="{
-					'md:basis-1/2': images?.left || images?.right,
-					'md:-translate-y-16': images?.top,
+					'md:basis-1/2 print:!basis-full': images?.left || images?.right,
+					'md:-translate-y-16 print:!translate-y-0': images?.top,
 				}"
 			>
 				<div
@@ -103,20 +103,20 @@ export default defineComponent({
 				<p class="mb-4 text-sm">{{ intro }}</p>
 
 				<div class="mb-4">
-					<h4 class="font-zilla-highlight tracking-normal whitespace-pre text-xl">Things I did:</h4>
+					<h4 class="double-whitespace font-zilla-highlight tracking-normal whitespace-pre text-xl -mb-2">
+						Things I did:
+					</h4>
 
 					<ul
 						v-for="(content, key) in contents"
 						:key="key"
-						class="list-inside list-decimal"
+						class="list-inside list-decimal mt-4"
 					>
-						<p class="first-letter:uppercase font-zilla tracking-normal text-lg">
-							{{ key }}
-						</p>
+						<p class="first-letter:uppercase font-zilla tracking-normal text-lg">{{ key }}</p>
 						<li
 							v-for="(list, index) in content"
 							:key="index"
-							class="text-xs"
+							class="text-xs mb-2"
 						>
 							{{ list }}
 						</li>
@@ -128,7 +128,7 @@ export default defineComponent({
 
 			<div
 				v-if="images?.right"
-				class="basis-full md:basis-1/2 translate-x-6 print:basis-3/4"
+				class="basis-full md:basis-1/2 translate-x-6 print:basis-1/2"
 			>
 				<ImageViewer
 					:src="images?.right"

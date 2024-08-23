@@ -15,15 +15,15 @@
 	}
 
 	h3 {
-		@apply md:text-4xl text-3xl font-zilla-highlight text-black tracking-normal whitespace-pre;
+		@apply double-whitespace md:text-4xl text-3xl font-zilla-highlight text-black tracking-normal whitespace-pre;
 		@apply leading-normal #{!important};
 	}
 
 	p {
-		@apply text-sm;
+		@apply text-sm ;
 	}
 	a[href]{
-		@apply font-zilla-highlight tracking-normal text-xs ;
+		@apply single-whitespace text-xs font-zilla-highlight tracking-normal text-white-default bg-black whitespace-pre-wrap ;
 
 	}
 
@@ -31,20 +31,24 @@
 
 
 @layer utilities {
-	.title {
-		@apply text-2xl ;
-	}
+
 	.website-title {
-		@apply md:text-6xl text-4xl font-zilla-highlight text-black tracking-normal whitespace-pre;
+		@apply  md:text-6xl text-4xl font-zilla-highlight text-black tracking-normal whitespace-pre;
 		@apply leading-normal #{!important};
 	}
 
-	
-	.category-title {
-		@apply text-3xl lg:text-5xl uppercase font-semibold ;
+	.title {
+		@apply double-whitespace md:text-6xl text-4xl font-zilla-highlight text-black tracking-normal whitespace-pre;
+		@apply leading-normal #{!important};
 	}
 
-	.article-title {
-		@apply md:text-5xl text-4xl font-bold ;
+	 /* for .font-zilla-highlight */
+	.single-whitespace::before,.single-whitespace::after {
+		content: " ";
 	}
+
+	.double-whitespace::before,.double-whitespace::after {
+		content: "  ";
+	}
+	/*  */
 }
