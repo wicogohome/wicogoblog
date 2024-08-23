@@ -1,6 +1,5 @@
 <script lang="ts">
-import _ from "lodash";
-import { computed, defineComponent, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import useContent from "@/utils/useContent.ts";
 
 export default defineComponent({
@@ -9,7 +8,6 @@ export default defineComponent({
 	setup() {
 		const isOpen = ref(false);
 		const { lang, toggleLang } = useContent();
-		const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 
 		interface Link {
 			title: string;
@@ -35,24 +33,14 @@ export default defineComponent({
 			action: () => void;
 		}
 
-		const actions = computed((): Action[] => {
-			return _.filter([
-				isMobile
-					? null
-					: {
-							title: "Download this Page",
-							action: () => {
-								window.print();
-							},
-						},
-				{
-					title: "Request an interview",
-					action: () => {
-						sendEmail();
-					},
+		const actions: Action[] = [
+			{
+				title: "Request an interview",
+				action: () => {
+					sendEmail();
 				},
-			]) as Action[];
-		});
+			},
+		];
 
 		function sendEmail() {
 			const email = "wicotang@gmail.com";
