@@ -50,7 +50,11 @@ export default defineComponent({
 					v-for="(url, key) in urls"
 					:key="key"
 				>
-					<a :href="url">{{ url }}</a>
+					<a
+						:href="url"
+						class="single-whitespace font-zilla-highlight tracking-normal text-white-default bg-black"
+						>{{ url }}</a
+					>
 				</li>
 			</ul></template
 		>

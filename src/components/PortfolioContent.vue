@@ -57,7 +57,7 @@ export default defineComponent({
 					<p class="md:indent-28 indent-16 text-sm">3 years +</p>
 				</div>
 				<div
-					class="transition-transform absolute lg:left-3/4 md:left-2/3 md:top-2/3 sm:top-3/4 left-3/4 top-[100px] w-full hidden sm:block print:hidden"
+					class="transition-transform absolute lg:left-3/4 md:left-2/3 md:top-2/3 sm:top-3/4 left-3/4 top-[100px] md:w-[300px] w-full hidden sm:block print:hidden"
 				>
 					<img
 						src="@/assets/headshot.webp"
@@ -114,7 +114,11 @@ export default defineComponent({
 			<h2 class="title">Projects</h2>
 			<ProjectGroup :projects="projects">
 				<template #WicoGotBlog>
-					<a href="https://blog.wicotang.com/categories/部落格製作/">Read More</a>
+					<a
+						href="https://blog.wicotang.com/categories/部落格製作/"
+						class="single-whitespace font-zilla-highlight tracking-normal text-white-default bg-black"
+						>Read More</a
+					>
 				</template>
 			</ProjectGroup>
 			<SVGBackground
@@ -144,7 +148,11 @@ export default defineComponent({
 							v-for="{ url, name } in skills.certifications"
 							:key="name"
 						>
-							<a :href="url">{{ name }}</a>
+							<a
+								:href="url"
+								class="single-whitespace font-zilla-highlight tracking-normal text-white-default bg-black"
+								>{{ name }}</a
+							>
 						</li>
 					</ul>
 				</template>
