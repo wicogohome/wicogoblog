@@ -11,13 +11,14 @@ export default {
 		extend: {
 			backgroundImage: {
 				"black-textured":
-					"linear-gradient(to bottom, rgba(62,63,59,0.5) ,rgba(62,63,59,0.5)), url('/black-concrete-textured.jpg')",
-				headshot: "url('/headshot.jpg')",
+					"linear-gradient(to bottom, rgba(62,63,59,0.5) ,rgba(62,63,59,0.5)), url('/black-textured.webp')",
+				headshot: "url('/headshot.webp')",
+				"yellow-textured": "url('/paperboard.webp')",
 			},
 			fontFamily: {
 				sans: ["Inter", "sans-serif"],
-				noto: ["Georama", "Noto Sans TC"],
-				zilla: ["Zilla Slab Highlight"],
+				noto: ["Georama", "Zilla Slab", "Noto Sans TC"],
+				"zilla-highlight": ["Zilla Slab Highlight"],
 			},
 			colors: {
 				transparent: "transparent",

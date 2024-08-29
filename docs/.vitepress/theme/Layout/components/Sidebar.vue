@@ -6,11 +6,11 @@ export default defineComponent({
 	setup() {
 		const sidebarItems = [
 			{
-				title: "Categories",
+				title: "文章類別",
 				url: "/categories/",
 			},
 			{
-				title: "tags",
+				title: "文章標籤",
 				url: "/tags/",
 			},
 		];

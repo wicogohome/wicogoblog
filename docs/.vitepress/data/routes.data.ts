@@ -8,7 +8,6 @@ const ignoredPaths = ["/articles/[title].html", "/"];
 
 export interface Data {
 	url: string;
-	excerpt: string;
 	frontmatter: BasicFrontmatter;
 }
 
@@ -18,9 +17,9 @@ export { data };
 export default defineLoader(
 	createContentLoader("**/*.md", {
 		transform: async (): Promise<Data[]> => {
-			const { getMatteredArticles } = useGithubArticles();
+			const { getArticles } = useGithubArticles();
 
-			const articleRoutes = await getMatteredArticles();
+			const articleRoutes = await getArticles();
 
 			const { parseFromTZ } = useDataTime();
 			const { formatUrlByRewrites } = useArticleUrl();
@@ -28,9 +27,8 @@ export default defineLoader(
 			return articleRoutes
 				.filter(({ filepath }) => !ignoredPaths.includes(filepath))
 				.map(
-					({ filepath, frontmatter, excerpt }): Data => ({
+					({ filepath, frontmatter }): Data => ({
 						url: formatUrlByRewrites(filepath),
-						excerpt,
 						frontmatter,
 					})
 				)

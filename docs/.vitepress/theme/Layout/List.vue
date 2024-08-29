@@ -53,28 +53,26 @@ export default defineComponent({
 				:key="key"
 				class="bg-yellow-light/20 rounded p-4"
 			>
-				<div class="flex justify-between">
-					<span class="text-white-default/70">
-						{{ toDateString(date) }}
-					</span>
-
-					<div class="flex gap-1 flex-wrap">
-						<span
-							v-for="tag in tags"
-							:key="tag"
-							class="text-base text-yellow-dark"
+				<div class="flex justify-between flex-wrap">
+					<p class="basis-1/3 text-sm">{{ toDateString(date) }}</p>
+					<div
+						v-if="tags.length > 0"
+						class="text-yellow-dark font-semibold md:text-right md:basis-2/3 basis-full order-first md:order-none"
+					>
+						<a
+							v-for="(tag, index) in tags"
+							:key="title + index"
+							:href="withBase('/tags/' + tag + '/')"
 						>
 							#{{ tag }}
-						</span>
+						</a>
 					</div>
+					<a
+						:href="withBase(url)"
+						class="basis-full"
+						><span class="title font-medium">{{ title ?? url }} | </span> <span>{{ category }}</span></a
+					>
 				</div>
-
-				<a
-					:href="withBase(url)"
-					class="text-xl"
-				>
-					{{ title }}<span class="text-base"> | {{ category }}</span>
-				</a>
 			</li>
 		</ul>
 		<BlogPagination

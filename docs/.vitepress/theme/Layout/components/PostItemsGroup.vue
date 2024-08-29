@@ -34,17 +34,17 @@ export default defineComponent({
 		<ul class="grid gap-4 grid-cols-1">
 			<PostItem
 				v-for="(
-					{ url, excerpt, frontmatter: { title, category, tags, date, lastUpdated, ogUrl } }, key
+					{ url, frontmatter: { title, description, category, tags, date, lastUpdated, ogUrl } }, key
 				) in pages[currentPage - 1]"
 				:key="key"
 				:title="title"
+				:description="description"
 				:url="url"
 				:category="category"
 				:tags="tags"
 				:date="date"
 				:last-updated="lastUpdated"
 				:og-url="ogUrl"
-				:excerpt="excerpt"
 			>
 			</PostItem>
 		</ul>

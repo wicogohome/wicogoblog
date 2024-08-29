@@ -1,6 +1,5 @@
 import { Octokit } from "@octokit/rest";
 import { GetResponseTypeFromEndpointMethod } from "@octokit/types";
-import { components } from "@octokit/openapi-types";
 import matter from "gray-matter";
 import type { GrayMatterFile, Input } from "gray-matter";
 import useViteEnv from "./useViteEnv.ts";
@@ -11,6 +10,20 @@ import _ from "lodash";
 const { getEnv } = useViteEnv();
 const env = getEnv();
 
+export interface Article {
+	filepath: string;
+	filename: string;
+	frontmatter: BasicFrontmatter;
+	content: string;
+}
+
+interface NullableArticle {
+	filepath: string;
+	filename: string;
+	frontmatter: BasicFrontmatter | Record<string, never>;
+	content: string | null;
+}
+const LINES_COUNT = 6;
 export default function useGithubArticles() {
 	const octokit = new Octokit({
 		auth: env.VITE_GITHUB_TOKEN,
@@ -30,84 +43,103 @@ export default function useGithubArticles() {
 		return data;
 	}
 
-	type Directory = components["schemas"]["content-directory"];
-	let cachedArticles: Directory = [];
+	let cachedArticles: Article[] = [];
 
-	async function getArticles(): Promise<Directory> {
+	const hasValidContent = (content: string | null): boolean => typeof content === "string" && content.length > 0;
+
+	async function getArticles(): Promise<Article[]> {
 		if (cachedArticles.length > 0) {
 			return cachedArticles;
 		}
 		const data = await getContents();
-		const articles = (!Array.isArray(data) ? [data] : data) as Directory;
+		const articles = !Array.isArray(data) ? [data] : data;
 		const ignoredNames = [".obsidian"];
-		cachedArticles = await Promise.all(
-			articles
-				.filter(({ name }) => !ignoredNames.includes(name))
-				.map(async (article) => {
-					if (article?.download_url) {
-						const content = await fetch(article.download_url)
+		cachedArticles = (
+			await Promise.all(
+				articles
+					.filter(
+						({ name, download_url: downloadUrl }) => !ignoredNames.includes(name) && downloadUrl !== null
+					)
+					.map(async ({ name, download_url: downloadUrl }): Promise<NullableArticle> => {
+						if (downloadUrl === null) {
+							throw new Error(`Article ${name} has no download URL`);
+						}
+
+						const oriContent = await fetch(downloadUrl)
 							.then((res) => res.blob())
 							.then((blob: Blob): Promise<string> => blob.text());
+
+						const { frontmatter = {}, content = null } = formatContent(oriContent);
+
 						return {
-							...article,
+							filename: name,
+							filepath: `/articles/${name}`,
+							frontmatter,
 							content,
 						};
-					}
-					return article;
-				})
-		);
+					})
+			)
+		).filter(({ content }) => hasValidContent(content)) as Article[];
 
 		return cachedArticles;
 	}
 
-	interface MatteredArticle {
-		filepath: string;
-		filename: string;
-		frontmatter: BasicFrontmatter;
-		excerpt: string;
-	}
-	let cachedMatteredArticles: MatteredArticle[] = [];
 	const { formatWithDefault } = useBasicFrontmatter();
-	async function getMatteredArticles(): Promise<MatteredArticle[]> {
-		if (cachedMatteredArticles.length > 0) {
-			return cachedMatteredArticles;
-		}
-		cachedMatteredArticles = (await getArticles())
-			.map(({ name, content }) => {
-				if (typeof content !== "string") {
-					return;
-				}
-				function getFirstEightLines(file: GrayMatterFile<Input>): () => string {
-					file.excerpt = file.content
-						.split("\n")
-						.filter((line) => !_.startsWith(line, "#") && !_.startsWith(line, "!"))
-						.slice(0, 8)
-						.join(" ");
-					return () => file.excerpt as string;
-				}
-				const {
-					data: { title, tags, date, og_url: ogUrl, last_updated: lastUpdated, category, url, published },
-					excerpt,
-				} = matter(content, {
-					// TODO 型別
-					// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-					// @ts-expect-error
-					excerpt: getFirstEightLines,
-				});
 
-				if (env.VITE_PREVIEW_UNPUBLISHED !== "true" && !published) {
-					return;
-				}
-				return {
-					frontmatter: formatWithDefault({ title, tags, date, ogUrl, lastUpdated, category, url }),
-					filepath: "/articles/" + name,
-					filename: name,
-					excerpt: excerpt,
-				};
-			})
-			.filter((article): article is MatteredArticle => !!article);
-		return cachedMatteredArticles;
+	function formatContent(oriContent: string) {
+		if (!hasValidContent(oriContent)) {
+			return {};
+		}
+
+		const {
+			data: {
+				title,
+				description,
+				tags,
+				date,
+				og_url: ogUrl,
+				last_updated: lastUpdated,
+				category,
+				url,
+				published,
+			},
+			excerpt,
+			content,
+		} = matter(oriContent, {
+			// TODO 型別
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-expect-error
+			excerpt: getFirstNLines,
+		});
+
+		if (env.VITE_PREVIEW_UNPUBLISHED !== "true" && !published) {
+			return {};
+		}
+
+		const formattedFrontmatter = formatWithDefault({
+			title,
+			description: description ?? excerpt,
+			tags,
+			date,
+			ogUrl,
+			lastUpdated,
+			category,
+			url,
+		});
+
+		return {
+			frontmatter: formattedFrontmatter,
+			content: matter.stringify(content, formattedFrontmatter),
+		};
+	}
+	function getFirstNLines(file: GrayMatterFile<Input>): () => string {
+		file.excerpt = file.content
+			.split("\n")
+			.filter((line) => !_.startsWith(line, "#") && !_.startsWith(line, "!") && !_.startsWith(line, "```"))
+			.slice(0, LINES_COUNT)
+			.join(" ");
+		return () => file.excerpt as string;
 	}
 
-	return { getArticles, getMatteredArticles };
+	return { getArticles };
 }

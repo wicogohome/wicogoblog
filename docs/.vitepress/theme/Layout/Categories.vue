@@ -22,7 +22,7 @@ export default defineComponent({
 
 <template>
 	<div>
-		<ol class="flex justify-start min-w-96 gap-1 flex-wrap">
+		<ol class="flex justify-start md:min-w-96 gap-1 flex-wrap">
 			<li
 				v-for="(posts, category) in categories"
 				:key="category"
@@ -35,7 +35,7 @@ export default defineComponent({
 				{{ posts.length }}
 			</li>
 		</ol>
-		<div class="outline outline-1 min-h-52 min-w-80 rounded p-2">
+		<div class="outline outline-1 min-h-52 rounded p-2">
 			<hr />
 			<hr class="my-1" />
 			<PostItemsGroup
