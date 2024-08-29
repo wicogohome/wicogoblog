@@ -5,7 +5,50 @@
 @tailwind utilities;
 
 @layer base {
-	h1 {
-		@apply text-red-500;
+	html::before {
+		@apply  -z-10 fixed bg-yellow-textured opacity-70 bg-cover min-h-screen  w-full;
+		content: "";
+	  }
+	  
+	html {
+		@apply  font-noto bg-yellow-light md:text-xl text-base text-black tracking-wide font-light scroll-smooth ;
 	}
+
+	h3 {
+		@apply double-whitespace md:text-4xl text-3xl font-zilla-highlight text-black tracking-normal whitespace-pre;
+		@apply leading-normal #{!important};
+	}
+
+	p {
+		@apply text-sm ;
+	}
+	a[href]{
+		@apply text-xs whitespace-pre-wrap ;
+
+	}
+
+}
+
+
+@layer utilities {
+
+	.website-title {
+		@apply  md:text-6xl text-4xl font-zilla-highlight text-black tracking-normal whitespace-pre;
+		@apply leading-normal #{!important};
+	}
+
+	.title {
+		@apply double-whitespace md:text-6xl text-4xl font-zilla-highlight text-black tracking-normal whitespace-pre;
+		@apply leading-normal #{!important};
+	}
+
+	 /* for .font-zilla-highlight */
+	.single-whitespace::before,.single-whitespace::after {
+		content: " ";
+	}
+
+	.double-whitespace::before,.double-whitespace::after {
+		content: "  ";
+	}
+	/*  */
 }

@@ -17,7 +17,7 @@
 		@apply md:text-2xl text-lg;
 	}
 	.website-title {
-		@apply md:text-8xl text-2xl font-zilla text-yellow-dark ;
+		@apply md:text-8xl text-2xl font-zilla-highlight text-yellow-dark ;
 		@apply md:leading-normal #{!important};
 	}
 	.category-title {

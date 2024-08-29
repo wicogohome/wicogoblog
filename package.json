@@ -29,7 +29,10 @@
 		"postcss-import": "^16.1.0",
 		"postcss-nesting": "^12.1.2",
 		"ts-node": "^10.9.2",
+		"v-viewer": "^3.0.13",
+		"viewerjs": "^1.11.6",
 		"vite-plugin-eslint": "^1.8.1",
+		"vite-svg-loader": "^5.1.0",
 		"vue": "^3.4.21"
 	},
 	"devDependencies": {
