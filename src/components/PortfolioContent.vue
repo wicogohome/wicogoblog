@@ -8,7 +8,7 @@ import useContent from "@/utils/useContent.ts";
 import MainCard from "@/assets/main-card.svg";
 import Lines from "@/assets/lines.svg";
 import Dots from "@/assets/dots.svg";
-import TopicCard from "@/assets/topic-card.svg";
+import TopicCard from "@/assets/topic-card.svg??raw";
 import Circle from "@/assets/circle.svg";
 import Sector from "@/assets/sector.svg";
 

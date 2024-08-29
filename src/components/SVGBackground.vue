@@ -18,7 +18,7 @@ export default defineComponent({
 	},
 	setup() {
 		function setBGStyle(url: string): string {
-			return `background-image:url('${url}')`;
+			return `background-image:url('data:image/svg+xml;utf8,${encodeURIComponent(url)}')`;
 		}
 		return { setBGStyle };
 	},
