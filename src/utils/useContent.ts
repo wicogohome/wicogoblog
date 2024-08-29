@@ -14,7 +14,7 @@ const contents: Record<string, MultiLangContent[]> = {
 				"https://www.cayintech.com/tw/digital-signage-products/software/poster.html",
 				"https://poster.gocayin.com",
 			],
-			skills: ["Vue3", "Frontend", "Backend", "TailwindCSS"],
+			skills: ["Vue3", "Laravel", "Frontend", "Backend", "TailwindCSS", "Testing"],
 			intro: {
 				en: "A web-based WYSIWYG editor offering ready-made templates and images, with customizable settings for various object types. The final product can be displayed on digital signage or regular screens.",
 				"zh-TW":
@@ -34,7 +34,7 @@ const contents: Record<string, MultiLangContent[]> = {
 						"可套用的特殊樣式：動畫（純CSS）、文字特效。",
 						"編輯器基本功能：放大縮小、拖曳、旋轉、對齊、上下一步等。",
 						"程式具可複用性：可透過資料設定，生成具有不同編輯型態的編輯器選項。",
-						"相關服務API串接（素材庫）",
+						"相關服務API串接（素材庫）。",
 					],
 				},
 				management: {
@@ -50,7 +50,7 @@ const contents: Record<string, MultiLangContent[]> = {
 		{
 			name: "GO CAYIN",
 			urls: ["https://www.cayintech.com/tw/gocayin/gocayin.html", "https://gocayin.com"],
-			skills: ["Vue3", "Laravel", "Frontend", "Backend", "CI/CD", "AWS", "Subscription", "Docker"],
+			skills: ["Vue3", "Laravel", "Frontend", "Backend", "CI/CD", "AWS", "Subscription", "Docker", "Testing"],
 			intro: {
 				en: "A subscription-based SaaS platform available in personal and organizational versions, providing digital products and cloud storage subscriptions.",
 				"zh-TW": "訂閱制的SaaS平台，分為個人與組織版，提供數位產品與雲端容量訂閱。",
@@ -77,7 +77,7 @@ const contents: Record<string, MultiLangContent[]> = {
 						"Responsible for work allocation of frontend support engineers and collaboration with backend engineers' progress",
 						"Conducted Code Reviews",
 					],
-					"zh-TW": ["負責前端支援工程師之工作分配，與後端工程師進度協作", "執行Code Review"],
+					"zh-TW": ["負責前端支援工程師之工作分配，與後端工程師進度協作。", "執行Code Review。"],
 				},
 			},
 		},
@@ -86,7 +86,7 @@ const contents: Record<string, MultiLangContent[]> = {
 		{
 			name: "WicoGotBlog",
 			urls: ["https://blog.wicotang.com/"],
-			skills: ["Vue3", "Frontend", "CI/CD", "AWS", "Docker", "Web", "SEO"],
+			skills: ["Vue3", "Frontend", "CI/CD", "AWS", "SEO"],
 			intro: {
 				en: "A personal blog based on VitePress, allowing content writing on various platforms using Obsidian. With Git commit integration, articles can be previewed or updated directly after writing, minimizing publishing friction.",
 				"zh-TW":
@@ -140,16 +140,16 @@ const contents: Record<string, MultiLangContent[]> = {
 		{
 			name: "MP3Player",
 			urls: ["https://wicogohome.github.io/MP3-Player/"],
-			skills: ["Vue2", "YouTube API"],
+			skills: ["Vue3", "YouTube API", "Pinia"],
 			intro: {
-				en: "A music player integrated with YouTube IFrame API and Data API. The page includes two song playlists and can switch cover images along with the music. Visually, it uses CSS animation to create a rotating animation effect and binds objects to beautify the playback interface.",
+				en: "A music player that integrates YouTube IFrame API and Data API. The page contains two playlists and allows users to add more content by inputting YouTube List IDs. In terms of presentation, the cover image changes with each song, and CSS animations are used to create a rotating effect, enhancing the player interface.",
 				"zh-TW":
-					"串接Youtube IFrame API和Data API的音樂播放器。頁面包含兩份歌曲清單，並可隨著音樂切換封面圖片，呈現上運用CSS animation製作轉動的動畫效果，並綁定物件來美化播放介面。",
+					"串接Youtube IFrame API和Data API的音樂播放器。頁面包含兩份歌曲清單，並可透過輸入Youtube List id來增加播放內容。呈現上會隨著音樂切換封面圖片，並運用CSS animation製作轉動的動畫效果，美化播放介面。",
 			},
 			contents: {
 				technical: {
-					en: ["YouTube API integration", "Vue.js playlist / controller"],
-					"zh-TW": ["YouTube API串接", "Vue.js 處理播放清單 / 控制器"],
+					en: ["YouTube API integration", "Vue.js playlist / controller", "Refactor: Vue2->Vue3"],
+					"zh-TW": ["YouTube API串接", "Vue.js 處理播放清單 / 控制器", "Refactor: Vue2->Vue3"],
 				},
 			},
 			images: { right: "/mp3player.png" },
@@ -157,7 +157,7 @@ const contents: Record<string, MultiLangContent[]> = {
 		{
 			name: "Pomodoro",
 			urls: ["https://wicogohome.github.io/Pomodoro/"],
-			skills: ["Vue2", "Canvas"],
+			skills: ["Vue3", "Canvas", "Pinia"],
 			intro: {
 				en: "This project primarily experiments with special shape drawing, changing the clock hand's movement speed according to work/rest times. The statistics section is also drawn with Canvas, achieving a layered effect of gradient + lines + dots simultaneously.",
 				"zh-TW":
@@ -165,8 +165,12 @@ const contents: Record<string, MultiLangContent[]> = {
 			},
 			contents: {
 				technical: {
-					en: ["Canvas animations：clock face & statistics", "Vue.js timer / TODO list"],
-					"zh-TW": ["Canvas動畫：鐘面 & 統計", "Vue.js 計時 / TODO list"],
+					en: [
+						"Canvas animations：clock face & statistics",
+						"Vue.js timer / TODO list",
+						"Refactor: Vue2->Vue3",
+					],
+					"zh-TW": ["Canvas動畫：鐘面 & 統計", "Vue.js 計時 / TODO list", "Refactor: Vue2->Vue3"],
 				},
 			},
 			images: { left: "/pomodora.png" },
@@ -226,7 +230,7 @@ const skills = {
 		"Frontend：HTML5, Vite, Webpack, Lodash",
 		"Backend：Mysql, Payment handling (PayPal/NewebPay), Export/Import reports",
 		"Deploy：Docker, GitHub Actions, GitLab Runner",
-		"Cloud：AWS（Certified SAA）, GCP, Firebase, Heroku",
+		"Cloud：AWS( Certified SAA ), GCP, Firebase, Heroku",
 		"Flows: Git Flow, Scrum",
 		"Others: Nginx, Apache, Testing",
 	],
