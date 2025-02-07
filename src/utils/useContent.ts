@@ -67,8 +67,8 @@ const contents: Record<string, MultiLangContent[]> = {
 					"zh-TW": [
 						"金流串接與訂閱功能實作：研究國內外金流，串接藍新與PayPal訂閱API，並處理訂單與週期計算邏輯。",
 						"管理後台開發：提供對前台網頁的內容管理，方便人員即時管理應用程式與訂單。",
-						"環境容器化：將專案環境遷移至Docker，以便環境建置與部屬。",
-						"CI/CD測試與部屬 ：設定GitLab Runner執行前後端測試，並串接AWS進行自動部屬，減少部屬的時間成本與心智負擔，並確保程式持續受到測試保護。",
+						"環境容器化：將專案環境遷移至Docker，以便環境建置與部署。",
+						"CI/CD測試與部署 ：設定GitLab Runner執行前後端測試，並串接AWS進行自動部署，減少部署的時間成本與心智負擔，並確保程式持續受到測試保護。",
 						"自動翻譯整合：定義翻譯文件格式，程式化地更新翻譯，將翻譯更新時間由30~60分鐘縮短為5分鐘，並避免人工錯誤。",
 					],
 				},
@@ -105,7 +105,7 @@ const contents: Record<string, MultiLangContent[]> = {
 						"使用VitePress + TailwindCSS自行建立樣式",
 						"Build：分類/分頁功能實作",
 						"無伺服器的SSL靜態網站：AWS S3 + CloudFront + ACM + Route53",
-						"CI/CD：GitHub Actions自動部屬",
+						"CI/CD：GitHub Actions自動部署",
 						"Domain管理、SEO(Google Search Console & OpenGraph)、CloudWatch監控",
 					],
 				},
@@ -129,7 +129,7 @@ const contents: Record<string, MultiLangContent[]> = {
 						"OpenGraph: Firebase Functions used with Node.js to handle dynamic thumbnail and title display lacking in SPAs",
 					],
 					"zh-TW": [
-						"使用Vue.js和D3.js製作的SPA，部屬於Firebase Hosting",
+						"使用Vue.js和D3.js製作的SPA，部署於Firebase Hosting",
 						"儲存：資料庫使用Firebase Firestore，並使用Storage儲存資料與圖片",
 						"OpenGraph：使用Firebase Functions，以Node.js處理SPA缺乏的動態縮圖與標題顯示",
 					],
