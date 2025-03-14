@@ -160,7 +160,21 @@ export default defineConfig(
 				[
 					"meta",
 					{
+						name: "twitter:card",
+						content: "summary_large_image",
+					},
+				],
+				[
+					"meta",
+					{
 						name: "og:title",
+						content: pageData.title.length === 0 ? site.title : pageData.title,
+					},
+				],
+				[
+					"meta",
+					{
+						name: "twitter:title",
 						content: pageData.title.length === 0 ? site.title : pageData.title,
 					},
 				],
@@ -174,7 +188,21 @@ export default defineConfig(
 				[
 					"meta",
 					{
+						name: "twitter:description",
+						content: pageData.description.length === 0 ? site.description : pageData.description,
+					},
+				],
+				[
+					"meta",
+					{
 						name: "og:image",
+						content: pageData.frontmatter.ogUrl ?? "/default-cover.webp",
+					},
+				],
+				[
+					"meta",
+					{
+						name: "twitter:image",
 						content: pageData.frontmatter.ogUrl ?? "/default-cover.webp",
 					},
 				],
@@ -190,6 +218,13 @@ export default defineConfig(
 					{
 						name: "og:locale",
 						content: "zh_TW",
+					},
+				],
+				[
+					"meta",
+					{
+						name: "og:type",
+						content: "article",
 					},
 				]
 			);
