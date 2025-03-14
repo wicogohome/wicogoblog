@@ -26,7 +26,7 @@ jobs:
           VITE_GITHUB_OWNER: ${{ vars.VITE_GITHUB_OWNER }}
           VITE_GITHUB_REPO: ${{ secrets.VITE_GITHUB_REPO }}
           VITE_GITHUB_PATH: ${{ secrets.VITE_GITHUB_PATH }}
-          VITE_PORT_CONTENT_FILE_NAME: ${{ secrets.VITE_PORT_CONTENT_FILE_NAME }
+          VITE_PORT_CONTENT_FILE_NAME: ${{ secrets.VITE_PORT_CONTENT_FILE_NAME }}
       - name: Build production bundle - vitepress
         run: yarn docs:build
         env:
