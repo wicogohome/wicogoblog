@@ -58,7 +58,8 @@ export default function useGithubArticles() {
 			await Promise.all(
 				articles
 					.filter(
-						({ name, download_url: downloadUrl }) => !ignoredNames.includes(name) && downloadUrl !== null
+						({ name, download_url: downloadUrl }) =>
+							!ignoredNames.includes(name) && name.endsWith(".md") && downloadUrl !== null
 					)
 					.map(async ({ name, download_url: downloadUrl }): Promise<NullableArticle> => {
 						if (downloadUrl === null) {

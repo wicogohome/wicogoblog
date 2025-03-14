@@ -107,21 +107,27 @@ export default defineComponent({
 			</SVGBackground>
 
 			<!-- Works -->
-			<h2 class="title">Works</h2>
-			<ProjectGroup :projects="works"> </ProjectGroup>
+			<template v-if="works.length">
+				<h2 class="title">Works</h2>
+				<ProjectGroup :projects="works"> </ProjectGroup>
+			</template>
 
 			<!-- Projects -->
-			<h2 class="title">Projects</h2>
-			<ProjectGroup :projects="projects">
-				<template #WicoGotBlog>
-					<a
-						href="https://blog.wicotang.com/categories/部落格製作/"
-						class="single-whitespace font-zilla-highlight tracking-normal text-white-default bg-black"
-						>Read More</a
-					>
-				</template>
-			</ProjectGroup>
+			<template v-if="projects.length">
+				<h2 class="title">Projects</h2>
+				<ProjectGroup :projects="projects">
+					<template #WicoGotBlog>
+						<a
+							href="https://blog.wicotang.com/categories/部落格製作/"
+							class="single-whitespace font-zilla-highlight tracking-normal text-white-default bg-black"
+							>Read More</a
+						>
+					</template>
+				</ProjectGroup>
+			</template>
+
 			<SVGBackground
+				v-if="experiences.intro"
 				:url="Circle"
 				class="h-96 print:w-2/3"
 			>
