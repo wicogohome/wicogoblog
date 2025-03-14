@@ -16,7 +16,7 @@ export default defineComponent({
 		<div class="w-full flex flex-col min-h-screen flex-auto will-change-transform">
 			<PortfolioContent class="flex relative" />
 			<footer class="text-center">
-				<p>Copyright © 2024 WicoTang</p>
+				<p>Copyright © 2025 WicoTang</p>
 			</footer>
 		</div>
 
