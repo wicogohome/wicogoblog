@@ -11,6 +11,6 @@ export default defineComponent({
 
 <template>
 	<footer class="text-center">
-		<p>Copyright © 2024 WicoTang</p>
+		<p>Copyright © 2026 WicoTang</p>
 	</footer>
 </template>
