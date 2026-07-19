@@ -26,10 +26,10 @@ export default defineComponent({
 
 <template>
 	<div ref="container">
-		<div class="sticky top-11 left-0 block bg-white-light/20 py-6 pl-4 pr-2 bottom-4 overflow-hidden">
+		<div class="relative block py-6 pl-4 pr-2 overflow-hidden">
 			<div
 				ref="marker"
-				class="bg-yellow-default w-1 h-5 absolute transition-all"
+				class="bg-olive-bright w-1 h-5 absolute transition-all"
 			></div>
 			<SidebarItem :headers="headers"></SidebarItem>
 		</div>

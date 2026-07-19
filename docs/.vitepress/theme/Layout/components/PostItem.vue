@@ -6,13 +6,11 @@ export default defineComponent({
 	name: "PostItem",
 	props: {
 		title: { type: String, default: null },
-		description: { type: String, default: null },
 		url: { type: String, default: null },
 		category: { type: String, default: null },
 		tags: { type: Array, default: () => [] },
 		date: { type: String, default: null },
-		lastUpdated: { type: String, default: null },
-		ogUrl: { type: String, default: null },
+		folio: { type: Number, default: null },
 	},
 	setup() {
 		const { toDateString } = useDateTime();
@@ -23,50 +21,30 @@ export default defineComponent({
 
 <template>
 	<li
-		class="bg-yellow-light/20 rounded-lg overflow-clip relative shadow-sm shadow-white-default/20 hover:brightness-105 transition-all hover:scale-105 hover:shadow-md hover:shadow-white-default/20 ease-in-out"
+		class="group relative list-none border-t border-ivory/[0.09] before:content-[''] before:absolute before:left-[-2px] before:top-1/2 before:-translate-y-1/2 before:scale-y-0 before:origin-center before:w-[3px] before:h-[54%] before:bg-green before:transition-transform before:duration-300 before:ease-in-out hover:before:scale-y-100"
 	>
-		<div class="cursor-pointer md:h-60 h-40 overflow-hidden relative">
-			<img
-				alt="post-cover-bg"
-				:src="ogUrl"
-				class="absolute blur-lg"
-			/>
-			<a :href="withBase(url)">
-				<div class="absolute w-full h-full">
-					<img
-						alt="post-cover"
-						:src="ogUrl"
-						class="max-h-full m-auto"
-					/>
-				</div>
-			</a>
-		</div>
-
-		<div class="p-4">
-			<div class="flex justify-between flex-wrap">
-				<p class="basis-full text-sm">{{ toDateString(date) }}</p>
-				<a
-					:href="withBase(url)"
-					class="title md:basis-3/4 basis-full md:order-none font-medium"
-					>{{ title ?? url }}</a
-				>
-				<div
-					v-if="tags.length > 0"
-					class="text-yellow-dark font-semibold md:text-right md:basis-1/4 basis-full order-first md:order-none"
-				>
-					<a
-						v-for="(tag, index) in tags"
-						:key="title + index"
-						:href="withBase('/tags/' + tag + '/')"
-					>
-						#{{ tag }}
-					</a>
-				</div>
-			</div>
-
-			<p class="text-sm line-clamp-3 text-white-default/80">
-				{{ description }}
-			</p>
-		</div>
+		<a
+			:href="withBase(url)"
+			class="grid grid-cols-[54px_1fr_auto] narrow:grid-cols-[40px_1fr] gap-x-[20px] narrow:gap-x-[14px] gap-y-[6px] narrow:gap-y-[4px] items-baseline pt-[22px] pr-[14px] pb-[22px] pl-0 no-underline translate-x-0 transition-transform duration-300 ease-in-out group-hover:translate-x-[18px]"
+		>
+			<span class="row-start-1 row-span-2 font-mono text-[15px] text-olive-bright pt-[0.15em]">{{
+				folio != null ? String(folio).padStart(2, "0") : ""
+			}}</span>
+			<span
+				class="font-serif-tc font-semibold text-[clamp(18px,2vw,24px)] leading-[1.3] text-ivory transition-colors duration-[250ms] group-hover:text-olive-bright"
+				>{{ title ?? url }}</span
+			>
+			<span
+				class="font-mono text-[12.5px] text-ivory-faint whitespace-nowrap narrow:col-[2] narrow:text-[12px] narrow:mt-[2px]"
+				>{{ toDateString(date) }}</span
+			>
+			<span class="col-[2/4] narrow:col-[2] font-mono text-[12px] text-ivory-faint tracking-[0.02em]">
+				<span class="text-ivory-dim">{{ category }}</span>
+				<template v-if="tags && tags.length > 0">
+					&nbsp;·&nbsp;
+					<span class="text-olive">{{ (tags as string[]).map((t) => "#" + t).join(" ") }}</span>
+				</template>
+			</span>
+		</a>
 	</li>
 </template>

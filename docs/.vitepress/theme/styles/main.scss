@@ -1,153 +1,162 @@
 @tailwind base;
-
 @tailwind components;
-
 @tailwind utilities;
 
 @layer base {
 	html {
-		@apply font-noto bg-black-textured text-white-default md:text-xl text-base  tracking-wide font-light scroll-smooth;
+		@apply antialiased tracking-[0.005em] leading-[1.85] scroll-smooth font-serif-tc font-normal bg-ink text-ivory;
 	}
 
+	body::before {
+		content: "";
+		position: fixed;
+		inset: 0;
+		z-index: -2;
+		pointer-events: none;
+		background: radial-gradient(120% 90% at 50% -10%, #211f15 0%, transparent 55%),
+			radial-gradient(140% 120% at 50% 120%, #100f0a 0%, transparent 50%), theme("colors.ink.DEFAULT");
+	}
+
+	// Paper-grain texture layered under the content. Normal blending (no blend mode):
+	// soft-light against a near-black base flattened the grain to invisibility. The
+	// opacity is capped so the lightened background keeps small ivory-faint text ≥4.5:1.
+	body::after {
+		content: "";
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		pointer-events: none;
+		opacity: 0.35;
+		filter: contrast(1.15);
+		background-image: url("/black-textured.webp");
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
 }
 
-
 @layer utilities {
-	.title {
-		@apply md:text-2xl text-lg;
-	}
-	.website-title {
-		@apply md:text-8xl text-2xl font-zilla-highlight text-yellow-dark ;
-		@apply md:leading-normal #{!important};
-	}
-	.category-title {
-		@apply text-3xl lg:text-5xl uppercase font-semibold ;
-	}
-
 	.article-title {
-		@apply md:text-5xl text-4xl font-bold ;
+		@apply md:text-5xl text-4xl font-semibold font-serif-tc text-ivory;
 	}
 
 	.article-content {
-		@apply text-lg leading-8 tracking-wide text-white-default/75  break-words overflow-x-auto;
+		@apply text-lg leading-8 tracking-wide break-words overflow-x-auto text-ivory-dim;
 
-			h1 {
-				@apply text-5xl font-medium text-white-default/85 border-b-[1px] border-white-light/20 pb-2 mb-2 mt-4;
-			}
-			h2 {
-				@apply text-4xl font-medium text-white-default/85 border-b-[1px] border-white-light/20 pb-2 mb-2 mt-6;
-			}
-			h3 {
-				@apply text-3xl text-white-default/85 mb-2 mt-6;
-			}
-			h4 {
-				@apply text-2xl font-medium mb-2 mt-6;
-			}
-			h5 {
-				@apply text-2xl mb-2 mt-6;
-			}
-			h6 {
-				@apply text-xl font-medium mb-2 mt-6;
-			}
+		h1 {
+			@apply text-5xl font-medium border-b-[1px] pb-2 mb-2 mt-4 text-ivory border-ivory/[0.16];
+		}
+		h2 {
+			@apply text-4xl font-medium border-b-[1px] pb-2 mb-2 mt-6 text-ivory border-ivory/[0.16];
+		}
+		h3 {
+			@apply text-3xl mb-2 mt-6 text-ivory;
+		}
+		h4 {
+			@apply text-2xl font-medium mb-2 mt-6 text-ivory;
+		}
+		h5 {
+			@apply text-2xl mb-2 mt-6;
+		}
+		h6 {
+			@apply text-xl font-medium mb-2 mt-6;
+		}
+
+		p {
+			@apply my-4;
+		}
+
+		table {
+			@apply overflow-x-auto block;
+		}
+		tbody,
+		tr {
+			@apply border w-fit border-ivory/[0.16];
+		}
+
+		td,
+		th {
+			@apply p-2 text-center;
+		}
+		th,
+		td:first-child,
+		tr:hover {
+			@apply bg-ivory/[0.08];
+		}
+
+		a {
+			@apply text-olive-bright underline-offset-4 underline;
+		}
+
+		blockquote {
+			@apply border-l-4 pl-4 md:text-sm text-base border-ivory-faint text-ivory-dim;
+		}
+
+		hr {
+			@apply border-ivory/[0.16];
+		}
+
+		ol {
+			@apply list-decimal pl-6;
+		}
+
+		ul {
+			@apply list-disc pl-6;
+		}
+		ol.task-list,
+		ul.task-list {
+			@apply list-none;
+		}
+
+		code {
+			@apply ml-1;
+		}
+
+		a[href] {
+			@apply break-words;
+		}
+
+		.custom-block {
+			@apply p-4 border rounded-lg my-4 border-ivory/[0.16];
 
 			p {
-				@apply my-4;
+				@apply m-0 leading-normal;
+			}
+			.custom-block-title {
+				@apply font-bold mb-2 text-ivory;
+			}
+			&.info {
+				background-color: rgba(158, 231, 145, 0.12);
 			}
 
-			table{
-				@apply overflow-x-auto block ;
+			&.tip {
+				background-color: rgba(145, 200, 231, 0.12);
 			}
-			tbody, tr {
-				@apply border border-white-default/70  w-fit;
-			}
-
-			td, th {
-				@apply p-2  text-center;
-			}
-			th, 
-			td:first-child,
-			tr:hover {
-				@apply bg-white-light/20;
-	
-			}
-			a {
-				@apply text-yellow-dark underline-offset-4  underline;
-			}
-			
-			blockquote {
-				@apply border-l-4 pl-4 border-gray-400 md:text-sm text-base ;
+			&.warning {
+				background-color: rgba(231, 215, 145, 0.12);
 			}
 
-			hr {
-				@apply text-white-light/20 ;
+			&.danger {
+				background-color: rgba(227, 104, 56, 0.12);
 			}
 
-
-			ol {
-				@apply list-decimal pl-6;
-				
+			&.details {
+				background-color: rgba(211, 210, 195, 0.12);
 			}
+		}
 
-			ul {
-				@apply list-disc  pl-6;
+		[class*="language-"] {
+			@apply bg-codeblock rounded p-4 relative overflow-x-auto;
+
+			button.copy {
+				@apply hidden;
 			}
-			ol.task-list, ul.task-list {
-				@apply list-none;
+			.lang {
+				@apply absolute right-2 top-1 font-light opacity-40 text-base;
 			}
-
-			code {
-				@apply ml-1;
+			.highlighted {
+				@apply bg-highlignt -ml-4 pl-4 w-codeblock-line inline-block;
 			}
-
-			a[href]{
-				@apply break-words;
-			}
-
-			.custom-block {
-				@apply p-4 border rounded-lg my-4 border-lime-50;
-
-				p {
-					@apply m-0 leading-normal;
-				}
-				.custom-block-title {
-					@apply font-bold mb-2;
-				}
-				&.info {
-					background-color: rgba(158, 231, 145, 0.5);
-				}
-
-				&.tip {
-					background-color:  rgba(145, 200, 231, 0.5);
-				}
-				&.warning {
-					background-color: rgba(231, 215, 145, 0.5);
-				}
-
-				&.danger {
-					background-color: rgba(227, 104, 56, 0.5);
-				}
-
-				&.details {
-					background-color: rgba(211, 210, 195, 0.5);
-				}
-			}
-
-			[class*=language-] {
-				@apply bg-codeblock rounded p-4 relative overflow-x-auto ;
-
-				button.copy{
-					@apply hidden;
-				}
-				.lang {
-					@apply absolute right-2 top-1 font-light opacity-40 text-base ;
-	
-				}
-				.highlighted {
-					@apply bg-highlignt -ml-4 pl-4 w-codeblock-line inline-block;
-				
-				}
-	
-			}
-	
+		}
 	}
 }
