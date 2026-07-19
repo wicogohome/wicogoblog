@@ -3,7 +3,6 @@ import _ from "lodash";
 import { defineComponent, computed } from "vue";
 import { withBase, useData } from "vitepress";
 import { data as posts } from "@@/data/routes.data.ts";
-
 import PostItemsGroup from "./components/PostItemsGroup.vue";
 
 export default defineComponent({
@@ -30,26 +29,33 @@ export default defineComponent({
 
 <template>
 	<div>
-		<div class="flex gap-3 my-4 flex-wrap">
+		<div
+			class="flex flex-wrap gap-x-[12px] gap-y-[8px] mb-[clamp(28px,4vw,48px)] pb-[clamp(20px,3vw,32px)] border-b border-ivory/[0.16]"
+		>
 			<a
 				v-for="({ tag, count }, key) in allTags"
 				:key="tag + key"
 				:href="withBase('/tags/' + tag + '/')"
-				class="bg-yellow-dark rounded-full px-4 relative py-2"
-				:class="{ 'bg-gradient-to-r from-green/20 to-yellow-default/90': currentTag == tag }"
+				class="inline-flex items-center gap-[4px] px-[14px] py-[6px] border border-ivory/[0.16] font-mono text-[13px] text-ivory-dim no-underline transition-[color,border-color,background] duration-200 hover:text-olive-bright hover:border-olive-bright"
+				:class="{ 'text-ink bg-olive-bright border-olive-bright': currentTag == tag }"
 			>
-				#{{ tag }}
-				<div
-					class="absolute -right-1 -top-1 text-center w-4 rounded-full bg-white-default aspect-square text-yellow-dark text-xs"
+				<span
+					class="text-ivory-faint"
+					:class="{ 'text-ink': currentTag == tag }"
+					>#</span
+				>{{ tag }}
+				<span
+					class="text-[11px] text-ivory-faint ml-[4px]"
+					:class="{ 'text-ink': currentTag == tag }"
+					>{{ count }}</span
 				>
-					{{ count }}
-				</div>
 			</a>
 		</div>
 
 		<PostItemsGroup
 			:posts="currentPosts"
 			:prefix="'/tags/' + currentTag"
+			:show-header="!!currentTag"
 		>
 		</PostItemsGroup>
 	</div>

@@ -77,11 +77,13 @@ export default defineConfig(
 			["link", { rel: "mask-icon", href: "/safari-pinned-tab.svg", color: "#5bbad5" }],
 			["meta", { name: "msapplication-TileColor", content: "#ffc40d" }],
 			["meta", { name: "theme-color", content: "#ffffff" }],
+			["link", { rel: "preconnect", href: "https://fonts.googleapis.com" }],
+			["link", { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" }],
 			[
 				"link",
 				{
 					rel: "stylesheet",
-					href: "https://fonts.googleapis.com/css2?family=Georama:ital,wght@0,100..900;1,100..900&family=Noto+Sans+TC:wght@100..900&family=Zilla+Slab+Highlight:wght@400;700&display=swap",
+					href: "https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@700&family=Noto+Serif+TC:wght@400;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap",
 				},
 			],
 		],
