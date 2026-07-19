@@ -18,33 +18,51 @@ export default defineComponent({
 			type: String,
 			default: "",
 		},
+		showHeader: {
+			type: Boolean,
+			default: true,
+		},
 	},
 	setup(props) {
 		const { params } = useData();
-		const pages = computed(() => _.chunk(props.posts, import.meta.env.VITE_PAGINATION ?? 10));
-
+		const pageSize = import.meta.env.VITE_PAGINATION ?? 10;
+		const pages = computed(() => _.chunk(props.posts, pageSize));
 		const currentPage = computed(() => params?.value?.page ?? 1);
-		return { withBase, currentPage, pages };
+		const currentPosts = computed(() => pages.value[currentPage.value - 1] ?? []);
+
+		const words = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten"];
+		const countLabel = computed(() => {
+			const n = props.posts.length;
+			const word = words[n] ?? n;
+			return `${word} ${n === 1 ? "entry" : "entries"}`;
+		});
+
+		return { withBase, currentPage, pages, currentPosts, countLabel };
 	},
 });
 </script>
 
 <template>
 	<div>
-		<ul class="grid gap-4 grid-cols-1">
+		<div
+			v-if="showHeader"
+			class="flex items-baseline justify-between mb-[6px]"
+		>
+			<h3 class="font-newsreader italic font-medium text-[clamp(22px,2.6vw,30px)] text-ivory m-0">
+				目次 · Contents
+			</h3>
+			<span class="font-mono text-[12px] text-ivory-faint tracking-[0.1em]">{{ countLabel }}</span>
+		</div>
+		<ul class="mt-[10px] p-0">
 			<PostItem
-				v-for="(
-					{ url, frontmatter: { title, description, category, tags, date, lastUpdated, ogUrl } }, key
-				) in pages[currentPage - 1]"
+				v-for="({ url, frontmatter: { title, category, tags, date } }, key) in currentPosts"
 				:key="key"
+				:folio="key + 1"
 				:title="title"
-				:description="description"
 				:url="url"
 				:category="category"
 				:tags="tags"
 				:date="date"
-				:last-updated="lastUpdated"
-				:og-url="ogUrl"
 			>
 			</PostItem>
 		</ul>

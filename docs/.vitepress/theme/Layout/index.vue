@@ -1,21 +1,38 @@
 <script lang="ts">
 import { useData, withBase } from "vitepress";
-import { computed } from "vue";
 import type { Component, ComputedRef } from "vue";
+import { computed } from "vue";
 
+import About from "./About.vue";
+import BlogArticle from "./Article.vue";
+import Categories from "./Categories.vue";
+import BlogFooter from "./components/Footer.vue";
 import BlogHeader from "./components/Header.vue";
 import Sidebar from "./components/Sidebar.vue";
+import SpineLabel from "./components/SpineLabel.vue";
 import TOCSidebar from "./components/TOCSidebar.vue";
-import BlogFooter from "./components/Footer.vue";
-import BlogArticle from "./Article.vue";
 import Home from "./Home.vue";
-import About from "./About.vue";
 import List from "./List.vue";
 import Tags from "./Tags.vue";
-import Categories from "./Categories.vue";
+
+// Layouts that carry a meaningful "chapter" heading worth mirroring in the spine label.
+// Home's cover is already the strong visual anchor, so it's excluded.
+const SPINE_LABEL_LAYOUTS = ["article", "list", "tags", "categories"];
 
 export default {
-	components: { BlogHeader, Sidebar, TOCSidebar, BlogFooter, BlogArticle, Home, About, List, Tags, Categories },
+	components: {
+		BlogHeader,
+		Sidebar,
+		TOCSidebar,
+		BlogFooter,
+		SpineLabel,
+		BlogArticle,
+		Home,
+		About,
+		List,
+		Tags,
+		Categories,
+	},
 	setup() {
 		const { frontmatter } = useData();
 		interface MainFrontmatter {
@@ -40,54 +57,42 @@ export default {
 		const currentContent = computed(() => contentMap[mainFrontmatter.value.layout]);
 		const isArticle = computed(() => mainFrontmatter.value.layout === "article");
 
-		function backToTop() {
-			window.scrollTo({ top: 0, behavior: "smooth" });
-		}
 		const categoryTitle = computed(
 			() => mainFrontmatter.value?.title ?? mainFrontmatter.value?.category ?? mainFrontmatter.value?.layout
 		);
-		return { withBase, mainFrontmatter, currentContent, isArticle, categoryTitle, backToTop };
+		const showSpineLabel = computed(() => SPINE_LABEL_LAYOUTS.includes(mainFrontmatter.value.layout));
+
+		return { withBase, mainFrontmatter, currentContent, isArticle, categoryTitle, showSpineLabel };
 	},
 };
 </script>
 
 <template>
-	<div class="relative flex flex-row flex-wrap">
-		<div class="flex flex-col basis-3/4 min-h-screen flex-auto">
+	<div class="max-w-[1160px] mx-auto">
+		<div class="relative">
+			<div class="hidden xl:block absolute left-0 inset-y-0 w-0">
+				<SpineLabel :text="categoryTitle" />
+			</div>
 			<BlogHeader />
-
-			<div class="flex relative h-full my-10">
-				<div class="flex-shrink-0 hidden md:flex">
-					<div
-						class="group cursor-pointer category-title sticky top-11 z-40 max-h-[85vh] h-fit text-white-default/80 flex gap-2"
-						@click="backToTop"
-					>
-						<span
-							class="vertical-rl"
-							:class="{ 'text-2xl lg:text-4xl': categoryTitle.length > 25 }"
-						>
-							{{ categoryTitle }}
-						</span>
-						<div class="group-hover:-rotate-90 transition-transform align-bottom h-fit">></div>
-					</div>
-				</div>
-				<div class="max-w-3xl mx-auto">
-					<component
-						:is="currentContent"
-						class="px-1 w-main-content md:w-big-main-content lg:max-w-2xl"
-					></component>
-				</div>
+			<div
+				class="px-gutter grid gap-[clamp(34px,6vw,84px)] items-start pt-[clamp(40px,6vw,72px)] compact:grid-cols-1 compact:gap-[48px]"
+				:class="isArticle ? 'grid-cols-1 xl:grid-cols-[1fr_13rem]' : 'grid-cols-[1fr_264px]'"
+			>
+				<main>
+					<component :is="currentContent"></component>
+				</main>
+				<aside
+					v-if="!isArticle"
+					class="sticky top-[76px] compact:static"
+				>
+					<Sidebar />
+				</aside>
 				<TOCSidebar
 					v-if="isArticle"
-					class="max-w-44 hidden xl:block"
-				></TOCSidebar>
+					class="hidden xl:block sticky top-[76px]"
+				/>
 			</div>
-
-			<BlogFooter class="h-16" />
+			<BlogFooter />
 		</div>
-		<Sidebar
-			v-if="!isArticle"
-			class="md:flex basis-1/4 flex-auto hidden"
-		/>
 	</div>
 </template>

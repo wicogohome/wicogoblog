@@ -53,54 +53,45 @@ export default defineComponent({
 </script>
 
 <template>
-	<div class="flex justify-between my-6 gap-3">
-		<div>
-			<a
-				:href="getUrl(currentPage - 1)"
-				class="w-10 h-10 flex justify-center items-center"
-				:class="{ '!hidden': currentPage == 1 }"
-			>
-				<FontAwesomeIcon
-					class=" "
-					icon="arrow-left"
-					size="2x"
-			/></a>
-		</div>
+	<div
+		v-if="total > 1"
+		class="flex justify-center items-center gap-[8px] my-[clamp(32px,5vw,56px)] font-mono text-[13px] tracking-[0.08em]"
+	>
+		<a
+			:href="getUrl(currentPage - 1)"
+			class="flex items-center justify-center w-[36px] h-[36px] text-ivory-dim no-underline transition-colors duration-200 hover:text-olive-bright"
+			:class="{ invisible: currentPage == 1 }"
+		>
+			←
+		</a>
 
-		<div class="flex gap-2">
+		<div class="flex items-center gap-[4px]">
 			<template
 				v-for="(page, key) in displayPages"
 				:key="page"
 			>
 				<a
 					:href="getUrl(page)"
-					class="w-10 h-10 outline outline-1 outline-white-default rounded-md flex justify-center items-center"
-					:class="{ 'bg-white-default/90 text-black font-bold': page == currentPage }"
+					class="flex items-center justify-center w-[36px] h-[36px] border border-ivory/[0.16] text-ivory-dim no-underline transition-[color,border-color,background] duration-200 hover:text-olive-bright hover:border-olive-bright"
+					:class="{ 'text-ink bg-olive-bright border-olive-bright': page == currentPage }"
 				>
-					<span class="h-fit">
-						{{ page }}
-					</span>
+					{{ page }}
 				</a>
-				<div
+				<span
 					v-if="displayPages[key + 1] - page > 1"
-					class="text-center mx-1"
+					class="text-ivory-faint px-[4px]"
 				>
-					...
-				</div>
+					···
+				</span>
 			</template>
 		</div>
-		<div>
-			<a
-				:href="getUrl(currentPage + 1)"
-				class="w-10 h-10 flex justify-center items-center"
-				:class="{ '!hidden': currentPage == total || total < currentPage }"
-			>
-				<FontAwesomeIcon
-					class=" "
-					icon="arrow-right"
-					size="2x"
-				/>
-			</a>
-		</div>
+
+		<a
+			:href="getUrl(currentPage + 1)"
+			class="flex items-center justify-center w-[36px] h-[36px] text-ivory-dim no-underline transition-colors duration-200 hover:text-olive-bright"
+			:class="{ invisible: currentPage == total || total < currentPage }"
+		>
+			→
+		</a>
 	</div>
 </template>

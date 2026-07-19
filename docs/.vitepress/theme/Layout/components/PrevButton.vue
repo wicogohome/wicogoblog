@@ -16,26 +16,16 @@ export default defineComponent({
 </script>
 
 <template>
-	<div class="relative min-w-20 min-h-20">
+	<div class="min-h-[56px]">
 		<a
 			:href="withBase(url)"
-			class="group *:transition-all"
+			class="group flex flex-col gap-[6px] px-[18px] py-[14px] border border-ivory/[0.16] no-underline transition-[border-color,background] duration-[250ms] hover:border-olive-bright hover:bg-[rgba(200,204,58,0.05)]"
 		>
-			<div
-				class="p-1 absolute blur-[2px] w-5/6 h-full rounded-lg bg-gradient-to-r to-green/10 from-yellow-default/70 group-hover:from-yellow-default/80 group-hover:to-green/15 group-active:from-yellow-default/80 group-active:to-green/15"
+			<span
+				class="font-mono text-[18px] text-olive-bright transition-transform duration-[250ms] group-hover:-translate-x-1"
+				>←</span
 			>
-				<div class="bg-black-textured w-full h-full"></div>
-			</div>
-			<FontAwesomeIcon
-				class="absolute md:-top-[29px] -top-[23px] left-[24px] group-hover:-translate-x-1 group-active:-translate-x-1 opacity-80"
-				icon="arrow-left"
-				size="3x"
-			/>
-			<div
-				class="absolute right-0 inset-y-1/2 h-fit -translate-y-1/2 text-sm group-hover:-translate-x-1 group-active:-translate-x-1 w-11/12"
-			>
-				<slot></slot>
-			</div>
+			<span class="font-serif-tc text-[clamp(14px,1.5vw,16px)] text-ivory-dim leading-[1.4]"><slot></slot></span>
 		</a>
 	</div>
 </template>

@@ -16,24 +16,18 @@ export default defineComponent({
 </script>
 
 <template>
-	<div class="relative min-w-20 min-h-20">
+	<div class="min-h-[56px]">
 		<a
 			:href="withBase(url)"
-			class="group *:transition-all"
+			class="group flex flex-col items-end gap-[6px] px-[18px] py-[14px] border border-ivory/[0.16] no-underline transition-[border-color,background] duration-[250ms] hover:border-olive-bright hover:bg-[rgba(200,204,58,0.05)]"
 		>
-			<div
-				class="absolute right-0 blur-[2px] w-5/6 h-full rounded-lg bg-gradient-to-r from-green/20 to-yellow-default/90 group-hover:to-yellow-default group-hover:from-green/25 group-active:to-yellow-default group-active:from-green/25"
-			></div>
-			<div
-				class="h-fit -translate-y-1/2 absolute inset-y-1/2 text-sm group-hover:translate-x-1 group-active:translate-x-1 w-11/12"
+			<span
+				class="font-mono text-[18px] text-olive-bright transition-transform duration-[250ms] group-hover:translate-x-1"
+				>→</span
 			>
-				<slot></slot>
-			</div>
-			<FontAwesomeIcon
-				class="absolute md:-bottom-[29px] -bottom-[24px] right-[24px] group-hover:translate-x-1 group-active::translate-x-1"
-				icon="arrow-right"
-				size="3x"
-			/>
+			<span class="font-serif-tc text-[clamp(14px,1.5vw,16px)] text-ivory-dim leading-[1.4] text-right"
+				><slot></slot
+			></span>
 		</a>
 	</div>
 </template>
