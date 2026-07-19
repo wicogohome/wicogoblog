@@ -16,6 +16,10 @@ export default {
 				"yellow-textured": "url('/paperboard.webp')",
 			},
 			fontFamily: {
+				// noto / zilla-highlight are still used by the SPA under src/;
+				// this config is shared between the SPA build and the VitePress blog.
+				noto: ["Georama", "Zilla Slab", "Noto Sans TC"],
+				"zilla-highlight": ["Zilla Slab Highlight"],
 				zilla: ["Zilla Slab", "serif"],
 				newsreader: ["Newsreader", "Noto Serif TC", "serif"],
 				"serif-tc": ["Noto Serif TC", "Newsreader", "Georgia", "serif"],
